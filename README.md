@@ -57,7 +57,11 @@ of the art programming stacks and making the application more user friendly for 
 
 #### Site Ability:
 * Language Specifications
+<<<<<<< HEAD
 * A different page view for just visitors (open services such as “company list” & ”announcements”)
+=======
+* A different page view for just visitors (open services such as �company list� & �announcements�)
+>>>>>>> 2449fee63745b9a172f974e3e5c9dddd66ab3403
 * Ability to login/logout user or company
 * Shows a student the applications if they are approved or not approved
 * Shows a list of applications sent and their statuses
