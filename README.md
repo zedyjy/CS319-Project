@@ -1,10 +1,10 @@
 # CS319-Project
 * Group Name: Quaso
 * Members:
-    - Zeynep Doğa Dellal 22002572
-    - Yağız Alkılıç 22003281
+    - Zeynep Doga Dellal 22002572
+    - Yagiz Alkilic 22003281
     - Muhammad Ali Waris 22001037
-    - 4
+    - Yagiz Berk Uyar 21902318
     - 5
 * Tags: block
 * Tested up to: 0.0
