@@ -14,7 +14,7 @@
 
 ## Description
 
-Using the initial thought process this application is expected to simplify the process of applying for internships by making the application more streamlined and straight forward. We expect to achieve this by using the state
+This application is expected to simplify the process of applying for internships by making the application more streamlined and straight forward. We expect to achieve this by using the state
 of the art programming stacks and making the application more user friendly for both companies and applicants.
 
 ## Further Relevant Project Details
@@ -57,11 +57,7 @@ of the art programming stacks and making the application more user friendly for 
 
 #### Site Ability:
 * Language Specifications
-<<<<<<< HEAD
 * A different page view for just visitors (open services such as “company list” & ”announcements”)
-=======
-* A different page view for just visitors (open services such as �company list� & �announcements�)
->>>>>>> 2449fee63745b9a172f974e3e5c9dddd66ab3403
 * Ability to login/logout user or company
 * Shows a student the applications if they are approved or not approved
 * Shows a list of applications sent and their statuses
