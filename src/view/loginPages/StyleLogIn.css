@@ -1,46 +1,59 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
+    max-width: 100%;
     width: 360px;
     padding: 8% 0 0;
     margin: auto;
 }
-/* LOGO */
-.logo {
-    font-size:25px;
+.topnav {
+    overflow: hidden;
 }
-/* NAVBAR MENU */
-.navbar {
-    display: flex;
-    gap: 1em;
-    font-size: 18px;
-    margin-left: 27px;
+.logo{
+    font-size: 20px;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    text-align: center;
+    padding: 0px 16px;
+    text-decoration: none;
+    font-size: 1.1em;
+}
 
+/* Change the color of links on hover */
+.topnav-right a:hover {
+    border-radius: 4px;
+    color: black;
 }
-.navbar li:hover {
-    background-color: #4c9e9e;
-    border-radius: 5px;
-    transition: 0.3s ease;
-    margin-left: auto;
-    margin-right: 0;
-}
-.navbar li {
-    padding: 5px 14px;
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
 }
 .login-page img {
     position: relative;
     align-content: center;
     z-index: 1;
-    max-width: 360px;
-    margin: 0 auto 0px;
+    max-width: 100%;
+    margin: 0 auto;
     text-align: center;
+}
+
+a,
+a:link,
+a:visited{
+    text-decoration: none;
+    outline: none;
+    border: none;
+    color: white;
 }
 
 .form {
     position: relative;
     z-index: 1;
-    max-width: 360px;
-    margin: 0 auto 100px;
+    max-width: 100%;
+    margin: 0 auto;
     padding: 45px;
     text-align: center;
 }
