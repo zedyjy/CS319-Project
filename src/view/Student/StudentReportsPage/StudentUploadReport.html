@@ -7,11 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="StyleStudentHome.css">
+    <title>Upload Report</title>
+    <link rel="stylesheet" href="StyleStudentUploadReport.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
           integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="StudentUploadReportJS.js"></script>
+
 </head>
 
 <body>
@@ -86,8 +88,77 @@
         </ul>
     </div>
 </div>
-<!-- Content -->
-<div id="content">
+    <!-- Content -->
+    <div class="container">
+        <h2 class="mb-5">My Reports</h2>
+        <div class="table-responsive">
+
+            <table class="table table-striped custom-table">
+                <thead>
+                <tr>
+
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Report Submission Date</th>
+                    <th scope="col">Report</th>
+                    <th scope="col">Iteration #</th>
+                    <th scope="col">Upload Here</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr scope="row">
+                    <td>
+                        22002572
+                    </td>
+                    <td>
+                        CS299
+                    </td>
+                    <td>
+                        14/05/2023
+                    </td>
+                    <td><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\assets\ExampleReport\CS319_DesignReport_Iter1_Quaso.pdf">My Report</a></td>
+                    <td>1</td>
+                    <td>Uploaded</td>
+
+                </tr>
+
+                <td>
+                    22002572
+                </td>
+                <td>
+                    CS299
+                </td>
+                <td>
+                    --------
+                </td>
+                <td>Not uploaded yet</td>
+                <td>2</td>
+                <td><input type="file" id="myFile" name="filename">
+                    <input type="submit"></td>
+
+                </tr>
+                <td>
+                    22002572
+                </td>
+                <td>
+                    CS299
+                </td>
+                <td>
+                    --------
+                </td>
+                <td>Not uploaded yet</td>
+                <td>3</td>
+                <td><input type="file" id="myFile" name="filename">
+                    <input type="submit"></td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 </div>
 

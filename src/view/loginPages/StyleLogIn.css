@@ -70,6 +70,7 @@ a:visited{
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
+    color: white;
 }
 .form button {
     font-family: "Roboto", sans-serif;
@@ -119,14 +120,14 @@ a:visited{
     padding: 0;
     font-size: 36px;
     font-weight: 300;
-    color: #1a1a1a;
+    color: white;
 }
 .container .info span {
     color: #4d4d4d;
     font-size: 12px;
 }
 .container .info span a {
-    color: #000000;
+    color: white;
     text-decoration: none;
 }
 .container .info span .fa {
