@@ -27,3 +27,7 @@
 ## API Logic for serving images
 - The images serving structure is as follows using the API. `/assets/(FOLDER NAME HERE)/(FILE NAME HERE)`, and this will go in the `src` of the image.
 - There is an example of this usage on the home page for bilkent logo of this commit's example.
+
+# Making new API's that are needed for the front-end
+- The process is simple.
+- You can add all the required data you need in the ajax post script function given in the sample file, and come up with a api endpoint name of your choice that you need for that specific task and use it as a place holder for everything. The backend version of this new end point will be ready when we know that the front-end people want a new api endpoint and the request skeleton is ready,
