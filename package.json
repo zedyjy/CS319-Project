@@ -1,0 +1,29 @@
+{
+  "name": "student-internship-system",
+  "version": "1.0.0",
+  "description": "A System to handle all Student internships",
+  "main": "app.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zedyjy/CS319-Projecthttps:.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zedyjy/CS319-Projecthttps:/issues"
+  },
+  "homepage": "https://github.com/zedyjy/CS319-Projecthttps:#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mongoose": "^7.1.1",
+    "path": "^0.12.7",
+    "php": "^1.0.2",
+    "php-express": "^0.0.3"
+  }
+}
