@@ -5,7 +5,7 @@
 - Then, install `npm` globally on your OS.
 - Then come to this project's `root dir`, and run `npm install`. This will install all required packages on your OS.
 
-- Install `MongoDB` on your machiene and make a `Database` called `internship-system`. This should make the database ready on your system.
+- Install `MongoDB` on your machiene and make a `Database` called `internship-system`. This should make the database ready on your system. (You can use MongoDB Atlas. It provides a GUI for modifying the database manually etc. https://www.mongodb.com/atlas/database)
 - Then run `node server` to start the server locally and make it handle API requests. This starts the server at `localhost`.
 
 - All Front End Pages should be in `.php` extensions. Please do not use html files, we will have to convert them later anyways.
