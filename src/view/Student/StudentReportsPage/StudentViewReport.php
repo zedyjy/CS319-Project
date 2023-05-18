@@ -9,7 +9,10 @@
           integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="bootstrap.min.css">
+    <?php include "./StyleStudentViewReport.css" ?>
+    <?php include "./bootstrap.min.css.css" ?>
+
+
 </head>
 <body>
 
@@ -105,51 +108,27 @@
                 <tbody>
                 <tr scope="row">
                     <td>
-                        22002572
+                        <?php echo $data['studentID']??''; ?>
                     </td>
                     <td>
-                        CS299
+                        <?php echo $data['courseID']??''; ?>
                     </td>
                     <td>
-                        14/05/2023
+                        <?php echo $data['uploadDate']??''; ?>
                     </td>
-                    <td>*Report here*</td>
-                    <td>No Feedback provided yet</td>
-                    <td>1</td>
-                    <td>90</td>
+                    <td><?php echo $data['report']??''; ?></td>
+                    <td><?php echo $data['feedbackStatus']??''; ?></td>
+                    <td><?php echo $data['iterationCount']??''; ?></td>
+                    <td><?php echo $data['grade']??''; ?></td>
 
                 </tr>
-
-                <td>
-                    22002572
-                </td>
-                <td>
-                    CS299
-                </td>
-                <td>
-                    14/05/2023
-                </td>
-                <td>*Report here*</td>
-                <td>No Feedback provided yet</td>
-                <td>2</td>
-                <td>90</td>
-
-                </tr>
-                <td>
-                    22002572
-                </td>
-                <td>
-                    CS299
-                </td>
-                <td>
-                    14/05/2023
-                </td>
-                <td>*Report here*</td>
-                <td>No Feedback provided yet</td>
-                <td>3</td>
-                <td>90</td>
-
-                </tr>
+                <?php
+      $sn++;}}else{ ?>
+                <tr>
+                    <td colspan="8">
+                        <?php echo $fetchData; ?>
+                    </td>
+                <tr>
 
                 </tbody>
             </table>

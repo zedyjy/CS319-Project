@@ -5,7 +5,7 @@ const User = require("./dbmodel");
 const path = require("path");
 
 // ------- mongo db connection --------
-mongoose.connect("mongodb://localhost:27018/internship-system");
+mongoose.connect("mongodb://127.0.0.1:27017/internship-system");
 const database = mongoose.connection; //get the database object from mongoose connection
 
 database.on("error", (error) => {
