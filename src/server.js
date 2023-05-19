@@ -2,9 +2,6 @@ const http = require("http");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const phpExpress = require("php-express")({
-  binPath: "php",
-});
 
 const server = express();
 server.use(cors());
@@ -26,10 +23,10 @@ console.log(
   )}`
 );
 
-// Use php-express middleware to handle PHP rendering page requests
-server.engine("php", phpExpress.engine);
-server.set("views", path.join(__dirname, "view"));
-server.set("view engine", "php");
+// Use ejs middleware to handle HTML rendering page requests
+server.engine("html", require("ejs").renderFile); // Use EJS engine for HTML files
+server.set("views", path.join(__dirname, "view")); // Set the views directory
+server.set("view engine", "html"); // Set the view engine to HTML
 
 // Start server (port, ip) Port 80 is default for main ip.
 server.listen(80, "127.0.0.1", () => {

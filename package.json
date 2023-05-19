@@ -18,13 +18,13 @@
   "homepage": "https://github.com/zedyjy/CS319-Projecthttps:#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
+    "jquery": "^3.7.0",
     "mongodb": "^5.5.0",
     "mongoose": "^7.1.1",
-    "path": "^0.12.7",
-    "php": "^1.0.2",
-    "php-express": "^0.0.3"
+    "path": "^0.12.7"
   }
 }

@@ -1,21 +1,22 @@
-<?php
-    include("config.php");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Report</title>
-    <link rel="stylesheet" href="StyleStudentUploadReport.css">
+    <title>View Reports</title>
+    <link rel="stylesheet" href="StyleStudentViewReport.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
           integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="/js/StudentViewReport/StudentViewReport.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/StudentViewReport/StyleStudentViewReport.css">
+    
 
 </head>
-
 <body>
+
 <!-- NAVIGATION MENUS -->
 <div class="topnav">
     <a class="logo">Bilkent Internship System</a>
@@ -64,7 +65,7 @@
                 </a>
             </li>
             <li>
-                <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentReportsPage\StudentViewReport.html">
+                <a href="#">
                     <i class="zmdi zmdi-comment-more"></i> View Reports
                 </a>
             </li>
@@ -87,7 +88,7 @@
         </ul>
     </div>
 </div>
-    <!-- Content -->
+<!-- Content -->
     <div class="container">
         <h2 class="mb-5">My Reports</h2>
         <div class="table-responsive">
@@ -100,57 +101,29 @@
                     <th scope="col">Course Name</th>
                     <th scope="col">Report Submission Date</th>
                     <th scope="col">Report</th>
+                    <th scope="col">Feedback Status</th>
                     <th scope="col">Iteration #</th>
-                    <th scope="col">Upload Here</th>
+                    <th scope="col">Grade</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr scope="row">
-                    <td>
-                        22002572
+                    <td id="studentID">
                     </td>
-                    <td>
-                        CS299
+                    <td id='courseID'>
                     </td>
-                    <td>
-                        14/05/2023
+                    <td id="uploadDate">
                     </td>
-                    <td><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\assets\ExampleReport\CS319_DesignReport_Iter1_Quaso.pdf">My Report</a></td>
-                    <td>1</td>
-                    <td>Uploaded</td>
+                    <td id="report"></td>
+                    <td id="feedbackStatus"></td>
+                    <td id="iterationCount"></td>
+                    <td id="grade"></td>
 
                 </tr>
-
-                <td>
-                    22002572
-                </td>
-                <td>
-                    CS299
-                </td>
-                <td>
-                    --------
-                </td>
-                <td>Not uploaded yet</td>
-                <td>2</td>
-                <td><input type="file" id="myFile" name="filename">
-                    <input type="submit"></td>
-
-                </tr>
-                <td>
-                    22002572
-                </td>
-                <td>
-                    CS299
-                </td>
-                <td>
-                    --------
-                </td>
-                <td>Not uploaded yet</td>
-                <td>3</td>
-                <td><input type="file" id="myFile" name="filename">
-                    <input type="submit"></td>
-
-                </tr>
+                <tr>
+                    <td id="fetchData">
+                    </td>
+                <tr>
 
                 </tbody>
             </table>
@@ -158,8 +131,6 @@
     </div>
 </div>
 
-
-</div>
 
 </body>
 </html>

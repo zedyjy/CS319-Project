@@ -1,21 +1,25 @@
+<?php
+    include("config.php");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Reports</title>
-    <link rel="stylesheet" href="StyleStudentViewReport.css">
+    <title>Upload Report</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
           integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <!-- Bootstrap CSS -->
-    <?php include "./StyleStudentViewReport.css" ?>
-    <?php include "./bootstrap.min.css.css" ?>
+    <script src="/js/StudentUploadReport/StudentUploadReport.js"></script>
+
+    <!-- CSS-->
+    <link rel="stylesheet" type="text/css" href="/css/StudentUploadReport/StyleStudentUploadReport.css">
 
 
 </head>
-<body>
 
+<body>
 <!-- NAVIGATION MENUS -->
 <div class="topnav">
     <a class="logo">Bilkent Internship System</a>
@@ -64,7 +68,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentReportsPage\StudentViewReport.html">
                     <i class="zmdi zmdi-comment-more"></i> View Reports
                 </a>
             </li>
@@ -87,7 +91,7 @@
         </ul>
     </div>
 </div>
-<!-- Content -->
+    <!-- Content -->
     <div class="container">
         <h2 class="mb-5">My Reports</h2>
         <div class="table-responsive">
@@ -100,35 +104,57 @@
                     <th scope="col">Course Name</th>
                     <th scope="col">Report Submission Date</th>
                     <th scope="col">Report</th>
-                    <th scope="col">Feedback Status</th>
                     <th scope="col">Iteration #</th>
-                    <th scope="col">Grade</th>
+                    <th scope="col">Upload Here</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr scope="row">
                     <td>
-                        <?php echo $data['studentID']??''; ?>
+                        22002572
                     </td>
                     <td>
-                        <?php echo $data['courseID']??''; ?>
+                        CS299
                     </td>
                     <td>
-                        <?php echo $data['uploadDate']??''; ?>
+                        14/05/2023
                     </td>
-                    <td><?php echo $data['report']??''; ?></td>
-                    <td><?php echo $data['feedbackStatus']??''; ?></td>
-                    <td><?php echo $data['iterationCount']??''; ?></td>
-                    <td><?php echo $data['grade']??''; ?></td>
+                    <td><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\assets\ExampleReport\CS319_DesignReport_Iter1_Quaso.pdf">My Report</a></td>
+                    <td>1</td>
+                    <td>Uploaded</td>
 
                 </tr>
-                <?php
-      $sn++;}}else{ ?>
-                <tr>
-                    <td colspan="8">
-                        <?php echo $fetchData; ?>
-                    </td>
-                <tr>
+
+                <td>
+                    22002572
+                </td>
+                <td>
+                    CS299
+                </td>
+                <td>
+                    --------
+                </td>
+                <td>Not uploaded yet</td>
+                <td>2</td>
+                <td><input type="file" id="myFile" name="filename">
+                    <input type="submit"></td>
+
+                </tr>
+                <td>
+                    22002572
+                </td>
+                <td>
+                    CS299
+                </td>
+                <td>
+                    --------
+                </td>
+                <td>Not uploaded yet</td>
+                <td>3</td>
+                <td><input type="file" id="myFile" name="filename">
+                    <input type="submit"></td>
+
+                </tr>
 
                 </tbody>
             </table>
@@ -136,6 +162,8 @@
     </div>
 </div>
 
+
+</div>
 
 </body>
 </html>
