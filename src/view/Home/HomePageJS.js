@@ -1,6 +1,11 @@
 $(document).ready(function () {
   console.log("Home Page JS Loaded");
 
+  $("body").hide();
+
+  // Add a fade-in animation on page load
+  $("body").fadeIn(1000);
+
   // To check if the user is logged in
   if (sessionStorage.getItem("isLoggedIn") === "true") {
     // User is logged in
@@ -18,17 +23,106 @@ $(document).ready(function () {
     $(".loggedin-message").css("display", "none");
   }
 
-  // Register Form
-  $("#register-button").on("click", function (event) {
+  //--------------------------
+  // Student Forms
+  //--------------------------
+  // Student Register Form
+  $("#student-register-button").on("click", function (event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-studentId").val();
-    var password = $("#register-password").val();
+    var studentid = $("#register-student-Id").val();
+    var password = $("#register-student-password").val();
 
     // Send the AJAX request
     $.ajax({
-      url: "/register/user",
+      url: "/register/student",
+      type: "POST",
+      data: {
+        username: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Register successful");
+          console.log(response.message);
+
+          $(".register-student-response").text("Successfully Registered!");
+        } else {
+          // Handle other status codes or errors here
+          $(".register-student-response").text(response.message);
+          console.log("Register failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("register failed");
+        $(".register-student-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
+  // Student Login Form
+  $("#student-login-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#login-student-Id").val();
+    var password = $("#login-student-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/login/student",
+      type: "POST",
+      data: {
+        username: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Login successful");
+          console.log(response);
+
+          // After successful login
+          sessionStorage.setItem("isLoggedIn", "true");
+          sessionStorage.setItem("username", studentid);
+          location.reload();
+          $(".student-login-response").text("Logging In , please refresh page");
+        } else {
+          // Handle other status codes or errors here
+          $(".student-login-response").text(response.message);
+          // Handle other status codes or errors here
+          console.log("Login failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("Login failed");
+        console.log(error);
+        $(".student-login-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
+  //--------------------------
+  // Evaluator Forms
+  //--------------------------
+  // Evaluator Register Form
+  $("#register-evaluator-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#register-evaluator-Id").val();
+    var password = $("#register-evaluator-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/register/student",
       type: "POST",
       data: {
         username: studentid, //DATA as object-value pair here
@@ -57,17 +151,17 @@ $(document).ready(function () {
     });
   });
 
-  // Login Form
-  $("#login-button").on("click", function (event) {
+  // Evaluator Login Form
+  $("#student-login-button").on("click", function (event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#login-studentId").val();
-    var password = $("#login-password").val();
+    var studentid = $("#login-student-Id").val();
+    var password = $("#login-student-password").val();
 
     // Send the AJAX request
     $.ajax({
-      url: "/login/user",
+      url: "/login/student",
       type: "POST",
       data: {
         username: studentid, //DATA as object-value pair here
@@ -83,10 +177,10 @@ $(document).ready(function () {
           sessionStorage.setItem("isLoggedIn", "true");
           sessionStorage.setItem("username", studentid);
           location.reload();
-          $(".login-response").text("Logging In , please refresh page");
+          $(".student-login-response").text("Logging In , please refresh page");
         } else {
           // Handle other status codes or errors here
-          $(".register-response").text(response.message);
+          $(".student-login-response").text(response.message);
           // Handle other status codes or errors here
           console.log("Login failed with status code:", response.status);
         }
@@ -95,7 +189,7 @@ $(document).ready(function () {
         // Handle the error response here
         console.log("Login failed");
         console.log(error);
-        $(".login-response").text(error.responseJSON.message);
+        $(".student-login-response").text(error.responseJSON.message);
         console.log(error.responseJSON.message);
       },
     });
@@ -107,6 +201,15 @@ $(document).ready(function () {
     location.reload();
   });
 });
+
+//Multiple Forms Showing Logic
+function toggleForms(boxId) {
+  // Hide all forms
+  $(".forms" + boxId).hide();
+
+  // Show forms for the clicked box
+  $("#forms" + boxId).toggle();
+}
 
 jQuery(".message a").click(function () {
   jQuery("form").animate({ height: "toggle", opacity: "toggle" }, "slow");

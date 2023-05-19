@@ -17,7 +17,7 @@
 
     <script src="components/Footer/footer.js" type="text/javascript" defer></script>
 </head>
-<body>
+<body style="display: none;">
 
 <!-- NAVIGATION MENUS -->
 <navbar-component></navbar-component>
@@ -39,33 +39,83 @@
     </div>
     
 
-    <div class="login-form">
-        <h1 class="form-heading">Login</h1>
-        <form style="margin-top: 20px;">
-            <label for="studentId">Student ID:</label>
-            <input type="text" id="login-studentId" name="studentId" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="login-password" name="password" required>
-            
-            <button id="login-button" class="form-button">Login</button>
-          </form>
-          <p class="login-response"></p>
-    </div>
 
-    <div class="register-form">
-        <h1 class="form-heading">Regsiter</h1>
-        <form style="margin-top: 20px;">
-            <label for="studentId">Student ID:</label>
-            <input type="text" id="register-studentId" name="studentId" required>
+    <div class="row">
+        <div class="column">
+          <div class="box" onclick="toggleForms(1)">
+            <h3>Student Login</h3>
+          </div>
+          <div class="forms" id="forms1">
+            <div class="login-form">
+                <h1 class="form-heading">Login</h1>
+                <form style="margin-top: 20px;">
+                    <label for="username">Student ID:</label>
+                    <input type="text" id="login-student-Id" name="username" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="login-student-password" name="password" required>
+                    
+                    <button id="student-login-button" class="form-button">Login</button>
+                  </form>
+                  <p class="student-login-response"></p>
+            </div>
+        
+            <div class="register-form">
+                <h1 class="form-heading">Register</h1>
+                <form style="margin-top: 20px;">
+                    <label for="studentId">Student ID:</label>
+                    <input type="text" id="register-student-Id" name="studentId" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="register-student-password" name="password" required>
+                    
+                    <button id="student-register-button" class="form-button">Register</button>
+                  </form>
+                  <p class="register-student-response"></p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box" onclick="toggleForms(2)">
+            <h3>Evaluator Login</h3>
+          </div>
+          <div class="forms" id="forms2">
+            <form>
+                <h1>FORM 2</h1> <!-- Form content for Box 2 -->
+            </form>
+            <form>
+                <h1>FORM 2</h1>  <!-- Form content for Box 2 -->
+            </form>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box" onclick="toggleForms(3)">
+            <h3>TA Login</h3>
+          </div>
+          <div class="forms" id="forms3">
+            <form>
+                <h1>FORM 3</h1><!-- Form content for Box 3 -->
+            </form>
+            <form>
+                <h1>FORM 3</h1> <!-- Form content for Box 3 -->
+            </form>
+          </div>
+        </div>
+        <div class="column">
+          <div class="box" onclick="toggleForms(4)">
+            <h3>Coordinator Login</h3>
+          </div>
+          <div class="forms" id="forms4">
+            <form>
+              <h1>FORM 4</h1>
             
-            <label for="password">Password:</label>
-            <input type="password" id="register-password" name="password" required>
-            
-            <button id="register-button" class="form-button">Register</button>
-          </form>
-          <p class="register-response"></p>
-    </div>
+            </form>
+            <form>
+                <h1>FORM 4</h1> <!-- Form content for Box 4 -->
+            </form>
+          </div>
+        </div>
+      </div>
 </div>
 </div>
 <footer-component></footer-component>
