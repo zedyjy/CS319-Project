@@ -28,16 +28,37 @@ apirouter.post("/register/user", async (req, res) => {
     if (!result) {
       const newUser = new User({
         username: req.body.username,
+        password: req.body.password,
       });
 
       try {
         const dataToSave = await newUser.save();
-        res.status(200).json(dataToSave);
+        res
+          .status(200)
+          .json({ message: "Sucessfully Registered", status: 200 });
       } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: error.message, status: 400 });
       }
     } else {
-      res.status(400).json({ message: "User already exists!" });
+      res.status(400).json({ message: "User already exists!", status: 200 });
+    }
+  });
+});
+
+// Login
+apirouter.post("/login/user", async (req, res) => {
+  User.findOne({
+    username: req.body.username,
+    password: req.body.password,
+  }).then(async (result) => {
+    if (result) {
+      try {
+        res.status(200).json({ message: "Logged In", status: 200 });
+      } catch (error) {
+        res.status(400).json({ message: error.message, status: 400 });
+      }
+    } else {
+      res.status(400).json({ message: "User Not Found!", status: 400 });
     }
   });
 });

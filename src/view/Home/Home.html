@@ -34,6 +34,40 @@
         <p class="message"><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\loginPages\GeneralLogin.html">Click to Log-in</a></p>
 
     </form>
+    <div class="loggedin-message">
+        <h1 class="form-heading">You are logged in!</h1>
+        <h1 class="form-heading">Username: <span class="username-text"></span></h1>
+        <button id="logout-button" class="form-button">Logout</button>
+    </div>
+    
+
+    <div class="login-form">
+        <h1 class="form-heading">Login</h1>
+        <form style="margin-top: 20px;">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="login-studentId" name="studentId" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="login-password" name="password" required>
+            
+            <button id="login-button" class="form-button">Login</button>
+          </form>
+          <p class="login-response"></p>
+    </div>
+
+    <div class="register-form">
+        <h1 class="form-heading">Regsiter</h1>
+        <form style="margin-top: 20px;">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="register-studentId" name="studentId" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="register-password" name="password" required>
+            
+            <button id="register-button" class="form-button">Register</button>
+          </form>
+          <p class="register-response"></p>
+    </div>
 </div>
 </div>
 </body>
