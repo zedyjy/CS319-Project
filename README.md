@@ -20,7 +20,8 @@
 - All new pages that will be accessed by any user will be included in the `publicrouter.js` file to make it accessible for global broadcast and be in the local web cluster.
 - PLEASE MAKE SURE ADD ANY NEW PAGES IN THE `publicrouter.js` file to make them live.
 - All API endpoints for database logic will be in `apirouter.js` file.
-- The server details are in the `server.js` file. It also has the database connection data.
+- The server details are in the `server.js` file.
+- The database details are in the `apirouter.js` file.
 - the database model is in the `/routes/dbmodel.js` file.
 
 
