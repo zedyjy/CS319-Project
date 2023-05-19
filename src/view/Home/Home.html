@@ -6,23 +6,21 @@
     <title>Log In Page</title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <script src="/js/Home/HomePageJS.js"></script>
+
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="/css/Home/StyleHome.css">
+
+    <!-- Components and thier logic files -->
+    <script src="components/Navbar/navbar.js" type="text/javascript" defer></script>
+
+    <script src="components/Footer/footer.js" type="text/javascript" defer></script>
 </head>
 <body>
-<h1>Welcome to my HTML page!</h1>
-	<p>Today's date is </p>
+
 <!-- NAVIGATION MENUS -->
-<div class="topnav">
-    <a class="logo">Bilkent Internship System</a>
-    <div class="topnav-right">
-        <a href="#Home">Home</a>
-        <a href="#Announcement">Announcement</a>
-        <a href="#Contact">Contact</a>
-        <a href="#Language">Language</a>
-        <a href="/student">Student</a>
-    </div>
-</div>
+<navbar-component></navbar-component>
 
 <div class="form">
 <div class="login-page">
@@ -70,5 +68,6 @@
     </div>
 </div>
 </div>
+<footer-component></footer-component>
 </body>
 </html>

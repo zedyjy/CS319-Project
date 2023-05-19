@@ -27,6 +27,19 @@ publicrouter.get("/js/:foldername/:filename", (req, res) => {
   res.sendFile(filePath);
 });
 
+//For serving html components
+publicrouter.get("/components/:foldername/:filename", (req, res) => {
+  const folderName = req.params.foldername;
+  const fileName = req.params.filename;
+  const filePath = path.join(
+    __dirname,
+    "/view/components/",
+    folderName,
+    fileName
+  );
+  res.sendFile(filePath);
+});
+
 //---------------------------------------
 // ---------- Home Page ---------- //
 //---------------------------------------

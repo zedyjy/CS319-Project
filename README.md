@@ -25,11 +25,13 @@
 - the database model is in the `/routes/dbmodel.js` file.
 
 
-## API Logic for serving other files (Images / CSS Files / JS Files)
+## API Logic for serving other files (Images / CSS Files / JS Files / Components)
 - The images serving structure is as follows using the url. `/assets/(FILE NAME HERE)`, for example `/assets/logo.png` and this will go in the `src` of the `img` element.
 - The CSS file serving structure is as follows using the url. `/css/(FOLDER NAME HERE)/(FILENAME HERE`, for example `/css/home/StyleHome.css` and this would go in the `href` of the `link` element.
 - The JS file serving structure is as follows using the url. `/js/(FOLDER NAME HERE)/(FILENAME HERE`, for example `/css/home/HomePageJS.js` and this would go in the `src` of the `script` element.
-- 
+- The `component` files are `js` files. Their serving structure is as follows using the url. `/components/(FOLDER NAME HERE)/(FILENAME HERE`, for example `components/Navbar/navbar.js` and this would go in the `src` of the `script` element. eg: `<script src="components/Navbar/navbar.js" type="text/javascript" defer></script>`
+
+
 # Making new API's that are needed for the front-end
 - The process is simple.
 - You can add all the required data you need in the ajax post script function given in the sample file, and come up with a api endpoint name of your choice that you need for that specific task and use it as a place holder for everything. The backend version of this new end point will be ready when we know that the front-end people want a new api endpoint and the request skeleton is ready,
