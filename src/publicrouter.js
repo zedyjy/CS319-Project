@@ -27,7 +27,7 @@ publicrouter.get("/js/:foldername/:filename", (req, res) => {
   res.sendFile(filePath);
 });
 
-//For serving html components
+//For serving components
 publicrouter.get("/components/:foldername/:filename", (req, res) => {
   const folderName = req.params.foldername;
   const fileName = req.params.filename;
