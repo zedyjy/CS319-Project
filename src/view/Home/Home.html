@@ -7,31 +7,31 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    
+    <!-- Global JS -->
+    <script src="/js/GlobalJS/globaljs.js"></script>
+    
+    <!-- JS -->
     <script src="/js/Home/HomePageJS.js"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="/css/Home/StyleHome.css">
 
-    <!-- Components and thier logic files -->
-    <script src="components/Navbar/navbar.js" type="text/javascript" defer></script>
-
+    <!-- Components -->
+    <script src="components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+    <script src="components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
     <script src="components/Footer/footer.js" type="text/javascript" defer></script>
 </head>
 <body style="display: none;">
 
 <!-- NAVIGATION MENUS -->
-<navbar-component></navbar-component>
+<defaultnavbar-component></defaultnavbar-component>
+<studentnavbar-component></studentnavbar-component>
 
 <div class="form">
 <div class="login-page">
-    <!--TODO -->
     <img src="/assets/logo.svg" alt="Bilkent Logo">
-
-    <form>
         <p class="welcome"><a>Welcome to Bilkent Internship System</a></p>
-        <p class="message"><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\loginPages\GeneralLogin.html">Click to Log-in</a></p>
-
-    </form>
     <div class="loggedin-message">
         <h1 class="form-heading">You are logged in!</h1>
         <h1 class="form-heading">Username: <span class="username-text"></span></h1>

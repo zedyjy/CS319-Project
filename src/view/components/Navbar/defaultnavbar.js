@@ -1,9 +1,9 @@
 //Intializing the Component
-const navbarTemplate = document.createElement("template");
+const defaultnavbarTemplate = document.createElement("template");
 
-navbarTemplate.innerHTML = `
+defaultnavbarTemplate.innerHTML = `
   <style>
-    @import "/components/Navbar/navbar.css"
+    @import "/components/Navbar/defaultnavbar.css"
   </style>
   <div class="topnav">
         <a class="logo">Bilkent Internship System</a>
@@ -17,7 +17,7 @@ navbarTemplate.innerHTML = `
     </div>
 `;
 
-class Navbar extends HTMLElement {
+class DefaultNavbar extends HTMLElement {
   constructor() {
     super();
   }
@@ -25,8 +25,8 @@ class Navbar extends HTMLElement {
   connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
 
-    shadowRoot.appendChild(navbarTemplate.content);
+    shadowRoot.appendChild(defaultnavbarTemplate.content);
   }
 }
 
-customElements.define("navbar-component", Navbar);
+customElements.define("defaultnavbar-component", DefaultNavbar);

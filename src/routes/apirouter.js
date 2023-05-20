@@ -146,7 +146,10 @@ apirouter.post("/login", async (req, res) => {
   }).then(async (result) => {
     if (result) {
       try {
-        res.status(200).json({ message: "Logged In", status: 200 });
+        const userType = await identifyUserType(req.body.username);
+        res
+          .status(200)
+          .json({ message: "Logged In", userType: userType, status: 200 });
       } catch (error) {
         res.status(400).json({ message: error.message, status: 400 });
       }
@@ -155,6 +158,30 @@ apirouter.post("/login", async (req, res) => {
     }
   });
 });
+
+// Identify a user
+async function identifyUserType(usernameParam) {
+  try {
+    const username = usernameParam;
+
+    // Search the evaluators collection
+    const evaluator = await Evaluator.findOne({ username: username });
+    if (evaluator) {
+      return "Evaluator";
+    }
+
+    // Search the students collection
+    const student = await Student.findOne({ username: username });
+    if (student) {
+      return "Student";
+    }
+
+    // User not found in either collection
+    return "User not found";
+  } catch (error) {
+    return error;
+  }
+}
 
 // DELETE a user
 apirouter.post("/delete/:student", async (req, res) => {

@@ -1,0 +1,58 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.login-page {
+    max-width: 100%;
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+.topnav {
+    overflow: hidden;
+    align-items: center;
+}
+.logo{
+    font-size: 20px;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    text-align: center;
+    padding: 0px 16px;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+
+/* Change the color of links on hover */
+.topnav-right a:hover {
+    border-radius: 4px;
+    color: black;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+.login-page img {
+    position: relative;
+    align-content: center;
+    z-index: 1;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+a,
+a:link,
+a:visited{
+    text-decoration: none;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+body {
+    background: #03414D; /* fallback for old browsers */
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

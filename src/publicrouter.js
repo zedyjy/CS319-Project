@@ -23,7 +23,12 @@ publicrouter.get("/css/:foldername/:filename", (req, res) => {
 publicrouter.get("/js/:foldername/:filename", (req, res) => {
   const folderName = req.params.foldername;
   const fileName = req.params.filename;
-  const filePath = path.join(__dirname, "/view/", folderName, fileName);
+  const filePath = path.join(
+    __dirname,
+    "/view/",
+    folderName ? folderName : "",
+    fileName
+  );
   res.sendFile(filePath);
 });
 

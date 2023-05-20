@@ -1,11 +1,6 @@
 $(document).ready(function () {
   console.log("Home Page JS Loaded");
 
-  $("body").hide();
-
-  // Add a fade-in animation on page load
-  $("body").fadeIn(1000);
-
   // To check if the user is logged in
   if (sessionStorage.getItem("isLoggedIn") === "true") {
     // User is logged in
@@ -43,13 +38,13 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response.status == 200) {
-          // Handle the success response here
-          console.log("Login successful");
-          console.log(response);
+          if (response.userType) {
+            // After successful login
+            sessionStorage.setItem("userType", response.userType);
+            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("username", userid);
+          }
 
-          // After successful login
-          sessionStorage.setItem("isLoggedIn", "true");
-          sessionStorage.setItem("username", userid);
           location.reload();
           $(".login-response").text("Logging In , please refresh page");
         } else {
