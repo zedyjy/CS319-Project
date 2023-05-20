@@ -38,28 +38,30 @@
         <button id="logout-button" class="form-button">Logout</button>
     </div>
     
+    <div class="login-form">
+      <h1 class="form-heading">Login</h1>
+      <form style="margin-top: 20px;">
+          <label for="username">Student ID:</label>
+          <input type="text" id="login-Id" name="username" required>
+          
+          <label for="password">Password:</label>
+          <input type="password" id="login-password" name="password" required>
+          
+          <button id="login-button" class="form-button">Login</button>
+        </form>
+        <p class="login-response"></p>
+  </div>
 
 
-    <div class="row">
+
+    <div class="row forms-group">
+        <!-- Student -->
         <div class="column">
           <div class="box" onclick="toggleForms(1)">
             <h3>Student Login</h3>
           </div>
           <div class="forms" id="forms1">
-            <div class="login-form">
-                <h1 class="form-heading">Login</h1>
-                <form style="margin-top: 20px;">
-                    <label for="username">Student ID:</label>
-                    <input type="text" id="login-student-Id" name="username" required>
-                    
-                    <label for="password">Password:</label>
-                    <input type="password" id="login-student-password" name="password" required>
-                    
-                    <button id="student-login-button" class="form-button">Login</button>
-                  </form>
-                  <p class="student-login-response"></p>
-            </div>
-        
+            
             <div class="register-form">
                 <h1 class="form-heading">Register</h1>
                 <form style="margin-top: 20px;">
@@ -75,17 +77,26 @@
             </div>
           </div>
         </div>
+        <!-- Evaluator -->
         <div class="column">
           <div class="box" onclick="toggleForms(2)">
             <h3>Evaluator Login</h3>
           </div>
           <div class="forms" id="forms2">
-            <form>
-                <h1>FORM 2</h1> <!-- Form content for Box 2 -->
-            </form>
-            <form>
-                <h1>FORM 2</h1>  <!-- Form content for Box 2 -->
-            </form>
+        
+            <div class="register-form">
+                <h1 class="form-heading">Register</h1>
+                <form style="margin-top: 20px;">
+                    <label for="evaluatorId">Student ID:</label>
+                    <input type="text" id="register-evaluator-Id" name="evaluatorId" required>
+                    
+                    <label for="password">Password:</label>
+                    <input type="password" id="register-evaluator-password" name="password" required>
+                    
+                    <button id="register-evaluator-button" class="form-button">Register</button>
+                  </form>
+                  <p class="register-evaluator-response"></p>
+            </div>
           </div>
         </div>
         <div class="column">

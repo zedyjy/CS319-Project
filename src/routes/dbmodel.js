@@ -43,6 +43,10 @@ const studentSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
   courses: {
     type: [String],
   },
@@ -92,6 +96,10 @@ const evaluatorSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
   courses: {
     type: [String],
   },
@@ -110,6 +118,10 @@ const taSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
+  },
+  username: {
+    type: String,
     required: true,
   },
   courses: {
@@ -151,7 +163,7 @@ const gradingFormSchema = new mongoose.Schema({
   gradingFormSubmissionStatus: {
     type: String,
   },
-  student: {
+  studentUsername: {
     type: String,
   },
   //Part A - WorkPlace
@@ -187,7 +199,10 @@ const gradingFormSchema = new mongoose.Schema({
   overallEvaluation: {
     type: String,
   },
-  evaluator: {
+  taUsername: {
+    type: [String],
+  },
+  evaluatorusername: {
     type: String,
   },
   date: {
