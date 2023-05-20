@@ -1,86 +1,168 @@
+<?php
+    include("config.php");
 
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Page</title>
+    <title>Upload Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="StudentHome.js"></script>
-     <!-- CSS-->
-     <link rel="stylesheet" type="text/css" href="/css/StudentHome/StyleStudentHome.css">
+
+    <!-- Global JS -->
+    <script src="/js/GlobalSettings/global.js"></script>
+
+    <!-- JS -->
+    <script src="/js/StudentHome/StudentHome.js"></script>
+
+    <!-- CSS-->
+    <link rel="stylesheet" type="text/css" href="/css/StudentHome/StyleStudentHome.css">
+
+    <!-- Components -->
+    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+    <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
+    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+
+
 </head>
-<body>
-<script>
 
-$(document).ready(function() {
-
-  $("#add-user-button").click(function() {
-    // Your code to handle the button click event goes here
-    console.log("Button clicked!");
-    let username_input = $("#username-input").val();
-
-    $.ajax({// from jquery, $ = jQuery
-  url: "/register/user", //API ENPOINT HERE
-  method: "POST",
-  data: {
-    username: username_input, //DATA as object-value pair here
-    password: "1234"
-  },
-  success: function(response) {
-    console.log(response);
-    $(".result").text("User Successfully Registered!"); //do stuff with success result
-  },
-  error: function(xhr, status, error) {
-    console.log(error);
-    $(".result").text("Error registering user: " + error + " or User Already Exists"); //show error message on fail
-  }
-});
-
-  });
+<body style="display: none;">
+<!-- NAVIGATION MENUS -->
+<defaultnavbar-component></defaultnavbar-component>
+<studentnavbar-component></studentnavbar-component>
 
 
-  $("#deleete-user-button").click(function() {
-    // Your code to handle the button click event goes here
-    console.log("Button to delete clicked!");
-    let username_input2 = $("#username-todelete-input").val();
+<div id="viewport">
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <ul class="nav">
+            <li>
+                <a href="/student">
+                    <i class="zmdi zmdi-view-dashboard"></i> Main Menu
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-link"></i> Course Descriptions
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-widgets"></i> Courses
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-calendar"></i> Announcements
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-info-outline"></i> Summer Training Cooridnators
+                </a>
+            </li>
+            <li>
+                <a href="/student/upload-report">
+                    <i class="zmdi zmdi-comment-more"></i> Upload Reports
+                </a>
+            </li>
+            <li>
+                <a href="/student/view-report">
+                    <i class="zmdi zmdi-comment-more"></i> View Reports
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-comment-more"></i> Grades
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-comment-more"></i> Profile
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-settings"></i> Other
+                </a>
+            </li>
 
-    $.ajax({// from jquery, $ = jQuery
-  url: "/delete/user", //API ENPOINT HERE
-  method: "POST",
-  data: {
-    username: username_input2 //DATA as object-value pair here
-  },
-  success: function(response) {
-    console.log(response);
-    $(".result2").text("User Successfully Deleted!"); //do stuff with success result
-  },
-  error: function(xhr, status, error) {
-    console.log(error);
-    $(".result2").text("Error deleting user: " + error + " or User Does not Exist"); //show error message on fail
-  }
-});
+        </ul>
+    </div>
 
-  });
+    <!-- Content -->
+    <div class="container">
+        <h2 class="mb-5">My Reports</h2>
+        <div class="table-responsive">
 
-});
+            <table class="table table-striped custom-table">
+                <thead>
+                <tr>
 
-</script>
-<h1>STUDENT PAGE</h1>
-	<p>Today's date is </p>
-    <h1>TESTING API EXAMPLE</h1>
-    <p>Write the student username</p>
-    <input placeholder="Username Here" id="username-input" />
-    <button id="add-user-button">Click here to add a user to the database with given username above. pay note to the script being used to send the API request</button>
-    <p class="result"></p>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Report Submission Date</th>
+                    <th scope="col">Report</th>
+                    <th scope="col">Iteration #</th>
+                    <th scope="col">Upload Here</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr scope="row">
+                    <td>
+                        22002572
+                    </td>
+                    <td>
+                        CS299
+                    </td>
+                    <td>
+                        14/05/2023
+                    </td>
+                    <td><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\assets\ExampleReport\CS319_DesignReport_Iter1_Quaso.pdf">My Report</a></td>
+                    <td>1</td>
+                    <td>Uploaded</td>
 
-    <p style="margin-top:50px;">Delete a user using their username, match this result from the value in your mongodb datbase. (Download MongoDB Atlas for easier GUI for mongodb)</p>
-    <input placeholder="Username to delete Here" id="username-todelete-input" />
-    <button id="deleete-user-button">Click here to DELETE a user to the database with given username above. pay note to the script being used to send the API request</button>
-    <p class="result2"></p>
-    <a href="/"> GOto Home </a>
-    <p> Server Reponse is : </p>
+                </tr>
+
+                <td>
+                    22002572
+                </td>
+                <td>
+                    CS299
+                </td>
+                <td>
+                    --------
+                </td>
+                <td>Not uploaded yet</td>
+                <td>2</td>
+                <td><input type="file" id="myFile" name="filename">
+                    <input type="submit"></td>
+
+                </tr>
+                <td>
+                    22002572
+                </td>
+                <td>
+                    CS299
+                </td>
+                <td>
+                    --------
+                </td>
+                <td>Not uploaded yet</td>
+                <td>3</td>
+                <td><input type="file" id="myFile" name="filename">
+                    <input type="submit"></td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 </body>
-
 </html>
