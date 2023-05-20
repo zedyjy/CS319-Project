@@ -6,6 +6,8 @@ $(document).ready(function () {
     // User is logged in
     // You can retrieve additional user information if necessary
     var username = sessionStorage.getItem("username");
+    var userType = sessionStorage.getItem("userType");
+
     $(".forms-group").css("display", "none");
     $(".login-form").css("display", "none");
     $(".loggedin-message").css("display", "block");

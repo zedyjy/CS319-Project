@@ -8,11 +8,10 @@ defaultnavbarTemplate.innerHTML = `
   <div class="topnav">
         <a class="logo">Bilkent Internship System</a>
         <div class="topnav-right">
-            <a href="#Home">Home</a>
+            <a href="/">Home</a>
             <a href="#Announcement">Announcement</a>
             <a href="#Contact">Contact</a>
             <a href="#Language">Language</a>
-            <a href="/student">Student</a>
         </div>
     </div>
 `;

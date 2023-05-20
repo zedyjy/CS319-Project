@@ -9,6 +9,8 @@
 .topnav {
     overflow: hidden;
     align-items: center;
+    background-color: #03414D;
+    padding-top: 10px;
 }
 .logo{
     font-size: 20px;

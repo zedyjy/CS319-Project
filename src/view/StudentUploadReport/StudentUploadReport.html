@@ -8,29 +8,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Report</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
-          integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Global JS -->
+    <script src="/js/GlobalSettings/global.js"></script>
+
+    <!-- JS -->
     <script src="/js/StudentUploadReport/StudentUploadReport.js"></script>
 
     <!-- CSS-->
     <link rel="stylesheet" type="text/css" href="/css/StudentUploadReport/StyleStudentUploadReport.css">
 
+    <!-- Components -->
+    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+    <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
+    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+
 
 </head>
 
-<body>
+<body style="display: none;">
 <!-- NAVIGATION MENUS -->
-<div class="topnav">
-    <a class="logo">Bilkent Internship System</a>
-    <div class="topnav-right">
-        <!--TODO-->
-        <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\homePages\Home.html">Home</a>
-        <a href="#Announcement">Announcement</a>
-        <a href="#Contact">Contact</a>
-        <a href="#Language">Language</a>
-    </div>
-</div>
+<defaultnavbar-component></defaultnavbar-component>
+<studentnavbar-component></studentnavbar-component>
 
 
 <div id="viewport">
@@ -38,7 +40,7 @@
     <div id="sidebar">
         <ul class="nav">
             <li>
-                <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentHomePage\StudentHomePage.html">
+                <a href="/student">
                     <i class="zmdi zmdi-view-dashboard"></i> Main Menu
                 </a>
             </li>
@@ -63,12 +65,12 @@
                 </a>
             </li>
             <li>
-                <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentReportsPage\StudentUploadReport.html">
+                <a href="/student/upload-report">
                     <i class="zmdi zmdi-comment-more"></i> Upload Reports
                 </a>
             </li>
             <li>
-                <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentReportsPage\StudentViewReport.html">
+                <a href="/student/view-report">
                     <i class="zmdi zmdi-comment-more"></i> View Reports
                 </a>
             </li>
@@ -90,7 +92,7 @@
 
         </ul>
     </div>
-</div>
+
     <!-- Content -->
     <div class="container">
         <h2 class="mb-5">My Reports</h2>
@@ -160,9 +162,6 @@
             </table>
         </div>
     </div>
-</div>
-
-
 </div>
 
 </body>
