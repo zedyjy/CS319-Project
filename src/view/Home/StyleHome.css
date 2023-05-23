@@ -123,7 +123,7 @@ input[type="password"] {
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
-  background: #03414D;
+  background: #033144;
   font-size: 1.5em;
   outline: 0;
   width: 100%;
@@ -134,11 +134,15 @@ input[type="password"] {
   color: white;
   border-radius: 4px;
   transition: background-color 0.3s ease;
-  width: fit-content;
+  width: 15em;
+  border-bottom: 1px solid white;
+  border-left-style: hidden;
+  border-right-style: hidden;
+  border-top-style: hidden;
 }
 
 .form button:hover {
-  background-color: #033144;
+  background-color: #3C7478 ;
 }
 
 .form-heading {
@@ -165,3 +169,4 @@ input[type="password"] {
     flex: 50%;
   }
 }
+.line { border-bottom: 1px solid grey; position: absolute; top: 10px; width: 100%; z-index: -1; }
