@@ -3,27 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <script src="EvaluatorFeedbackListJS.js"></script>
+    <script src="/js/EvaluatorFeedbackPage/EvaluatorFeedbackListJS.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluator Give Feedback</title>
-    <link rel="stylesheet" href="StyleEvaluatorFeedbackList.css">
+    <link rel="stylesheet" href="/css/EvaluatorFeedbackPage/StyleEvaluatorFeedbackList.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
         integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-    <!-- NAVIGATION MENUS -->
-    <div class="topnav">
-        <a class="logo">Bilkent Internship System</a>
-        <div class="topnav-right">
-            <!--TODO-->
-            <a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\homePages\Home.html">Home</a>
-            <a href="#Announcement">Announcement</a>
-            <a href="#Contact">Contact</a>
-            <a href="#Language">Language</a>
-        </div>
-    </div>
+      <!-- Components -->
+      <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+      <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+  </head>
+  
+  <body>
+  <!-- NAVIGATION MENUS -->
+  <defaultnavbar-component></defaultnavbar-component>
+  <studentnavbar-component></studentnavbar-component>
 
 
     <div id="viewport">
@@ -57,11 +52,10 @@
                     </a>
                 </li>
                 <li>
-                    <a
-                      href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentReportsPage\StudentUploadReport.html">
-                      <i class="zmdi zmdi-comment-more"></i> View Students List / <br> /Give Feedback / Grade Student
+                    <a href="/evaluator/student-list">
+                        <i class="zmdi zmdi-comment-more"></i> View Students List / <br> /Give Feedback / Grade Student
                     </a>
-                  </li>
+                </li>
                 <li>
                     <a href="#">
                         <i class="zmdi zmdi-comment-more"></i> Profile
@@ -78,17 +72,14 @@
     </div>
     <!-- Content -->
     <div class="container">
-
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search by Student ID...">
         </div>
 
         <div class="table-responsive">
-
-            <table class="table table-striped custom-table">
+            <table class="table table-striped custom-table" id="grade-table">
                 <thead>
                     <tr>
-
                         <th scope="col">Student ID</th>
                         <th scope="col">Course Name</th>
                         <th scope="col">Report Submission Date</th>
@@ -99,6 +90,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Table rows will be dynamically added here -->
                     <tr scope="row">
                         <td>
                             22002572
@@ -114,25 +106,8 @@
                                 Report</a></td>
                         <td>1</td>
                         <td>Uploaded</td>
-                        <td>Click to grade</td>
-                            
-                    </tr>
-                    <tr scope="row">
-                        <td>
-                            22002573
-                        </td>
-                        <td>
-                            CS299
-                        </td>
-                        <td>
-                            14/05/2023
-                        </td>
                         <td><a
-                                href="#">My
-                                Report</a></td>
-                        <td>1</td>
-                        <td>Uploaded</td>
-                        <td id="grade">Click to grade</td>
+                            href="/evaluator/give-feedback">Click to Grade</a></td>
                             
                     </tr>
                 </tbody>
@@ -140,7 +115,6 @@
         </div>
     </div>
     </div>
-
     </div>
 
 </body>

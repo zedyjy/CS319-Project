@@ -7,7 +7,7 @@ $(document).ready(function () {
     // You can retrieve additional user information if necessary
     var username = sessionStorage.getItem("username");
     var userType = sessionStorage.getItem("userType");
-    console.log(userType)
+    console.log(userType);
 
     $(".forms-group").css("display", "none");
     $(".login-form").css("display", "none");
