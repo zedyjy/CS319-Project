@@ -7,6 +7,7 @@ $(document).ready(function () {
     // You can retrieve additional user information if necessary
     var username = sessionStorage.getItem("username");
     var userType = sessionStorage.getItem("userType");
+    console.log(userType)
 
     $(".forms-group").css("display", "none");
     $(".login-form").css("display", "none");
@@ -45,6 +46,7 @@ $(document).ready(function () {
             sessionStorage.setItem("userType", response.userType);
             sessionStorage.setItem("isLoggedIn", "true");
             sessionStorage.setItem("username", userid);
+            //redirectToLoginPage();
           }
 
           location.reload();
@@ -171,5 +173,11 @@ jQuery(".message a").click(function () {
 });
 
 function redirectToLoginPage() {
-  window.location.href = "GeneralLogin.html";
+  var userType = sessionStorage.getItem("userType");
+  console.log(userType);
+  if (userType === "Student") {
+    //window.location.href = "evaluator";
+  } else if (userType === "Evaluator") {
+    //window.location.href = "evaluator";
+  }
 }

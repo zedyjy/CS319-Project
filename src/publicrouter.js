@@ -41,9 +41,16 @@ publicrouter.get("/components/:foldername/:filename", (req, res) => {
 });
 
 //---------------------------------------
+// ---------- Login Page ---------- //
+//---------------------------------------
+publicrouter.get("/login", (req, res) => {
+  res.render("Login/GeneralLogin");
+});
+
+//---------------------------------------
 // ---------- Home Page ---------- //
 //---------------------------------------
-publicrouter.get("/", (req, res) => {
+publicrouter.get("/home", (req, res) => {
   res.render("Home/Home");
 });
 
@@ -61,5 +68,10 @@ publicrouter.get("/student/view-report", (req, res) => {
 publicrouter.get("/student/upload-report", (req, res) => {
   res.render("StudentUploadReport/StudentUploadReport");
 });
-
+//---------------------------------------
+// ---------- Evaluator Home Page ---------- //
+//---------------------------------------
+publicrouter.get("/evaluator", (req, res) => {
+  res.render("EvaluatorHomePage/EvaluatorHomePage");
+});
 module.exports = publicrouter;

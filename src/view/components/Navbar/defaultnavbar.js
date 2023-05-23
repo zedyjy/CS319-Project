@@ -12,6 +12,8 @@ defaultnavbarTemplate.innerHTML = `
             <a href="#Announcement">Announcement</a>
             <a href="#Contact">Contact</a>
             <a href="#Language">Language</a>
+            <button id="logout-button" class="form-button">Logout</button>
+
         </div>
     </div>
 `;
@@ -20,11 +22,20 @@ class DefaultNavbar extends HTMLElement {
   constructor() {
     super();
   }
-
+  
   connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
 
     shadowRoot.appendChild(defaultnavbarTemplate.content);
+
+    const logoutButton = shadowRoot.querySelector("#logout-button");
+    logoutButton.addEventListener("click", this.handleLogout.bind(this));
+  }
+  handleLogout() {
+    // Handle logout functionality
+    // For example, clear session data and redirect to the login page
+    sessionStorage.clear();
+    window.location.href = "/";
   }
 }
 

@@ -6,7 +6,10 @@ footer {
     flex-shrink: 0;
     justify-content: space-between;
     align-items: center;
-    background-color: #dfdfe2;
+    background-color: #03414D;
+  }
+  p{
+    justify-content: center;
   }
 
   ul {

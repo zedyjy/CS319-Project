@@ -8,12 +8,6 @@ studentnavbarTemplate.innerHTML = `
   <div class="topnav">
     <a class="logo">Student Interface</a>
     <div class="topnav-right">
-      <a href="/student">Student Home</a>
-      <a href="/student/upload-report">Upload Report</a>
-      <a href="#Announcement">My Reports</a>
-      <a href="#Contact">My Courses</a>
-      <a href="#Language">Profile</a>
-      <button id="logout-button" class="form-button">Logout</button>
     </div>
   </div>
 `;
