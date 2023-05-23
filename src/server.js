@@ -14,6 +14,8 @@ const publicrouter = require("./publicrouter");
 server.use(apirouter);
 server.use(publicrouter);
 
+// Set the limit for incoming JSON and urlencoded data to 50mb
+
 server.set("json limit", "50mb");
 server.set("urlencoded limit", "50mb");
 
