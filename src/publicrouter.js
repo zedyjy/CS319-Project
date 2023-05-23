@@ -50,7 +50,7 @@ publicrouter.get("/login", (req, res) => {
 //---------------------------------------
 // ---------- Home Page ---------- //
 //---------------------------------------
-publicrouter.get("/home", (req, res) => {
+publicrouter.get("/", (req, res) => {
   res.render("Home/Home");
 });
 
