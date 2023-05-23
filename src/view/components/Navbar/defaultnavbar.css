@@ -7,10 +7,15 @@
     margin: auto;
 }
 .topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     overflow: hidden;
     align-items: center;
     background-color: #03414D;
     padding-top: 10px;
+    z-index: 100; /* Ensure the navbar is above other elements */
 }
 .logo{
     font-size: 1.2em;
