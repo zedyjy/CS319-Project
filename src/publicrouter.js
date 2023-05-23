@@ -53,7 +53,19 @@ publicrouter.get("/login", (req, res) => {
 publicrouter.get("/", (req, res) => {
   res.render("Home/Home");
 });
+//---------------------------------------
+// ---------- Summer Training Coordinators Page ---------- //
+//---------------------------------------
+publicrouter.get("/summer-training-coordinators", (req, res) => {
+  res.render("SummerTrainingCoordinators/SummerTrainingCoordinators");
+});
 
+//---------------------------------------
+// ---------- Course Descriptions---------- //
+//---------------------------------------
+publicrouter.get("/course-descriptions", (req, res) => {
+  res.render("CourseDescriptions/CourseDescriptions");
+});
 //---------------------------------------
 // ---------- Student Pages ---------- //
 //---------------------------------------
@@ -88,4 +100,5 @@ publicrouter.get("/evaluator/give-feedback", (req, res) => {
 publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });
+
 module.exports = publicrouter;

@@ -10,7 +10,7 @@ $(document).ready(function () {
   // To check if the user is logged in
   if (sessionStorage.getItem("isLoggedIn") === "true") {
     // User is logged in
-    redirectToLoginPage();
+
     // You can retrieve additional user information if necessary
     var userType = sessionStorage.getItem("userType");
     console.log("You are a " + userType);
@@ -19,6 +19,8 @@ $(document).ready(function () {
       $("studentnavbar-component").css("display", "block");
     }
   } else {
+    //User is NOT logged in
+    redirectToLoginPage();
     $("studentnavbar-component").css("display", "none");
   }
 
@@ -27,11 +29,13 @@ $(document).ready(function () {
 });
 
 function redirectToLoginPage() {
-  var userType = sessionStorage.getItem("userType");
-  console.log(userType);
-  if (userType === "Student") {
-    window.location.href = "/student/view-report";
-  } else if (userType === "Evaluator") {
-    window.location.href = "/student/view-report";
-  }
+  //redirect to login page if not logged in
+  //var userType = sessionStorage.getItem("userType");
+  //console.log(userType);
+  window.location.href = "/";
+  // if (userType === "Student") {
+  //   window.location.href = "/student/view-report";
+  // } else if (userType === "Evaluator") {
+  //   window.location.href = "/student/view-report";
+  // }
 }

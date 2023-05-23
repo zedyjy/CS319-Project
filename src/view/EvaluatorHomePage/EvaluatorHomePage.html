@@ -1,78 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-  <title>Evaluator Home</title>
-  <link rel="stylesheet" href="/css/EvaluatorHomePage/StyleEvaluatorHome.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
-        integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"/>
-            <!-- Components -->
-    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
-</head>
+    <title>Evaluator Home</title>
+    <link
+      rel="stylesheet"
+      href="/css/EvaluatorHomePage/StyleEvaluatorHome.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Global JS -->
+    <script src="/js/GlobalSettings/global.js"></script>
 
-<body>
-<!-- NAVIGATION MENUS -->
-<defaultnavbar-component></defaultnavbar-component>
-<studentnavbar-component></studentnavbar-component>
+    <!-- Components -->
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
 
-<div id="viewport">
-  <!-- Sidebar -->
-  <div id="sidebar">
-    <ul class="nav">
-      <li>
-        <a href="/evaluator">
-          <i class="zmdi zmdi-view-dashboard"></i> Main Menu
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-link"></i> Course Descriptions
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-widgets"></i> Courses
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-calendar"></i> Announcements
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-info-outline"></i> Summer Training Cooridnators
-        </a>
-      </li>
-      <li>
-        <a
-          href="/evaluator/student-list">
-          <i class="zmdi zmdi-comment-more"></i> View Students List / <br> /Give Feedback / Grade Student
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-comment-more"></i> Profile
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="zmdi zmdi-settings"></i> Other
-        </a>
-      </li>
+  <body>
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <studentnavbar-component></studentnavbar-component>
 
-    </ul>
-  </div>
-</div>
-<!-- Content -->
-<div id="content">
-
-</div>
-
-</body>
+    <div id="viewport">
+      <!-- Sidebar -->
+      <div id="sidebar">
+        <ul class="nav">
+          <li>
+            <a href="/evaluator">
+              <i class="zmdi zmdi-view-dashboard"></i> Main Menu
+            </a>
+          </li>
+          <li>
+            <a href="#"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
+          </li>
+          <li>
+            <a href="#"> <i class="zmdi zmdi-widgets"></i> Courses </a>
+          </li>
+          <li>
+            <a href="#"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="zmdi zmdi-info-outline"></i> Summer Training
+              Cooridnators
+            </a>
+          </li>
+          <li>
+            <a href="/evaluator/student-list">
+              <i class="zmdi zmdi-comment-more"></i> View Students List / <br />
+              /Give Feedback / Grade Student
+            </a>
+          </li>
+          <li>
+            <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
+          </li>
+          <li>
+            <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Content -->
+    <div id="content"></div>
+  </body>
 </html>
