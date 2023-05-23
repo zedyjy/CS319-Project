@@ -74,4 +74,18 @@ publicrouter.get("/student/upload-report", (req, res) => {
 publicrouter.get("/evaluator", (req, res) => {
   res.render("EvaluatorHomePage/EvaluatorHomePage");
 });
+
+//---------------------------------------
+// ---------- Evaluator FeedBack Page ---------- //
+//---------------------------------------
+publicrouter.get("/evaluator/give-feedback", (req, res) => {
+  res.render("EvaluatorFeedbackPage/EvaluatorGiveFeedbackPage");
+});
+
+//---------------------------------------
+// ---------- Evaluator FeedBack List Page ---------- //
+//---------------------------------------
+publicrouter.get("/evaluator/student-list", (req, res) => {
+  res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
+});
 module.exports = publicrouter;

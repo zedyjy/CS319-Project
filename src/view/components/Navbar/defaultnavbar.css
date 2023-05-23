@@ -13,7 +13,7 @@
     padding-top: 10px;
 }
 .logo{
-    font-size: 20px;
+    font-size: 1.2em;
 }
 /* Style the links inside the navigation bar */
 .topnav a {
@@ -21,7 +21,7 @@
     text-align: center;
     padding: 0px 16px;
     text-decoration: none;
-    font-size: 1.3em;
+    font-size: 1.2em;
 }
 
 /* Change the color of links on hover */
@@ -58,3 +58,19 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+button {
+    font-family: "Roboto", sans-serif;
+    background-color:#03414D;
+    height: max-content;
+    color: #fff;
+    padding: 0px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+  }
+  
+  button:hover {
+    background-color: #276769;
+  }

@@ -46,7 +46,7 @@ $(document).ready(function () {
             sessionStorage.setItem("userType", response.userType);
             sessionStorage.setItem("isLoggedIn", "true");
             sessionStorage.setItem("username", userid);
-            //redirectToLoginPage();
+            redirectToLoginPage();
           }
 
           location.reload();
@@ -176,8 +176,8 @@ function redirectToLoginPage() {
   var userType = sessionStorage.getItem("userType");
   console.log(userType);
   if (userType === "Student") {
-    //window.location.href = "evaluator";
+    window.location.href = "student";
   } else if (userType === "Evaluator") {
-    //window.location.href = "evaluator";
+    window.location.href = "evaluator";
   }
 }
