@@ -171,15 +171,3 @@ function toggleForms(boxId) {
 jQuery(".message a").click(function () {
   jQuery("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
 });
-
-function redirectToLoginPage() {
-  var userType = sessionStorage.getItem("userType");
-  console.log(userType);
-  if (userType === "Student") {
-    window.location.href = "student";
-  } else if (userType === "Evaluator") {
-    window.location.href = "evaluator";
-  }
-}
-
-

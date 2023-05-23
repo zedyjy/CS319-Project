@@ -8,34 +8,35 @@ $(document).ready(function () {
   $("body").fadeIn(1000);
 
   // To check if the user is logged in
+  // User is logged in
   if (sessionStorage.getItem("isLoggedIn") === "true") {
-    // User is logged in
-
-    // You can retrieve additional user information if necessary
-    var userType = sessionStorage.getItem("userType");
+    const userType = sessionStorage.getItem("userType");
     console.log("You are a " + userType);
-
-    if (userType === "Student") {
-      $("studentnavbar-component").css("display", "block");
-    }
+    redirectToUserHomePage(userType);
   } else {
     //User is NOT logged in
     redirectToLoginPage();
-    $("studentnavbar-component").css("display", "none");
   }
-
-  // Set the userType in sessionStorage for access in other files
-  sessionStorage.setItem("userType", userType);
 });
 
 function redirectToLoginPage() {
-  //redirect to login page if not logged in
-  //var userType = sessionStorage.getItem("userType");
-  //console.log(userType);
-  window.location.href = "/";
-  // if (userType === "Student") {
-  //   window.location.href = "/student/view-report";
-  // } else if (userType === "Evaluator") {
-  //   window.location.href = "/student/view-report";
-  // }
+  if (window.location.pathname !== "/") {
+    // Prevent infinite redirect loop
+    window.location.href = "/";
+  }
+}
+
+function redirectToUserHomePage(userType) {
+  console.log(userType);
+  if (userType === "Student") {
+    if (window.location.pathname !== "/student") {
+      // Prevent infinite redirect loop
+      window.location.href = "/student";
+    }
+  } else if (userType === "Evaluator") {
+    if (window.location.pathname !== "/evaluator") {
+      // Prevent infinite redirect loop
+      window.location.href = "/evaluator";
+    }
+  }
 }

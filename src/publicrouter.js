@@ -69,6 +69,7 @@ publicrouter.get("/course-descriptions", (req, res) => {
 //---------------------------------------
 // ---------- Student Pages ---------- //
 //---------------------------------------
+
 publicrouter.get("/student", (req, res) => {
   res.render("StudentHome/StudentHomePage");
 });
