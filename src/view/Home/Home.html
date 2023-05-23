@@ -33,20 +33,18 @@
     <img src="/assets/logo.svg" alt="Bilkent Logo">
         <p class="welcome"><a>Welcome to Bilkent Internship System</a></p>
         <div class="logout-button">
-          <h1 class="form-heading">Username: <span class="username-text"></span></h1>
-          <button id="logout-button" class="form-button">Logout</button>
         </div>
         
     </div>
     
     <div class="login-form">
-      <form style="margin-top: 20px;">
-          <label for="username">Student ID:</label>
-          <input type="text" id="login-Id" name="username" required>
-          
-          <label for="password">Password:</label>
-          <input type="password" id="login-password" name="password" required>
-          
+      <form>
+        <div>
+          <input type="text" placeholder="Student ID:" id="login-Id" name="username" required>
+        </div>
+        <div>
+          <input type="password" placeholder="Password:" id="login-password" name="password" required>
+        </div>
           <button id="login-button" class="form-button">Login</button>
         </form>
         <p class="login-response"></p>

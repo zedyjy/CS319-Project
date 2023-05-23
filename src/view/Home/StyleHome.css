@@ -117,7 +117,7 @@ input[type="password"] {
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
-  color: white;
+  width: 14em;
 }
 
 .form button {
@@ -134,6 +134,7 @@ input[type="password"] {
   color: white;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  width: fit-content;
 }
 
 .form button:hover {
