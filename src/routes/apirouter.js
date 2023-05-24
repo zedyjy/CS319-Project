@@ -22,7 +22,6 @@ database.once("connected", () => {
 // /register/student - To register a student -  returns: Status Code 200 on sucess, Status Code 400 on failure
 // /login/student - To login a student - returns: Status Code 200 on sucess, Status Code 400 on failure
 // /delete/user - To delete a user -  returns: Status Code 200 on sucess, Status Code 404, 400 on failure
-// /students/studentId - To get student information - returns: Status Code 200 on sucess, Status Code 400, 404 on failure
 // /enroll-course/student - To enroll a student in a course  - returns Status Code 200 on sucess, Status Code 404, 400 on failure
 
 // Register
@@ -210,6 +209,59 @@ apirouter.post("/delete/:student", async (req, res) => {
     } else {
       res.status(404).json({ message: "User not found" });
     }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
+// ENROLL a Student in a course
+apirouter.post("/enroll-course/student", async (req, res) => {
+  const username = req.body.username;
+  const courseId = req.body.courseId;
+  try {
+    const student = await Student.findOne({
+      username: username,
+    });
+
+    if (student && student.courses.includes(courseId)) {
+      // The courseId exists in the student's courses array
+      // Add your code here to handle the case
+      res
+        .status(404)
+        .json({ message: "Already Enrolled In Course", status: 400 });
+    } else {
+      // The courseId does not exist in the student's courses array
+      // Add your code here to handle the case
+      student.courses.push(courseId);
+      student.save();
+      res.status(200).json({
+        message: "Sucessfully Enrolled In Course",
+        courses: student.courses,
+        status: 200,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
+// GET all User Courses
+apirouter.post("/get-courses", async (req, res) => {
+  const username = req.body.username;
+  const userType = await getUserType(username);
+  try {
+    var user = { courses: "Courses Not Found" };
+
+    if (userType === "Student") {
+      user = await Student.findOne({ username: req.body.username });
+    } else if (userType === "Evaluator") {
+      user = await Evaluator.findOne({ username: req.body.username });
+    }
+
+    res.status(200).json({
+      courses: user.courses,
+      status: 200,
+    });
   } catch (error) {
     res.status(400).json({ message: error });
   }
