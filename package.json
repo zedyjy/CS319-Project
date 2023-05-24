@@ -2,7 +2,7 @@
   "name": "student-internship-system",
   "version": "1.0.0",
   "description": "A System to handle all Student internships",
-  "main": "app.php",
+  "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
