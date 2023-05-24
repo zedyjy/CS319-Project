@@ -22,6 +22,7 @@ database.once("connected", () => {
 // /register/student - To register a student -  returns: Status Code 200 on sucess, Status Code 400 on failure
 // /login/student - To login a student - returns: Status Code 200 on sucess, Status Code 400 on failure
 // /delete/user - To delete a user -  returns: Status Code 200 on sucess, Status Code 404, 400 on failure
+// /students/studentId - To get student information - returns: Status Code 200 on sucess, Status Code 400, 404 on failure
 
 // Register
 apirouter.post("/register/:user", async (req, res) => {
@@ -66,6 +67,7 @@ apirouter.post("/register/:user", async (req, res) => {
               const newStudent = new Student({
                 user: savedUser._id, // Use the saved user's ID as the reference
                 username: req.body.username,
+                studentId: req.body.studentId,
               });
               await newStudent.save();
               res
@@ -197,6 +199,34 @@ apirouter.post("/delete/:student", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ message: error });
+  }
+});
+
+
+// Retrieve student information
+apirouter.get("/students/:studentId", async (req, res) => {
+  const studentId = req.params.studentId;
+  console.log(studentId);
+
+  try {
+    const student = await Student.findOne({ studentId: studentId })
+      .populate("user", "username") // Populate the "user" reference field and select only the "username" field
+      .populate("courses", "name"); // Populate the "courses" reference field and select only the "name" field
+
+    if (student) {
+      const studentInfo = {
+        fullName: student.fullName,
+        surname: student.surname,
+        studentId: student.studentId,
+        courses: student.courses.map((course) => course.name),
+        username: student.user.username,
+      };
+      res.status(200).json(studentInfo);
+    } else {
+      res.status(404).json({ message: "Student not found" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
