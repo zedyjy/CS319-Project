@@ -4,6 +4,7 @@ $(document).ready(function () {
   // To check if the user is logged in
   if (sessionStorage.getItem("isLoggedIn") === "true") {
     // User is logged in
+    redirectToUserHomePage();
     // You can retrieve additional user information if necessary
     var username = sessionStorage.getItem("username");
     var userType = sessionStorage.getItem("userType");
@@ -47,7 +48,7 @@ $(document).ready(function () {
           sessionStorage.setItem("userType", response.userType);
           sessionStorage.setItem("isLoggedIn", "true");
           sessionStorage.setItem("username", userid);
-          sessionStorage.setItem("courses", response.courses);
+          sessionStorage.setItem("courses", JSON.stringify(response.courses));
           //redirectToLoginPage();
 
           location.reload();
@@ -182,3 +183,18 @@ function toggleForms(boxId) {
 jQuery(".message a").click(function () {
   jQuery("form").animate({ height: "toggle", opacity: "toggle" }, "slow");
 });
+
+function redirectToUserHomePage() {
+  const userType = sessionStorage.getItem("userType");
+  if (userType === "Student") {
+    if (window.location.pathname !== "/student") {
+      // Prevent infinite redirect loop
+      window.location.href = "/student";
+    }
+  } else if (userType === "Evaluator") {
+    if (window.location.pathname !== "/evaluator") {
+      // Prevent infinite redirect loop
+      window.location.href = "/evaluator";
+    }
+  }
+}

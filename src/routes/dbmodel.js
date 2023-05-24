@@ -43,6 +43,12 @@ const studentSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  profileImage: {
+    data: {
+      filetype: String,
+      uploadDate: Date,
+    },
+  },
   username: {
     type: String,
     required: true,

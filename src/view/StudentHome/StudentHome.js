@@ -1,20 +1,17 @@
 jQuery(document).ready(function () {
   console.log("STUDENT HOME Page JS Loaded");
+  getEnrolledCourses();
   for (let i = 0; i < sessionStorage.length; i++) {
     const key = sessionStorage.key(i);
     const value = sessionStorage.getItem(key);
     console.log(key, value);
   }
-  const courses = sessionStorage.getItem("courses");
-  if (!courses) {
-    $(".enrolled-courses").text("No Courses Available");
-  } else {
-    const enrolledCoursesDiv = $(".enrolled-courses");
-    $.each(courses, function (index, course) {
-      const listItem = $("<li>").text(course.name);
-      enrolledCoursesDiv.append(listItem);
-    });
-  }
+  const courses = JSON.parse(sessionStorage.getItem("courses")); // !
+  courses.forEach((course) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = course;
+    $(".enrolled-courses").append(listItem);
+  });
 });
 
 function enrollCourse(courseId) {
@@ -35,7 +32,7 @@ function enrollCourse(courseId) {
       if (response.status == 200) {
         if (response.courses) {
           // After successful login
-          sessionStorage.setItem("courses", response.courses);
+          sessionStorage.setItem("courses", JSON.stringify(response.courses)); // !
           $(".enroll-response").text(response.message);
         }
       } else {
@@ -65,8 +62,10 @@ function getEnrolledCourses() {
     },
     success: function (response) {
       if (response.status == 200) {
+        const responseType = typeof response.courses;
+        console.log("Type of responseType:", responseType);
         if (response.courses) {
-          sessionStorage.setItem("courses"), response.courses;
+          sessionStorage.setItem("courses", JSON.stringify(response.courses));
         }
       } else {
         // Handle other status codes or errors here

@@ -1,5 +1,6 @@
+const studentUsername = "22001037";
 $.ajax({
-  url: "/students/214125",
+  url: `/students/${studentUsername}`,
   type: "GET",
   success: function (response) {
     // Update the HTML with the student information
@@ -15,5 +16,5 @@ $.ajax({
   error: function (xhr, status, error) {
     // Handle error
     console.error(error);
-  }
+  },
 });

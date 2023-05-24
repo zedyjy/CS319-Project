@@ -1,8 +1,8 @@
-const defaultnavbarTemplate = document.createElement("template");
+const evaluatornavbarTemplate = document.createElement("template");
 
-defaultnavbarTemplate.innerHTML = `
+evaluatornavbarTemplate.innerHTML = `
   <style>
-    @import "/components/Sidebar/EvaluatorSidebar.css"
+    @import "/components/Navbar/EvaluatorSidebar.css"
   </style>
   
   <div id="viewport">
@@ -56,23 +56,23 @@ defaultnavbarTemplate.innerHTML = `
 </div>
 `;
 class EvaluatorSidebar extends HTMLElement {
-    constructor() {
-      super();
-    }
-    
-    connectedCallback() {
-      const shadowRoot = this.attachShadow({ mode: "open" });
-  
-      shadowRoot.appendChild(defaultnavbarTemplate.content);
-  
-      const logoutButton = shadowRoot.querySelector("#logout-button");
-      logoutButton.addEventListener("click", this.handleLogout.bind(this));
-    }
-    handleLogout() {
-      // Handle logout functionality
-      // For example, clear session data and redirect to the login page
-      sessionStorage.clear();
-      window.location.href = "/";
-    }
+  constructor() {
+    super();
   }
-customElements.define("EvaluatorSidebar-component", EvaluatorSidebar);
+
+  connectedCallback() {
+    const shadowRoot = this.attachShadow({ mode: "open" });
+
+    shadowRoot.appendChild(evaluatornavbarTemplate.content);
+
+    const logoutButton = shadowRoot.querySelector("#logout-button");
+    logoutButton.addEventListener("click", this.handleLogout.bind(this));
+  }
+  handleLogout() {
+    // Handle logout functionality
+    // For example, clear session data and redirect to the login page
+    sessionStorage.clear();
+    window.location.href = "/";
+  }
+}
+customElements.define("evaluator-sidebar-component", EvaluatorSidebar);
