@@ -22,7 +22,7 @@ class DefaultNavbar extends HTMLElement {
   constructor() {
     super();
   }
-  
+
   connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" });
 
@@ -30,6 +30,10 @@ class DefaultNavbar extends HTMLElement {
 
     const logoutButton = shadowRoot.querySelector("#logout-button");
     logoutButton.addEventListener("click", this.handleLogout.bind(this));
+    const userType = sessionStorage.getItem("userType");
+    if (!userType) {
+      logoutButton.style.display = "none";
+    }
   }
   handleLogout() {
     // Handle logout functionality

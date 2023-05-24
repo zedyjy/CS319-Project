@@ -123,7 +123,7 @@ h2 {
 
 .custom-table {
     min-width: 900px;
-    padding-left: 16em;
+    padding-left: 0em;
 
 }
 .custom-table thead tr, .custom-table thead th {

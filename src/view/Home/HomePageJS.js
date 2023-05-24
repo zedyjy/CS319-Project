@@ -13,12 +13,14 @@ $(document).ready(function () {
     $(".login-form").css("display", "none");
     $(".loggedin-message").css("display", "block");
     $(".username-text").text(username);
+    $("#goto-homepage").css("display", "block");
   } else {
     // User is not logged in
     console.log("User is not logged in");
     $(".forms-group").css("display", "block");
     $(".login-form").css("display", "block");
     $(".loggedin-message").css("display", "none");
+    $("#goto-homepage").css("display", "none");
   }
 
   //--------------------------
@@ -41,13 +43,12 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response.status == 200) {
-          if (response.userType) {
-            // After successful login
-            sessionStorage.setItem("userType", response.userType);
-            sessionStorage.setItem("isLoggedIn", "true");
-            sessionStorage.setItem("username", userid);
-            redirectToLoginPage();
-          }
+          // After successful login
+          sessionStorage.setItem("userType", response.userType);
+          sessionStorage.setItem("isLoggedIn", "true");
+          sessionStorage.setItem("username", userid);
+          sessionStorage.setItem("courses", response.courses);
+          //redirectToLoginPage();
 
           location.reload();
           $(".login-response").text("Logging In , please refresh page");
@@ -156,6 +157,16 @@ $(document).ready(function () {
   $("#logout-button").on("click", function (event) {
     sessionStorage.clear();
     location.reload();
+  });
+
+  //Goto User Home Page
+  $("#goto-homepage").on("click", function (event) {
+    const userType = sessionStorage.getItem("userType");
+    if (userType === "Student") {
+      window.location.href = "/student";
+    } else if (userType === "Evaluator") {
+      window.location.href = "/evaluator";
+    }
   });
 });
 

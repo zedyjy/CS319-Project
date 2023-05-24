@@ -47,6 +47,9 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userType: {
+    type: String,
+  },
   courses: {
     type: [String],
   },
@@ -100,6 +103,9 @@ const evaluatorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userType: {
+    type: String,
+  },
   courses: {
     type: [String],
   },
@@ -119,6 +125,9 @@ const taSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+  userType: {
+    type: String,
   },
   username: {
     type: String,

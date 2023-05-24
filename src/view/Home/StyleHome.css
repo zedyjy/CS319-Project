@@ -102,6 +102,9 @@ label {
   color: white;
   margin-bottom: 5px;
 }
+#goto-homepage {
+  margin: auto;
+}
 
 input[type="text"],
 input[type="password"] {

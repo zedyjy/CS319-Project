@@ -12,7 +12,7 @@ $(document).ready(function () {
   if (sessionStorage.getItem("isLoggedIn") === "true") {
     const userType = sessionStorage.getItem("userType");
     console.log("You are a " + userType);
-    redirectToUserHomePage(userType);
+    //redirectToUserHomePage(userType);
   } else {
     //User is NOT logged in
     redirectToLoginPage();
