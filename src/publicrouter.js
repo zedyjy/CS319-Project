@@ -102,4 +102,19 @@ publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });
 
+//---------------------------------------
+// ---------- Admin Pages ---------- //
+//---------------------------------------
+publicrouter.get("/admin", (req, res) => {
+  res.render("AdminHome/AdminHome");
+});
+
+publicrouter.get("/admin-add-user", (req, res) => {
+  res.render("AdminAddUser/AdminAddUser");
+});
+
+publicrouter.get("/admin-view-student-list", (req, res) => {
+  res.render("AdminViewStudentList/AdminViewStudentList");
+});
+
 module.exports = publicrouter;

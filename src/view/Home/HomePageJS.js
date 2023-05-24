@@ -88,6 +88,7 @@ $(document).ready(function () {
       data: {
         username: studentid, //DATA as object-value pair here
         password: password,
+        studentId: studentid,
       },
       success: function (response) {
         console.log(response);
@@ -153,6 +154,50 @@ $(document).ready(function () {
       },
     });
   });
+
+
+  //--------------------------
+  // Admin Forms
+  //--------------------------
+  // Evaluator Register Form
+  $("#register-admin-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#register-admin-Id").val();
+    var password = $("#register-admin-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/register/admin",
+      type: "POST",
+      data: {
+        username: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Register successful");
+          console.log(response.message);
+
+          $(".register-admin-response").text("Successfully Regsitered!");
+        } else {
+          // Handle other status codes or errors here
+          $(".register-admin-response").text(response.message);
+          console.log("Register failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("register failed");
+        $(".register-admin-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
 
   //Logout Logic
   $("#logout-button").on("click", function (event) {

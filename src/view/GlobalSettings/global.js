@@ -39,4 +39,10 @@ function redirectToUserHomePage(userType) {
       window.location.href = "/evaluator";
     }
   }
+  else if (userType === "Admin") {
+    if (window.location.pathname !== "/admin") {
+      // Prevent infinite redirect loop
+      window.location.href = "/admin";
+    }
+  }
 }

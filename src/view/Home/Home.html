@@ -97,16 +97,24 @@
         </div>
         <div class="column">
           <div class="box" onclick="toggleForms(3)">
-            <button>TA Register</button>
+            <button>Admin Register</button>
           </div>
-          <div class="forms" id="forms3">
-            <form>
-                <h1>FORM 3</h1><!-- Form content for Box 3 -->
-            </form>
-            <form>
-                <h1>FORM 3</h1> <!-- Form content for Box 3 -->
-            </form>
-          </div>
+            <div class="forms" id="forms3">
+
+                <div class="register-form">
+                    <form style="margin-top: 20px;">
+                        <label for="adminId">Admin ID:</label>
+                        <input type="text" id="register-admin-Id" name="evaluatorId" required>
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="register-admin-password" name="password" required>
+                        <div>
+                            <button id="register-admin-button" class="form-button">Register</button>
+                        </div>
+                    </form>
+                    <p class="register-evaluator-response"></p>
+                </div>
+            </div>
         </div>
         <div class="column">
           <div class="box" onclick="toggleForms(4)">
