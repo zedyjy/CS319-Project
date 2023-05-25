@@ -53,6 +53,9 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  resume: {
+    type: String,
+  },
   userType: {
     type: String,
   },

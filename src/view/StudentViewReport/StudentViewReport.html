@@ -1,14 +1,15 @@
-<?php
-    include("config.php");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload Report</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -19,121 +20,71 @@
     <script src="/js/StudentViewReport/StudentViewReport.js"></script>
 
     <!-- CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/StudentViewReport/StyleStudentViewReport.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/StudentViewReport/StyleStudentViewReport.css"
+    />
 
     <!-- Components -->
-    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Navbar/studentnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
 
+  <body>
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <student-sidebar-component></student-sidebar-component>
 
-</head>
-
-<body style="display: none;">
-<!-- NAVIGATION MENUS -->
-<defaultnavbar-component></defaultnavbar-component>
-<studentnavbar-component></studentnavbar-component>
-
-<div id="viewport">
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <ul class="nav">
-            <li>
-                <a href="/student">
-                    <i class="zmdi zmdi-view-dashboard"></i> Main Menu
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-link"></i> Course Descriptions
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-widgets"></i> Courses
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-calendar"></i> Announcements
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-info-outline"></i> Summer Training Cooridnators
-                </a>
-            </li>
-            <li>
-                <a href="/student/upload-report">
-                    <i class="zmdi zmdi-comment-more"></i> Upload Reports
-                </a>
-            </li>
-            <li>
-                <a href="/student/view-report">
-                    <i class="zmdi zmdi-comment-more"></i> View Reports
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-comment-more"></i> Grades
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-comment-more"></i> Profile
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-settings"></i> Other
-                </a>
-            </li>
-
-        </ul>
-    </div>
-
-    <!-- Content -->
-    <div class="container">
+    <div id="viewport">
+      <!-- Content -->
+      <div class="container">
         <h2 class="mb-5">My Reports</h2>
         <div class="table-responsive">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Report Submission Date</th>
+                <th scope="col">Report</th>
+                <th scope="col">Feedback Status</th>
+                <th scope="col">Iteration #</th>
+                <th scope="col">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr scope="row">
+                <td id="studentID"></td>
+                <td id="courseID"></td>
+                <td id="uploadDate"></td>
+                <td id="report"></td>
+                <td id="feedbackStatus"></td>
+                <td id="iterationCount"></td>
+                <td id="grade"></td>
+              </tr>
+              <tr>
+                <td id="fetchData"></td>
+              </tr>
 
-            <table class="table table-striped custom-table">
-                <thead>
-                <tr>
-
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Course Name</th>
-                    <th scope="col">Report Submission Date</th>
-                    <th scope="col">Report</th>
-                    <th scope="col">Feedback Status</th>
-                    <th scope="col">Iteration #</th>
-                    <th scope="col">Grade</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr scope="row">
-                    <td id="studentID">
-                    </td>
-                    <td id='courseID'>
-                    </td>
-                    <td id="uploadDate">
-                    </td>
-                    <td id="report"></td>
-                    <td id="feedbackStatus"></td>
-                    <td id="iterationCount"></td>
-                    <td id="grade"></td>
-
-                </tr>
-                <tr>
-                    <td id="fetchData">
-                    </td>
-                <tr>
-
-                </tbody>
-            </table>
+              <tr></tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

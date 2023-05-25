@@ -40,6 +40,13 @@ publicrouter.get("/components/:foldername/:filename", (req, res) => {
   res.sendFile(filePath);
 });
 
+//For Serving User Uploaded Files
+publicrouter.get("/uploads/:filename", (req, res) => {
+  const fileName = req.params.filename;
+  const filePath = path.join(__dirname, "../uploads/", fileName);
+  res.sendFile(filePath);
+});
+
 //---------------------------------------
 // ---------- Login Page ---------- //
 //---------------------------------------
@@ -81,23 +88,21 @@ publicrouter.get("/student/view-report", (req, res) => {
 publicrouter.get("/student/upload-report", (req, res) => {
   res.render("StudentUploadReport/StudentUploadReport");
 });
+
+publicrouter.get("/profile", (req, res) => {
+  res.render("Profile/Profile");
+});
 //---------------------------------------
-// ---------- Evaluator Home Page ---------- //
+// ---------- Evaluator Pages ---------- //
 //---------------------------------------
 publicrouter.get("/evaluator", (req, res) => {
   res.render("EvaluatorHomePage/EvaluatorHomePage");
 });
 
-//---------------------------------------
-// ---------- Evaluator FeedBack Page ---------- //
-//---------------------------------------
 publicrouter.get("/evaluator/give-feedback", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorGiveFeedbackPage");
 });
 
-//---------------------------------------
-// ---------- Evaluator FeedBack List Page ---------- //
-//---------------------------------------
 publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });

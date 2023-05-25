@@ -1,53 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--script src="AdminViewStudentJS.js"></script-->
 
     <title>Admin View Students</title>
-    <link rel="stylesheet" href="StyleProfile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
-          integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JS -->
+    <script src="/js/Profile/profile.js" type="text/javascript" defer></script>
+    <!-- CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/Profile/StyleProfile.css"
+    />
     <!-- Components -->
-    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
-</head>
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Navbar/studentnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
 
-<body>
-<!-- NAVIGATION MENUS -->
-<defaultnavbar-component></defaultnavbar-component>
-<studentnavbar-component></studentnavbar-component>
-<div class="container">
-    <h1>User Profile</h1>
-    <div class="profile">
-        <img src="profile-picture.jpg" alt="Profile Picture">
-        <div class="info">
+  <body>
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <student-sidebar-component></student-sidebar-component>
+
+    <div id="viewport">
+      <!-- Content -->
+      <div class="container">
+        <h1>User Profile</h1>
+        <div class="profile">
+          <img src="profile-picture.jpg" alt="Profile Picture" />
+          <div class="info">
             <h2>John Doe</h2>
             <p>Email: john.doe@example.com</p>
             <p>Location: New York</p>
             <p>Phone: 123-456-7890</p>
+          </div>
         </div>
-    </div>
-    <div class="actions">
-        <a href="#">Edit Profile</a>
-    </div>
-    <div class="password-section">
-        <h3>Change Password</h3>
-        <form>
+        <div class="actions">
+          <a href="#">Edit Profile</a>
+        </div>
+        <div class="password-section">
+          <h3>Change Password</h3>
+          <form>
             <label for="currentPassword">Current Password:</label>
-            <input type="password" id="currentPassword" name="currentPassword" required>
+            <input
+              type="password"
+              id="currentPassword"
+              name="currentPassword"
+              required
+            />
             <label for="newPassword">New Password:</label>
-            <input type="password" id="newPassword" name="newPassword" required>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              required
+            />
             <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+            />
             <div class="actions">
-                <input type="submit" value="Change Password">
+              <input type="submit" value="Change Password" />
             </div>
-        </form>
+          </form>
+        </div>
+      </div>
+      <div class="resume col">
+        <p>Current Resume: <span class="current-resume"></span></p>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          id="view-resume"
+        >
+          View Current Resume
+        </button>
+        <button class="btn btn-danger" id="delete-resume">
+          Delete Current Resume
+        </button>
+      </div>
+      <div class="col mt-5">
+        <input type="file" id="resume-input" accept=".pdf" />
+
+        <button class="btn btn-primary" id="upload-resume">
+          Upload Resume
+        </button>
+      </div>
     </div>
-</div>
-</body>
+    <!-- Modal -->
+    <div
+      class="modal w-100 h-100 fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable h-100 d-flex flex-column"
+        role="document"
+      >
+        <div class="modal-content w-100 h-100">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Your Resume</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
