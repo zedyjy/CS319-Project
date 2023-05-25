@@ -98,7 +98,19 @@ const studentSchema = new mongoose.Schema({
   reportSubmissionDeadline: {
     type: Date,
   },
-
+  studentId: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+  },
+  grade: {
+    type: Number,
+  },
+  courseName: {
+    type: String,
+  },
   // Student-specific fields...
 });
 

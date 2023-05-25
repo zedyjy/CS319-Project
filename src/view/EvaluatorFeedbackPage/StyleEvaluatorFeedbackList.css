@@ -533,3 +533,7 @@ th {
     outline: none;
     box-shadow: 0 0 5px #2b95d6;
 }
+
+#grade{
+    border-bottom: 1px solid white;
+}
