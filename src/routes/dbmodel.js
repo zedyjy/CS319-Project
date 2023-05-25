@@ -58,6 +58,7 @@ const studentSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
+    default: "Student",
   },
   courses: {
     type: [String],
@@ -114,6 +115,7 @@ const evaluatorSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
+    default: "Evaluator",
   },
   courses: {
     type: [String],

@@ -48,8 +48,25 @@ $(document).ready(function () {
           sessionStorage.setItem("userType", response.userType);
           sessionStorage.setItem("isLoggedIn", "true");
           sessionStorage.setItem("username", userid);
-          sessionStorage.setItem("courses", JSON.stringify(response.courses));
-          //redirectToLoginPage();
+
+          var userType = sessionStorage.getItem("userType");
+          console.log(userType);
+          if (userType == "Student") {
+            sessionStorage.setItem("courses", JSON.stringify(response.courses));
+          }
+          else if (userType == "Evaluator") {
+            sessionStorage.setItem("courses", JSON.stringify(response.courses));
+            sessionStorage.setItem("students", JSON.stringify(response.students));
+            sessionStorage.setItem("gradingForms", JSON.stringify(response.gradingForms));
+          }
+          else if (userType == "TA") {
+            sessionStorage.setItem("courses", JSON.stringify(response.courses));
+            sessionStorage.setItem("students", JSON.stringify(response.students));
+          }
+          else if (userType == "Coordinator") {
+            sessionStorage.setItem("courses", JSON.stringify(response.courses));
+          }
+          //redirectToUserHomePage();
 
           location.reload();
           $(".login-response").text("Logging In , please refresh page");

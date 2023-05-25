@@ -11,7 +11,7 @@ evaluatornavbarTemplate.innerHTML = `
       <ul class="nav">
           <li>
               <a
-                  href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\view\Student\StudentHomePage\StudentHomePage.html">
+                  href="/evaluator">
                   <i class="zmdi zmdi-view-dashboard"></i> Main Menu
               </a>
           </li>
@@ -56,23 +56,14 @@ evaluatornavbarTemplate.innerHTML = `
 </div>
 `;
 class EvaluatorSidebar extends HTMLElement {
-  constructor() {
-    super();
-  }
+    constructor() {
+        super();
+    }
 
-  connectedCallback() {
-    const shadowRoot = this.attachShadow({ mode: "open" });
+    connectedCallback() {
+        const shadowRoot = this.attachShadow({ mode: "open" });
 
-    shadowRoot.appendChild(evaluatornavbarTemplate.content);
-
-    const logoutButton = shadowRoot.querySelector("#logout-button");
-    logoutButton.addEventListener("click", this.handleLogout.bind(this));
-  }
-  handleLogout() {
-    // Handle logout functionality
-    // For example, clear session data and redirect to the login page
-    sessionStorage.clear();
-    window.location.href = "/";
-  }
+        shadowRoot.appendChild(evaluatornavbarTemplate.content);
+    }
 }
 customElements.define("evaluator-sidebar-component", EvaluatorSidebar);

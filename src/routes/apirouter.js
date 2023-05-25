@@ -125,7 +125,6 @@ apirouter.post("/register/:user", async (req, res) => {
               const newEvaluator = new Evaluator({
                 user: savedUser._id, // Use the saved user's ID as the reference
                 username: req.body.username,
-                userType: "Evaluator",
               });
               await newEvaluator.save();
               res.status(200).json({
@@ -153,20 +152,27 @@ apirouter.post("/login", async (req, res) => {
     if (result) {
       try {
         const userType = await getUserType(req.body.username);
-        var user = { courses: "Courses Not Found" };
 
         if (userType === "Student") {
-          user = await Student.findOne({ username: req.body.username });
+          var user = await Student.findOne({ username: req.body.username });
+          res.status(200).json({
+            message: "Logged In",
+            userType: user.userType,
+            courses: user.courses,
+            status: 200,
+          });
         } else if (userType === "Evaluator") {
-          user = await Evaluator.findOne({ username: req.body.username });
+          var user = await Evaluator.findOne({ username: req.body.username });
+          res.status(200).json({
+            message: "Logged In",
+            userType: user.userType,
+            courses: user.courses,
+            students: user.students,
+            gradingForms: user.gradingForms,
+            status: 200,
+          });
         }
 
-        res.status(200).json({
-          message: "Logged In",
-          userType: user.userType,
-          courses: user.courses,
-          status: 200,
-        });
       } catch (error) {
         res.status(400).json({ message: error.message, status: 400 });
       }
@@ -276,20 +282,21 @@ apirouter.get("/students/:studentId", async (req, res) => {
   console.log(studentId);
 
   try {
-    const student = await Student.findOne({ studentId: studentId })
-      .populate("user", "username") // Populate the "user" reference field and select only the "username" field
-      .populate("courses", "name"); // Populate the "courses" reference field and select only the "name" field
+    const student = await Student.findOne({ username: studentId })
+    console.log(student);
 
     if (student) {
-      const studentInfo = {
+      res.status(200).json({
         fullName: student.fullName,
         surname: student.surname,
         studentId: student.studentId,
         courses: student.courses.map((course) => course.name),
-        username: student.user.username,
-      };
-      res.status(200).json(studentInfo);
-    } else {
+        username: student.username,
+        status: 200
+
+      });
+    }
+    else {
       res.status(404).json({ message: "Student not found" });
     }
   } catch (error) {
