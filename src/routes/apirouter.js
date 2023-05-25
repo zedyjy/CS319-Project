@@ -70,7 +70,6 @@ apirouter.post("/register/:user", async (req, res) => {
               const newStudent = new Student({
                 user: savedUser._id, // Use the saved user's ID as the reference
                 username: req.body.username,
-                userType: "Student",
               });
               await newStudent.save();
               res
@@ -172,7 +171,6 @@ apirouter.post("/login", async (req, res) => {
             status: 200,
           });
         }
-
       } catch (error) {
         res.status(400).json({ message: error.message, status: 400 });
       }
@@ -282,7 +280,7 @@ apirouter.get("/students/:studentId", async (req, res) => {
   console.log(studentId);
 
   try {
-    const student = await Student.findOne({ username: studentId })
+    const student = await Student.findOne({ username: studentId });
     console.log(student);
 
     if (student) {
@@ -292,11 +290,9 @@ apirouter.get("/students/:studentId", async (req, res) => {
         studentId: student.studentId,
         courses: student.courses.map((course) => course.name),
         username: student.username,
-        status: 200
-
+        status: 200,
       });
-    }
-    else {
+    } else {
       res.status(404).json({ message: "Student not found" });
     }
   } catch (error) {

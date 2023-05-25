@@ -139,6 +139,7 @@ const taSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
+    default: "TA",
   },
   username: {
     type: String,
