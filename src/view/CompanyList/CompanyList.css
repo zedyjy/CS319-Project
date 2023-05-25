@@ -69,6 +69,53 @@ a:visited{
     padding-left: 16em;
 }
 
+/* Sidebar Styles */
+
+#sidebar {
+    position: fixed;
+    max-width: fit-content;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #03414D;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar .nav {
+    list-style: none;
+    margin: 0;
+    padding: 1em 0 0 0;
+}
+
+#sidebar .nav a {
+    display: inline-block;
+    background: none;
+    color: white;
+    font-size: 14px;
+    padding: 1em 1.4em 0.5em 1em;
+    animation-iteration-count: 1;
+    animation-duration: 1.5s;
+    align-self: flex-end;
+}
+
+#sidebar .nav a:hover {
+    background: none;
+    color: #ECEFF1;
+    animation-name: bounce;
+    animation-timing-function: ease;
+}
+@keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-1em); }
+    100% { transform: translateY(0); }
+}
+
+#sidebar .nav a i {
+    margin-right: 16px;
+}
 
 h2 {
     font-size: 20px;

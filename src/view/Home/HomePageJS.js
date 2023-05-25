@@ -6,14 +6,14 @@ $(document).ready(function () {
     // User is logged in
     redirectToUserHomePage();
     // You can retrieve additional user information if necessary
-    var username = sessionStorage.getItem("username");
+    var user_id = sessionStorage.getItem("user_id");
     var userType = sessionStorage.getItem("userType");
     console.log(userType);
 
     $(".forms-group").css("display", "none");
     $(".login-form").css("display", "none");
     $(".loggedin-message").css("display", "block");
-    $(".username-text").text(username);
+    $(".user_id-text").text(user_id);
     $("#goto-homepage").css("display", "block");
   } else {
     // User is not logged in
@@ -39,7 +39,7 @@ $(document).ready(function () {
       url: "/login",
       type: "POST",
       data: {
-        username: userid, //DATA as object-value pair here
+        user_id: userid, //DATA as object-value pair here
         password: password,
       },
       success: function (response) {
@@ -47,23 +47,29 @@ $(document).ready(function () {
           // After successful login
           sessionStorage.setItem("userType", response.userType);
           sessionStorage.setItem("isLoggedIn", "true");
-          sessionStorage.setItem("username", userid);
+          sessionStorage.setItem("user_id", userid);
 
           var userType = sessionStorage.getItem("userType");
           console.log(userType);
           if (userType == "Student") {
             sessionStorage.setItem("courses", JSON.stringify(response.courses));
-          }
-          else if (userType == "Evaluator") {
+          } else if (userType == "Evaluator") {
             sessionStorage.setItem("courses", JSON.stringify(response.courses));
-            sessionStorage.setItem("students", JSON.stringify(response.students));
-            sessionStorage.setItem("gradingForms", JSON.stringify(response.gradingForms));
-          }
-          else if (userType == "TA") {
+            sessionStorage.setItem(
+              "students",
+              JSON.stringify(response.students)
+            );
+            sessionStorage.setItem(
+              "gradingForms",
+              JSON.stringify(response.gradingForms)
+            );
+          } else if (userType == "TA") {
             sessionStorage.setItem("courses", JSON.stringify(response.courses));
-            sessionStorage.setItem("students", JSON.stringify(response.students));
-          }
-          else if (userType == "Coordinator") {
+            sessionStorage.setItem(
+              "students",
+              JSON.stringify(response.students)
+            );
+          } else if (userType == "Coordinator") {
             sessionStorage.setItem("courses", JSON.stringify(response.courses));
           }
           //redirectToUserHomePage();
@@ -103,7 +109,7 @@ $(document).ready(function () {
       url: "/register/student",
       type: "POST",
       data: {
-        username: studentid, //DATA as object-value pair here
+        user_id: studentid, //DATA as object-value pair here
         password: password,
         studentId: studentid,
       },
@@ -146,7 +152,7 @@ $(document).ready(function () {
       url: "/register/evaluator",
       type: "POST",
       data: {
-        username: studentid, //DATA as object-value pair here
+        user_id: studentid, //DATA as object-value pair here
         password: password,
       },
       success: function (response) {
@@ -172,7 +178,6 @@ $(document).ready(function () {
     });
   });
 
-
   //--------------------------
   // Admin Forms
   //--------------------------
@@ -189,7 +194,7 @@ $(document).ready(function () {
       url: "/register/admin",
       type: "POST",
       data: {
-        username: studentid, //DATA as object-value pair here
+        user_id: studentid, //DATA as object-value pair here
         password: password,
       },
       success: function (response) {
@@ -214,7 +219,6 @@ $(document).ready(function () {
       },
     });
   });
-
 
   //Logout Logic
   $("#logout-button").on("click", function (event) {

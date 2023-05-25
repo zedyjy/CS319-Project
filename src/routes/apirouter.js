@@ -6,6 +6,7 @@ const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
 const fs = require("fs");
+const { ObjectId } = require("mongodb");
 
 // ------- mongo db connection --------
 mongoose.connect("mongodb://127.0.0.1:27017/internship-system");
@@ -29,11 +30,11 @@ database.once("connected", () => {
 
 // Register
 apirouter.post("/register/:user", async (req, res) => {
-  const username = req.body.username;
+  const user_id = req.body.user_id;
   if (req.params.user == "student") {
     try {
       // Search the evaluators collection
-      Evaluator.findOne({ username: username }).then(async (evaluator) => {
+      Evaluator.findOne({ user_id: user_id }).then(async (evaluator) => {
         if (evaluator) {
           res
             .status(400)
@@ -42,7 +43,7 @@ apirouter.post("/register/:user", async (req, res) => {
         }
 
         // Search the users collection
-        User.findOne({ username: username }).then(async (user) => {
+        User.findOne({ user_id: user_id }).then(async (user) => {
           if (user) {
             res
               .status(400)
@@ -51,7 +52,7 @@ apirouter.post("/register/:user", async (req, res) => {
           }
 
           // Search the students collection
-          Student.findOne({ username: username }).then(async (student) => {
+          Student.findOne({ user_id: user_id }).then(async (student) => {
             if (student) {
               res
                 .status(400)
@@ -61,7 +62,7 @@ apirouter.post("/register/:user", async (req, res) => {
 
             // Create new user and student if no duplicates found
             const newUser = new User({
-              username: req.body.username,
+              user_id: req.body.user_id,
               password: req.body.password,
             });
 
@@ -69,7 +70,7 @@ apirouter.post("/register/:user", async (req, res) => {
               const savedUser = await newUser.save();
               const newStudent = new Student({
                 user: savedUser._id, // Use the saved user's ID as the reference
-                username: req.body.username,
+                user_id: req.body.user_id,
               });
               await newStudent.save();
               res
@@ -87,7 +88,7 @@ apirouter.post("/register/:user", async (req, res) => {
   } else if (req.params.user == "evaluator") {
     try {
       // Search the evaluators collection
-      Evaluator.findOne({ username: username }).then(async (evaluator) => {
+      Evaluator.findOne({ user_id: user_id }).then(async (evaluator) => {
         if (evaluator) {
           res
             .status(400)
@@ -96,7 +97,7 @@ apirouter.post("/register/:user", async (req, res) => {
         }
 
         // Search the users collection
-        User.findOne({ username: username }).then(async (user) => {
+        User.findOne({ user_id: user_id }).then(async (user) => {
           if (user) {
             res
               .status(400)
@@ -105,7 +106,7 @@ apirouter.post("/register/:user", async (req, res) => {
           }
 
           // Search the students collection
-          Student.findOne({ username: username }).then(async (student) => {
+          Student.findOne({ user_id: user_id }).then(async (student) => {
             if (student) {
               res
                 .status(400)
@@ -115,7 +116,7 @@ apirouter.post("/register/:user", async (req, res) => {
 
             // Create new user and student if no duplicates found
             const newUser = new User({
-              username: req.body.username,
+              user_id: req.body.user_id,
               password: req.body.password,
             });
 
@@ -123,7 +124,7 @@ apirouter.post("/register/:user", async (req, res) => {
               const savedUser = await newUser.save();
               const newEvaluator = new Evaluator({
                 user: savedUser._id, // Use the saved user's ID as the reference
-                username: req.body.username,
+                user_id: req.body.user_id,
               });
               await newEvaluator.save();
               res.status(200).json({
@@ -145,15 +146,15 @@ apirouter.post("/register/:user", async (req, res) => {
 // Login
 apirouter.post("/login", async (req, res) => {
   User.findOne({
-    username: req.body.username,
+    user_id: req.body.user_id,
     password: req.body.password,
   }).then(async (result) => {
     if (result) {
       try {
-        const userType = await getUserType(req.body.username);
+        const userType = await getUserType(req.body.user_id);
 
         if (userType === "Student") {
-          var user = await Student.findOne({ username: req.body.username });
+          var user = await Student.findOne({ user_id: req.body.user_id });
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
@@ -161,7 +162,9 @@ apirouter.post("/login", async (req, res) => {
             status: 200,
           });
         } else if (userType === "Evaluator") {
-          var user = await Evaluator.findOne({ username: req.body.username });
+          var user = await Evaluator.findOne({
+            user_id: req.body.user_id,
+          });
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
@@ -183,16 +186,16 @@ apirouter.post("/login", async (req, res) => {
 // Identify a user
 async function getUserType(usernameParam) {
   try {
-    const username = usernameParam;
+    const user_id = usernameParam;
 
     // Search the evaluators collection
-    const evaluator = await Evaluator.findOne({ username: username });
+    const evaluator = await Evaluator.findOne({ user_id: user_id });
     if (evaluator) {
       return "Evaluator";
     }
 
     // Search the students collection
-    const student = await Student.findOne({ username: username });
+    const student = await Student.findOne({ user_id: user_id });
     if (student) {
       return "Student";
     }
@@ -208,7 +211,7 @@ async function getUserType(usernameParam) {
 apirouter.post("/delete/:student", async (req, res) => {
   try {
     const result = await Student.findOneAndDelete({
-      username: req.body.username,
+      user_id: req.body.user_id,
     });
 
     if (result) {
@@ -223,11 +226,11 @@ apirouter.post("/delete/:student", async (req, res) => {
 
 // ENROLL a Student in a course
 apirouter.post("/enroll-course/student", async (req, res) => {
-  const username = req.body.username;
+  const user_id = req.body.user_id;
   const courseId = req.body.courseId;
   try {
     const student = await Student.findOne({
-      username: username,
+      user_id: user_id,
     });
 
     if (student && student.courses.includes(courseId)) {
@@ -254,15 +257,15 @@ apirouter.post("/enroll-course/student", async (req, res) => {
 
 // GET all User Courses
 apirouter.post("/get-courses", async (req, res) => {
-  const username = req.body.username;
-  const userType = await getUserType(username);
+  const user_id = req.body.user_id;
+  const userType = await getUserType(user_id);
   try {
     var user = { courses: "Courses Not Found" };
 
     if (userType === "Student") {
-      user = await Student.findOne({ username: req.body.username });
+      user = await Student.findOne({ user_id: req.body.user_id });
     } else if (userType === "Evaluator") {
-      user = await Evaluator.findOne({ username: req.body.username });
+      user = await Evaluator.findOne({ user_id: req.body.user_id });
     }
 
     res.status(200).json({
@@ -280,7 +283,7 @@ apirouter.get("/students/:studentId", async (req, res) => {
   console.log(studentId);
 
   try {
-    const student = await Student.findOne({ username: studentId });
+    const student = await Student.findOne({ user_id: studentId });
     console.log(student);
 
     if (student) {
@@ -289,7 +292,7 @@ apirouter.get("/students/:studentId", async (req, res) => {
         surname: student.surname,
         studentId: student.studentId,
         courses: student.courses.map((course) => course.name),
-        username: student.username,
+        user_id: student.user_id,
         status: 200,
       });
     } else {
@@ -306,8 +309,10 @@ apirouter.post(
   upload.single("file"),
   async (req, res) => {
     try {
-      // Find the student by username
-      const student = await Student.findOne({ username: req.body.username });
+      // Find the student by user_id
+      const student = await Student.findOne({
+        user_id: req.body.user_id,
+      });
       if (!student) {
         // Student not found
         res.status(404).json({ error: "Student not found" });
@@ -363,7 +368,7 @@ apirouter.post(
 
 // Get File
 apirouter.post("/student/get-file", async (req, res) => {
-  const student = await Student.findOne({ username: req.body.username });
+  const student = await Student.findOne({ user_id: req.body.user_id });
   if (!student) {
     // Student not found
     res.status(404).json({ error: "Student not found" });
@@ -396,7 +401,7 @@ apirouter.post("/student/get-file", async (req, res) => {
 
 // Get File Name
 apirouter.post("/student/get-file-name", async (req, res) => {
-  const student = await Student.findOne({ username: req.body.username });
+  const student = await Student.findOne({ user_id: req.body.user_id });
   if (!student) {
     // Student not found
     res.status(404).json({ error: "Student not found" });
@@ -415,7 +420,7 @@ apirouter.post("/student/get-file-name", async (req, res) => {
 // Delete Student Resume
 apirouter.post("/student/delete-resume", async (req, res) => {
   try {
-    const student = await Student.findOne({ username: req.body.username });
+    const student = await Student.findOne({ user_id: req.body.user_id });
     if (!student) {
       return res.status(404).json({ error: "Student not found" });
     }
@@ -440,6 +445,61 @@ apirouter.post("/student/delete-resume", async (req, res) => {
   } catch (error) {
     console.error("Error retrieving the file name: ", error);
     return res.status(500).json({ error: "Error retrieving the file" });
+  }
+});
+
+// Get All User Data
+apirouter.post("/update-user", async (req, res) => {
+  const user_id = req.body.user_id;
+  try {
+    const fullname = req.body.fullname;
+    const email = req.body.email;
+    const userType = await getUserType(user_id);
+    if (userType === "Student") {
+      const student = await Student.findOne({
+        user_id: user_id,
+      }).populate("user");
+      student.user.fullname = fullname;
+      student.user.email = email;
+
+      await student.user.save();
+
+      return res.status(200).json({ message: "User Updated" });
+    } else if (userType === "Evaluator") {
+      const evaluator = await Evaluator.findOne({
+        user_id: user_id,
+      }).populate("user");
+      evaluator.user.fullname = fullname;
+      evaluator.user.email = email;
+
+      await evaluator.user.save();
+
+      return res.status(200).json({ message: "User Updated" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Error Updating User" });
+  }
+});
+
+// Get All User Data
+apirouter.post("/get-user-data", async (req, res) => {
+  const user_id = req.body.user_id;
+  try {
+    const userType = await getUserType(user_id);
+    if (userType === "Student") {
+      const student = await Student.findOne({
+        user_id: user_id,
+      }).populate("user");
+      return res.status(200).json({ user: student });
+    } else if (userType === "Evaluator") {
+      const evaluator = await Evaluator.findOne({
+        user_id: user_id,
+      }).populate("user");
+
+      return res.status(200).json({ user: evaluator });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Error retrieving user data" });
   }
 });
 

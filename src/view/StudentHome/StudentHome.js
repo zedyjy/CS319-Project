@@ -15,7 +15,7 @@ jQuery(document).ready(function () {
 });
 
 function enrollCourse(courseId) {
-  const storedUsername = sessionStorage.getItem("username");
+  const storedUsername = sessionStorage.getItem("user_id");
   event.preventDefault(); // Prevent the form from submitting normally
 
   // Retrieve the values from the form fields
@@ -25,7 +25,7 @@ function enrollCourse(courseId) {
     url: "/enroll-course/student",
     type: "POST",
     data: {
-      username: storedUsername, //DATA as object-value pair here
+      user_id: storedUsername, //DATA as object-value pair here
       courseId: courseId,
     },
     success: function (response) {
@@ -53,12 +53,12 @@ function enrollCourse(courseId) {
 }
 
 function getEnrolledCourses() {
-  const storedUsername = sessionStorage.getItem("username");
+  const storedUsername = sessionStorage.getItem("user_id");
   $.ajax({
     url: "/get-courses",
     type: "POST",
     data: {
-      username: storedUsername, //DATA as object-value pair here
+      user_id: storedUsername, //DATA as object-value pair here
     },
     success: function (response) {
       if (response.status == 200) {

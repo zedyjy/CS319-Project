@@ -46,6 +46,9 @@ studentnavbarTemplate.innerHTML = `
       <a href="/profile"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
     </li>
     <li>
+      <a href="/company"> <i class="zmdi zmdi-settings"></i> Company List </a>
+    </li>
+    <li>
       <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>
     </li>
   </ul>

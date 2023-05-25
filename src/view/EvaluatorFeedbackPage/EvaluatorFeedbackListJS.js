@@ -27,7 +27,7 @@ function getStudent(studentID) {
       type: "GET",
       success: function (response) {
         var studentInfo = {
-          name: response.username,
+          name: response.user_id,
           studentID: response.studentId,
         };
         console.log(studentInfo);

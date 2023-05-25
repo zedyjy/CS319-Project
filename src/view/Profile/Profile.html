@@ -53,14 +53,24 @@
         <div class="profile">
           <img src="profile-picture.jpg" alt="Profile Picture" />
           <div class="info">
-            <h2>John Doe</h2>
-            <p>Email: john.doe@example.com</p>
-            <p>Location: New York</p>
-            <p>Phone: 123-456-7890</p>
+            <label>Full Name:</label>
+            <input type="text" class="fullname" readonly />
+            <label>Email:</label>
+            <input type="text" class="email" readonly />
           </div>
         </div>
-        <div class="actions">
-          <a href="#">Edit Profile</a>
+        <div>
+          <button class="btn btn-primary edit-profile" onclick="editProfile()">
+            Edit Profile
+          </button>
+          <button
+            class="btn btn-primary save-profile"
+            style="display: none"
+            onclick="saveProfile()"
+          >
+            Save Profile
+          </button>
+          <p class="save-profile-response"></p>
         </div>
         <div class="password-section">
           <h3>Change Password</h3>

@@ -11,12 +11,15 @@ const notificationSchema = new mongoose.Schema({
 
 // User Schema
 const userSchema = new mongoose.Schema({
-  username: {
+  user_id: {
     required: true,
     type: String,
   },
   password: {
     required: true,
+    type: String,
+  },
+  department: {
     type: String,
   },
   fullname: {
@@ -49,7 +52,7 @@ const studentSchema = new mongoose.Schema({
       uploadDate: Date,
     },
   },
-  username: {
+  user_id: {
     type: String,
     required: true,
   },
@@ -109,7 +112,7 @@ const evaluatorSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  username: {
+  user_id: {
     type: String,
     required: true,
   },
@@ -141,7 +144,7 @@ const taSchema = new mongoose.Schema({
     type: String,
     default: "TA",
   },
-  username: {
+  user_id: {
     type: String,
     required: true,
   },
