@@ -3,12 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Evaluator Give Feedback</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -28,20 +27,35 @@
 </head>
 
 <body>
-    <!-- NAVIGATION MENUS -->
-    <defaultnavbar-component></defaultnavbar-component>
-    <studentnavbar-component></studentnavbar-component>
+<!-- NAVIGATION MENUS -->
+<defaultnavbar-component></defaultnavbar-component>
+<evaluator-sidebar-component></evaluator-sidebar-component>
 
 
-    <!-- Content -->
-    <div class="container">
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search by Student ID...">
-        </div>
+<!-- Content -->
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search by Student ID...">
     </div>
-    <div class="students">
-    </div>
+</div>
 
+<div class="students">
+    <table class="table table-striped custom-table">
+        <thead>
+        <tr>
+
+            <th scope="col">Student ID</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Report Submission Date</th>
+            <th scope="col">Report</th>
+            <th scope="col">Iteration #</th>
+            <th scope="col">Give Feedback</th>
+            <th scope="col">Grade Student</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
 </body>
 
 </html>

@@ -292,7 +292,8 @@ apirouter.get("/students/:studentId", async (req, res) => {
         surname: student.surname,
         studentId: student.studentId,
         courses: student.courses.map((course) => course.name),
-        user_id: student.user_id,
+        username: student.username,
+        iteration: student.revisionCount,
         status: 200,
       });
     } else {
