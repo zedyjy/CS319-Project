@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const apirouter = express.Router();
-const { User, Student, Evaluator } = require("./dbmodel");
+const { User, Student, Evaluator, Company } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
@@ -499,6 +499,39 @@ apirouter.post("/get-user-data", async (req, res) => {
 
       return res.status(200).json({ user: evaluator });
     }
+  } catch (error) {
+    return res.status(500).json({ error: "Error retrieving user data" });
+  }
+});
+
+// Add a new company
+apirouter.post("/add-company", async (req, res) => {
+  const company_name = req.body.company_name;
+  const company_city = req.body.company_city;
+  const company_email = req.body.company_email;
+  const company_phone = req.body.company_phone;
+  const company_sector = req.body.company_sector;
+  try {
+    const company = Company.findOne({
+      name: company_name,
+      email: company_email,
+      phone: company_phone,
+    });
+
+    if (company) {
+      return res.status(200).json({ message: "Company Already Exists" });
+    }
+
+    const newCompany = new Company({
+      name: company_name,
+      city: company_city,
+      email: company_email,
+      phone: company_phone,
+      sector: company_sector,
+      approvalStatus: "Pending",
+    });
+
+    return res.status(200).json({ message: "Company Added" });
   } catch (error) {
     return res.status(500).json({ error: "Error retrieving user data" });
   }

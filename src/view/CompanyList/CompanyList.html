@@ -64,7 +64,14 @@
         <h2 class="mb-5">Companies</h2>
         <p>
           Your Company Not In the list?
-          <button class="btn-primary ml-2">Add a new Company</button>
+          <button
+            class="btn-primary ml-2"
+            type="button"
+            data-toggle="modal"
+            data-target="#addNewCompany"
+          >
+            Add a new Company
+          </button>
         </p>
         <div class="table-responsive">
           <table class="table table-striped custom-table">
@@ -79,7 +86,7 @@
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="company-list">
               <tr scope="row">
                 <td>Disney World</td>
                 <td>Ankara</td>
@@ -87,10 +94,89 @@
                 <td>5/10</td>
                 <td>CS, IEE, COMD</td>
                 <td>IT</td>
-                <td><button class="btn-small">Apply</button></td>
+                <td>
+                  <div class="row">
+                    <button class="btn-small" onclick="applyToCompany()">
+                      Apply
+                    </button>
+                    <button class="btn-small" onclick="viewCompanyDetails()">
+                      View Details
+                    </button>
+                  </div>
+                  <div class="row company-details">DETAILS DETAILS</div>
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal w-100 h-100 fade"
+      id="addNewCompany"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable h-100 d-flex flex-column"
+        role="document"
+      >
+        <div class="modal-content w-100 h-100">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New Company</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body col">
+            <div class="container-fluid">
+              <div class="row mt-2">
+                <label>Company Name:</label>
+                <input class="ml-1" type="text" id="company-name" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company City:</label>
+                <input class="ml-1" type="text" id="company-city" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company Email:</label>
+                <input class="ml-1" type="text" id="company-email" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company Phone:</label>
+                <input class="ml-1" type="text" id="company-phone" required />
+              </div>
+              <div class="row mt-2">
+                <label>Sector:</label>
+                <input class="ml-1" type="text" id="company-sector" required />
+              </div>
+              <div class="row mt-2">
+                <button class="btn btn-primary" onclick="addCompany()">
+                  Add
+                </button>
+                <p class="add-company-response"></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

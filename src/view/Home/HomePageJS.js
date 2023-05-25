@@ -101,7 +101,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-student-Id").val();
+    var student_id = $("#register-student-Id").val();
     var password = $("#register-student-password").val();
 
     // Send the AJAX request
@@ -109,9 +109,8 @@ $(document).ready(function () {
       url: "/register/student",
       type: "POST",
       data: {
-        user_id: studentid, //DATA as object-value pair here
+        user_id: student_id, //DATA as object-value pair here
         password: password,
-        studentId: studentid,
       },
       success: function (response) {
         console.log(response);

@@ -101,10 +101,6 @@ const studentSchema = new mongoose.Schema({
   reportSubmissionDeadline: {
     type: Date,
   },
-  studentId: {
-    type: String,
-    required: true,
-  },
   name: {
     type: String,
   },
@@ -171,10 +167,22 @@ const taSchema = new mongoose.Schema({
 
 //Company Schema
 const companySchema = new mongoose.Schema({
-  student: {
+  students: {
     type: [String],
   },
   name: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  sector: {
     type: String,
   },
   approvalStatus: {
@@ -186,12 +194,19 @@ const companySchema = new mongoose.Schema({
   submittedFormStatus: {
     type: String,
   },
-  email: {
-    type: String,
-  },
   uniqueFormLink: {
     type: String,
   },
+  studentRating: {
+    type: String,
+  },
+  evaluatorRating: {
+    type: String,
+  },
+  acceptedDepartments: {
+    type: [String],
+  },
+
   // Company-specific fields...
 });
 
