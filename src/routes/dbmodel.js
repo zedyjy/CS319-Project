@@ -66,8 +66,8 @@ const studentSchema = new mongoose.Schema({
   courses: {
     type: [String],
   },
-  assignedEvaluator: {
-    type: String,
+  assignedEvaluators: {
+    type: [String],
   },
   assignedTAs: {
     type: [String],
@@ -87,7 +87,7 @@ const studentSchema = new mongoose.Schema({
   },
   revisionCount: {
     type: Number,
-    default: 2
+    default: 2,
   },
   evaluatorFeedbackFile: {
     data: Buffer,

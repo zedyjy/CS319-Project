@@ -626,5 +626,142 @@ apirouter.post("/get-all-tas", async (req, res) => {
   }
 });
 
+// Assign Students to Users
+apirouter.post("/assign-student", async (req, res) => {
+  const user_id = req.body.user_id;
+  const student_id = req.body.student_id;
+
+  try {
+    const student = await Student.findOne({
+      user_id: student_id,
+    });
+    if (!student) {
+      return res.status(404).json({
+        message: "Student Does Not Exist",
+        status: 404,
+      });
+    }
+
+    const userType = await getUserType(user_id);
+    if (userType === "Student") {
+      return res.status(400).json({
+        message: "Student Cannot be Assigned to a Student",
+        status: 400,
+      });
+    } else if (userType === "Evaluator") {
+      const evaluator = await Evaluator.findOne({
+        user_id: user_id,
+      });
+      if (evaluator.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student Already Assigned to Evaluator",
+          status: 400,
+        });
+      } else {
+        student.assignedEvaluators.push(user_id);
+        evaluator.students.push(student_id);
+        await evaluator.save();
+        await student.save();
+        return res
+          .status(200)
+          .json({ message: "Student Assigned to Evaluator", status: 200 });
+      }
+    } else if (userType === "TA") {
+      const ta = await TA.findOne({
+        user_id: user_id,
+      });
+      if (ta.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student Already Assigned to TA",
+          status: 400,
+        });
+      } else {
+        student.assignedTAs.push(user_id);
+        ta.students.push(student_id);
+        await ta.save();
+        return res
+          .status(200)
+          .json({ message: "Student Assigned to TA", status: 200 });
+      }
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Assigning Student", status: 500 });
+  }
+});
+
+// Remove Student Assignments from Users
+apirouter.post("/remove-assigned-student", async (req, res) => {
+  const user_id = req.body.user_id;
+  const student_id = req.body.student_id;
+  try {
+    const student = await Student.findOne({
+      user_id: student_id,
+    });
+    if (!student) {
+      return res.status(404).json({
+        message: "Student Does Not Exist",
+        status: 404,
+      });
+    }
+    const userType = await getUserType(user_id);
+    if (userType === "Student") {
+      return res.status(400).json({
+        message: "Student Cannot be De-Assigned from a Student",
+        status: 400,
+      });
+    } else if (userType === "Evaluator") {
+      const evaluator = await Evaluator.findOne({
+        user_id: user_id,
+      });
+      if (!evaluator.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student is NOT Assigned to Evaluator",
+          status: 400,
+        });
+      } else {
+        const evalIndex = student.assignedEvaluators.findIndex(
+          (id) => id === user_id
+        );
+        student.assignedEvaluators.splice(evalIndex, 1);
+        const studentIndex = evaluator.students.findIndex(
+          (id) => id === student_id
+        );
+        evaluator.students.splice(studentIndex, 1);
+        await evaluator.save();
+        await student.save();
+        return res
+          .status(200)
+          .json({ message: "Student De-Assigned from Evaluator", status: 200 });
+      }
+    } else if (userType === "TA") {
+      const ta = await TA.findOne({
+        user_id: user_id,
+      });
+      if (!ta.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student is NOT Assigned to TA",
+          status: 400,
+        });
+      } else {
+        const taIndex = student.assignedTAs.findIndex((id) => id === user_id);
+        student.assignedTAs.splice(taIndex, 1);
+        const studentIndex = ta.students.findIndex((id) => id === student_id);
+        ta.students.splice(studentIndex, 1);
+        await ta.save();
+        await student.save();
+        return res
+          .status(200)
+          .json({ message: "Student De-Assigned from TA", status: 200 });
+      }
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error De-Assigning Student", status: 500 });
+  }
+});
+
 //End file and export modules
 module.exports = apirouter;

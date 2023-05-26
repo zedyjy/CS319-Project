@@ -54,6 +54,11 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
+            <a href="/admin/assignments">
+              <i class="zmdi zmdi-comment-more"></i> Assign Users
+            </a>
+          </li>
+          <li>
             <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
           </li>
           <li>
