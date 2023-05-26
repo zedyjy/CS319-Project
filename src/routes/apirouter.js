@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const apirouter = express.Router();
-const { User, Student, Evaluator, Company, Admin } = require("./dbmodel");
+const { User, Student, Evaluator, Company, Admin, TA } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
@@ -593,6 +593,36 @@ apirouter.post("/get-all-companies", async (req, res) => {
     return res.status(200).json({ companies: companies });
   } catch (error) {
     return res.status(500).json({ error: "Error Getting Companies" });
+  }
+});
+
+// Get All Students
+apirouter.post("/get-all-students", async (req, res) => {
+  try {
+    const students = await Student.find().populate("user");
+    return res.status(200).json({ students: students });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting students" });
+  }
+});
+
+// Get All Evaluators
+apirouter.post("/get-all-evaluators", async (req, res) => {
+  try {
+    const evaluators = await Evaluator.find();
+    return res.status(200).json({ evaluators: evaluators });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting evaluators" });
+  }
+});
+
+// Get All TAs
+apirouter.post("/get-all-tas", async (req, res) => {
+  try {
+    const tas = await TA.find();
+    return res.status(200).json({ tas: tas });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting tas" });
   }
 });
 

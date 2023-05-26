@@ -67,6 +67,15 @@ class EvaluatorSidebar extends HTMLElement {
     const shadowRoot = this.attachShadow({ mode: "open" });
 
     shadowRoot.appendChild(evaluatornavbarTemplate.content);
+
+    const userType = sessionStorage.getItem("userType");
+    if (userType === "Evaluator") {
+      // Show the student-sidebar-component
+      this.style.display = "block"; // Or any other appropriate display value
+    } else {
+      // Hide the student-sidebar-component
+      this.style.display = "none";
+    }
   }
 }
 customElements.define("evaluator-sidebar-component", EvaluatorSidebar);

@@ -78,6 +78,15 @@ class AdminSidebar extends HTMLElement {
 
     const logoutButton = shadowRoot.querySelector("#logout-button");
     logoutButton.addEventListener("click", this.handleLogout.bind(this));
+
+    const userType = sessionStorage.getItem("userType");
+    if (userType === "Admin") {
+      // Show the student-sidebar-component
+      this.style.display = "block"; // Or any other appropriate display value
+    } else {
+      // Hide the student-sidebar-component
+      this.style.display = "none";
+    }
   }
   handleLogout() {
     // Handle logout functionality

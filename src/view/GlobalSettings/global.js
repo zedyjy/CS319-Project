@@ -6,13 +6,6 @@ $(document).ready(function () {
   console.log("Global JS Loaded");
 
   const userType = sessionStorage.getItem("user_type");
-  if (userType === "Student") {
-    $("student-sidebar-component").show();
-    $("evaluator-sidebar-component").hide();
-  } else if (userType === "Evaluator") {
-    $("evaluator-sidebar-component").show();
-    $("student-sidebar-component").hide();
-  }
 
   $("body").fadeIn(1000);
 
