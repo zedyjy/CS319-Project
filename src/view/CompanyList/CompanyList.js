@@ -1,5 +1,6 @@
 $(document).ready(function () {
   console.log("Company List JS Loaded");
+  getAllCompanies();
 });
 
 function addCompany() {
@@ -28,31 +29,44 @@ function addCompany() {
   });
 }
 
-function getCompanyList() {
-  $("#company-list").append(`
-    <tr scope="row">
-      <td>${response.company.name}</td>
-      <td>${response.company.city}</td>
-      <td>${response.company.studentRating}</td>
-      <td>${response.company.evaluatorRating}</td>
-      <td>
-        ${response.company.acceptedDepartments.forEach((department) => {
-          return `<span>${department}</span>`;
-        })}
-      </td>
-      <td>${response.company.sector}</td>
-      <td>
-        <div class="row">
-          <button class="btn-small" onclick="applyToCompany()">
-            Apply
-          </button>
-          <button class="btn-small" onclick="viewCompanyDetails()">
-            View Details
-          </button>
-        </div>
-        <div class="row company-details">
-          <p>${response.company.sector}</p>
-        </div>
-      </td>
-    </tr>`);
+function getAllCompanies() {
+  $.ajax({
+    url: "/get-all-companies",
+    type: "POST",
+    data: "",
+    success: function (response) {
+      console.log();
+      response.companies.forEach((company) => {
+        return $("#company-list").append(`
+          <tr scope="row">
+            <td>${company.name}</td>
+            <td>${company.city}</td>
+            <td>${company.studentRating}</td>
+            <td>${company.evaluatorRating}</td>
+            <td>
+              ${company.acceptedDepartments.forEach((department) => {
+                return `<span>${department}</span>`;
+              })}
+            </td>
+            <td>${company.sector}</td>
+            <td>
+              <div class="row">
+                <button class="btn-small" onclick="applyToCompany()">
+                  Apply
+                </button>
+                <button class="btn-small" onclick="viewCompanyDetails()">
+                  View Details
+                </button>
+              </div>
+              <div class="row company-details">
+                <p>${company.sector}</p>
+              </div>
+            </td>
+          </tr>`);
+      });
+    },
+    error: function (error) {
+      $(".add-company-response").text(error);
+    },
+  });
 }

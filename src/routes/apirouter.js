@@ -512,7 +512,7 @@ apirouter.post("/add-company", async (req, res) => {
   const company_phone = req.body.company_phone;
   const company_sector = req.body.company_sector;
   try {
-    const company = Company.findOne({
+    const company = await Company.findOne({
       name: company_name,
       email: company_email,
       phone: company_phone,
@@ -530,10 +530,22 @@ apirouter.post("/add-company", async (req, res) => {
       sector: company_sector,
       approvalStatus: "Pending",
     });
+    console.log(newCompany);
+    await newCompany.save();
 
     return res.status(200).json({ message: "Company Added" });
   } catch (error) {
-    return res.status(500).json({ error: "Error retrieving user data" });
+    return res.status(500).json({ error: "Error Adding Company" });
+  }
+});
+
+// Add a new company
+apirouter.post("/get-all-companies", async (req, res) => {
+  try {
+    const companies = await Company.find();
+    return res.status(200).json({ companies: companies });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting Companies" });
   }
 });
 

@@ -266,7 +266,7 @@ const User = mongoose.model("User", userSchema);
 const Student = mongoose.model("Student", studentSchema);
 const Evaluator = mongoose.model("Evaluator", evaluatorSchema);
 const TA = mongoose.model("TA", taSchema);
-const Company = mongoose.model("Company", taSchema);
+const Company = mongoose.model("Company", companySchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
 
 module.exports = {
