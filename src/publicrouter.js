@@ -74,6 +74,18 @@ publicrouter.get("/course-descriptions", (req, res) => {
   res.render("CourseDescriptions/CourseDescriptions");
 });
 //---------------------------------------
+// ---------- FAQ---------- //
+//---------------------------------------
+publicrouter.get("/frequently-asked-questions", (req, res) => {
+  res.render("FrequentlyAskedQuestions/FrequentlyAskedQuestions");
+});
+//---------------------------------------
+// ---------- Announcements---------- //
+//---------------------------------------
+publicrouter.get("/announcements", (req, res) => {
+  res.render("Announcements/Announcements");
+});
+//---------------------------------------
 // ---------- Student Pages ---------- //
 //---------------------------------------
 

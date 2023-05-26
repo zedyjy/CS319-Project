@@ -9,9 +9,9 @@ defaultnavbarTemplate.innerHTML = `
         <a class="logo">Bilkent Internship System</a>
         <div class="topnav-right">
             <a href="/">Home</a>
-            <a href="#Announcement">Announcement</a>
             <a href="#Contact">Contact</a>
             <a href="#Language">Language</a>
+            <a href="/frequently-asked-questions">FAQ</a>
             <button id="logout-button" class="form-button">Logout</button>
 
         </div>
