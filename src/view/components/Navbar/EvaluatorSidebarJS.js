@@ -41,10 +41,13 @@ evaluatornavbarTemplate.innerHTML = `
               </a>
           </li>
           <li>
-              <a href="#">
+              <a href="/profile">
                   <i class="zmdi zmdi-comment-more"></i> Profile
               </a>
           </li>
+          <li>
+            <a href="/company"> <i class="zmdi zmdi-settings"></i> Company List </a>
+        </li>
           <li>
               <a href="#">
                   <i class="zmdi zmdi-settings"></i> Other
@@ -56,14 +59,14 @@ evaluatornavbarTemplate.innerHTML = `
 </div>
 `;
 class EvaluatorSidebar extends HTMLElement {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    connectedCallback() {
-        const shadowRoot = this.attachShadow({ mode: "open" });
+  connectedCallback() {
+    const shadowRoot = this.attachShadow({ mode: "open" });
 
-        shadowRoot.appendChild(evaluatornavbarTemplate.content);
-    }
+    shadowRoot.appendChild(evaluatornavbarTemplate.content);
+  }
 }
 customElements.define("evaluator-sidebar-component", EvaluatorSidebar);

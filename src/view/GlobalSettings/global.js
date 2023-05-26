@@ -5,6 +5,15 @@ document.head.appendChild(script);
 $(document).ready(function () {
   console.log("Global JS Loaded");
 
+  const userType = sessionStorage.getItem("user_type");
+  if (userType === "Student") {
+    $("student-sidebar-component").show();
+    $("evaluator-sidebar-component").hide();
+  } else if (userType === "Evaluator") {
+    $("evaluator-sidebar-component").show();
+    $("student-sidebar-component").hide();
+  }
+
   $("body").fadeIn(1000);
 
   // To check if the user is logged in
@@ -38,8 +47,7 @@ function redirectToUserHomePage(userType) {
       // Prevent infinite redirect loop
       window.location.href = "/evaluator";
     }
-  }
-  else if (userType === "Admin") {
+  } else if (userType === "Admin") {
     if (window.location.pathname !== "/admin") {
       // Prevent infinite redirect loop
       window.location.href = "/admin";

@@ -30,15 +30,17 @@ function addCompany() {
 }
 
 function getAllCompanies() {
+  const userType = sessionStorage.getItem("userType");
+  const adminPower = userType === "Evaluator" || userType === "Coordinator";
   $.ajax({
     url: "/get-all-companies",
     type: "POST",
     data: "",
     success: function (response) {
-      console.log();
+      console.log(response);
       response.companies.forEach((company) => {
         return $("#company-list").append(`
-          <tr scope="row">
+          <tr scope="row" id="${company._id}">
             <td>${company.name}</td>
             <td>${company.city}</td>
             <td>${company.studentRating}</td>
@@ -51,15 +53,30 @@ function getAllCompanies() {
             <td>${company.sector}</td>
             <td>
               <div class="row">
-                <button class="btn-small" onclick="applyToCompany()">
+                <button class="btn-small" onclick="applyToCompany('${
+                  company._id
+                }')">
                   Apply
                 </button>
-                <button class="btn-small" onclick="viewCompanyDetails()">
+                <button class="btn-small" onclick="viewCompanyDetails('${
+                  company._id
+                }')">
                   View Details
                 </button>
+                ${
+                  adminPower
+                    ? `<button
+                      class="btn btn-primary"
+                      onclick="approveCompany('${company._id}')"
+                    >
+                      Approve
+                    </button>`
+                    : ""
+                }
               </div>
-              <div class="row company-details">
-                <p>${company.sector}</p>
+              <div class="company-details" style="display:none">
+              <p>Email: ${company.email}</p>
+              <p>Phone: ${company.phone}</p>
               </div>
             </td>
           </tr>`);
@@ -69,4 +86,10 @@ function getAllCompanies() {
       $(".add-company-response").text(error);
     },
   });
+}
+
+function approveCompany(companyid) {}
+
+function viewCompanyDetails(companyid) {
+  $(`#${companyid} .company-details`).toggle();
 }
