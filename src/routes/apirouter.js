@@ -9,7 +9,7 @@ const fs = require("fs");
 const { ObjectId } = require("mongodb");
 
 // ------- mongo db connection --------
-mongoose.connect("mongodb://127.0.0.1:27018/internship-system");
+mongoose.connect("mongodb://127.0.0.1:27017/internship-system");
 const database = mongoose.connection; //get the databae object from mongoose connection
 
 database.on("error", (error) => {
