@@ -16,7 +16,7 @@ evaluatornavbarTemplate.innerHTML = `
               </a>
           </li>
           <li>
-              <a href="#">
+              <a href="/course-descriptions">
                   <i class="zmdi zmdi-link"></i> Course Descriptions
               </a>
           </li>
@@ -26,13 +26,13 @@ evaluatornavbarTemplate.innerHTML = `
               </a>
           </li>
           <li>
-              <a href="#">
+              <a href="/announcements">
                   <i class="zmdi zmdi-calendar"></i> Announcements
               </a>
           </li>
           <li>
-              <a href="#">
-                  <i class="zmdi zmdi-info-outline"></i> Summer Training Cooridnators
+              <a href="/summer-training-coordinators">
+                  <i class="zmdi zmdi-info-outline"></i> Summer Training Coordinators
               </a>
           </li>
           <li>

@@ -15,18 +15,15 @@ studentnavbarTemplate.innerHTML = `
       </a>
     </li>
     <li>
-      <a href="#"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
+      <a href="/course-descriptions"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
     </li>
     <li>
-      <a href="#"> <i class="zmdi zmdi-widgets"></i> Courses </a>
+      <a href="/announcements"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
     </li>
     <li>
-      <a href="#"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
-    </li>
-    <li>
-      <a href="#">
+      <a href="/summer-training-coordinators">
         <i class="zmdi zmdi-info-outline"></i> Summer Training
-        Cooridnators
+        Coordinators
       </a>
     </li>
     <li>
