@@ -180,30 +180,33 @@ $(document).ready(function () {
   //--------------------------
   // Admin Forms
   //--------------------------
-  // Evaluator Register Form
+  // Admin Register Form
   $("#register-admin-button").on("click", function (event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-admin-Id").val();
-    var password = $("#register-admin-password").val();
+    var adminId = $("#register-admin-Id").val();
+    var adminPassword = $("#register-admin-password").val();
+
+    // Create an object to hold the request data
+    var requestData = {
+      username: adminId,
+      password: adminPassword,
+    };
 
     // Send the AJAX request
     $.ajax({
-      url: "/register/admin",
+      url: "/admin-register",
       type: "POST",
-      data: {
-        user_id: studentid, //DATA as object-value pair here
-        password: password,
-      },
+      data: JSON.stringify(requestData), // Convert the request data to JSON string
+      contentType: "application/json", // Set the content type to JSON
       success: function (response) {
         console.log(response);
-        if (response.status == 200) {
+        if (response.status === 200) {
           // Handle the success response here
           console.log("Register successful");
           console.log(response.message);
-
-          $(".register-admin-response").text("Successfully Regsitered!");
+          $(".register-admin-response").text("Admin Successfully Registered!");
         } else {
           // Handle other status codes or errors here
           $(".register-admin-response").text(response.message);
@@ -212,9 +215,8 @@ $(document).ready(function () {
       },
       error: function (error) {
         // Handle the error response here
-        console.log("register failed");
+        console.log("Register failed");
         $(".register-admin-response").text(error.responseJSON.message);
-        console.log(error.responseJSON.message);
       },
     });
   });
@@ -260,6 +262,11 @@ function redirectToUserHomePage() {
     if (window.location.pathname !== "/evaluator") {
       // Prevent infinite redirect loop
       window.location.href = "/evaluator";
+    }
+  } else if (userType === "Admin") {
+    if (window.location.pathname !== "/admin") {
+      // Prevent infinite redirect loop
+      window.location.href = "/admin";
     }
   }
 }

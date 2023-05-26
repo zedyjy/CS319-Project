@@ -261,12 +261,29 @@ const gradingFormSchema = new mongoose.Schema({
   },
 });
 
+const adminSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  userType: {
+    type: String,
+    default: "Admin",
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+});
+
 // Create models
 const User = mongoose.model("User", userSchema);
 const Student = mongoose.model("Student", studentSchema);
 const Evaluator = mongoose.model("Evaluator", evaluatorSchema);
 const TA = mongoose.model("TA", taSchema);
 const Company = mongoose.model("Company", companySchema);
+const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
 
 module.exports = {
@@ -276,4 +293,5 @@ module.exports = {
   TA,
   Company,
   GradingForm,
+  Admin,
 };

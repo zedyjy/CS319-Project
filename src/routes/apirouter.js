@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const apirouter = express.Router();
-const { User, Student, Evaluator, Company } = require("./dbmodel");
+const { User, Student, Evaluator, Company, Admin } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
@@ -143,6 +143,40 @@ apirouter.post("/register/:user", async (req, res) => {
   }
 });
 
+// Admin Register
+apirouter.post("/admin-register", async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  try {
+    // Search the admins collection
+    const admin = await Admin.findOne({ username: username });
+    const user = await User.findOne({ username: username });
+    if (admin || user) {
+      return res
+        .status(400)
+        .json({ message: "Admin or User already exists!", status: 400 });
+    }
+
+    const newUser = new User({
+      user_id: username,
+      password: password,
+    });
+    await newUser.save();
+
+    const newAdmin = new Admin({
+      user: newUser._id,
+      username: username,
+    });
+    await newAdmin.save();
+
+    return res
+      .status(201)
+      .json({ message: "Admin successfully registered", status: 201 });
+  } catch (error) {
+    return res.status(400).json({ message: error.message, status: 400 });
+  }
+});
+
 // Login
 apirouter.post("/login", async (req, res) => {
   User.findOne({
@@ -152,7 +186,6 @@ apirouter.post("/login", async (req, res) => {
     if (result) {
       try {
         const userType = await getUserType(req.body.user_id);
-
         if (userType === "Student") {
           var user = await Student.findOne({ user_id: req.body.user_id });
           res.status(200).json({
@@ -171,6 +204,19 @@ apirouter.post("/login", async (req, res) => {
             courses: user.courses,
             students: user.students,
             gradingForms: user.gradingForms,
+            status: 200,
+          });
+        } else if (userType === "Admin") {
+          console.log("IT IS AMDIN");
+          var user = await Admin.findOne({
+            username: req.body.user_id,
+          });
+          res.status(200).json({
+            message: "Logged In",
+            userType: user.userType,
+            courses: "",
+            students: "",
+            gradingForms: "",
             status: 200,
           });
         }
@@ -198,6 +244,12 @@ async function getUserType(usernameParam) {
     const student = await Student.findOne({ user_id: user_id });
     if (student) {
       return "Student";
+    }
+
+    // Search the Admin collection
+    const admin = await Admin.findOne({ username: user_id });
+    if (admin) {
+      return "Admin";
     }
 
     // User not found in either collection

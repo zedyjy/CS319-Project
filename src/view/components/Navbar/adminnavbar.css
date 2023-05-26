@@ -1,0 +1,112 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+body {
+    padding-top: 2em;
+    background: #3C7478; /* fallback for old browsers */
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+}
+.topnav {
+    overflow: hidden;
+    align-items: center;
+    background: #03414D;
+    padding: 0.7em 0 0;
+    max-width: 100%;
+    max-height: 100%;
+}
+.logo{ 
+    font-size: 1.1em;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    text-align: center;
+    padding: 0px 1em 0.3em;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+/* Change the color of links on hover */
+.topnav-right a:hover {
+    border-radius: 4px;
+    color: black;
+}
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
+a,
+a:link,
+a:visited{
+    text-decoration: none;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+/* Toggle Styles */
+
+#viewport {
+    padding-left: 250px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#content {
+    width: 100%;
+    position: relative;
+    margin-right: 0;
+}
+
+/* Sidebar Styles */
+
+#sidebar {
+    position: fixed;
+    max-width: fit-content;
+    height: 100%;
+    margin-left: -250px;
+    margin-top: 20px;
+    overflow-y: auto;
+    background: #03414D;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar .nav {
+    list-style: none;
+    margin: 0;
+    padding: 1em 0 0 0;
+}
+
+#sidebar .nav a {
+    display: inline-block;
+    background: none;
+    color: white;
+    font-size: 14px;
+    padding: 1em 1.4em 0.5em 1em;
+    animation-iteration-count: 1;
+    animation-duration: 1.5s;
+    align-self: flex-end;
+}
+
+#sidebar .nav a:hover {
+    background: none;
+    color: #ECEFF1;
+    animation-name: bounce;
+    animation-timing-function: ease;
+}
+@keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-1em); }
+    100% { transform: translateY(0); }
+}
+
+#sidebar .nav a i {
+    margin-right: 16px;
+}

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Evaluator Give Feedback</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-          crossorigin="anonymous"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -18,44 +20,62 @@
     <script src="/js/EvaluatorFeedbackPage/EvaluatorFeedbackListJS.js"></script>
 
     <!-- CSS-->
-    <link rel="stylesheet" href="/css/EvaluatorFeedbackPage/StyleEvaluatorFeedbackList.css">
+    <link
+      rel="stylesheet"
+      href="/css/EvaluatorFeedbackPage/StyleEvaluatorFeedbackList.css"
+    />
 
     <!-- Components -->
-    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Navbar/EvaluatorSidebarJS.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
 
-</head>
+  <body>
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <evaluator-sidebar-component></evaluator-sidebar-component>
 
-<body>
-<!-- NAVIGATION MENUS -->
-<defaultnavbar-component></defaultnavbar-component>
-<evaluator-sidebar-component></evaluator-sidebar-component>
+    <!-- Content -->
+    <div id="viewport" class="mt-5">
+      <div class="container">
+        <div class="search-container">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search by Student ID..."
+          />
+        </div>
+      </div>
 
-
-<!-- Content -->
-<div class="container">
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search by Student ID...">
+      <div class="students">
+        <table class="table table-striped custom-table">
+          <thead>
+            <tr>
+              <th scope="col">Student ID</th>
+              <th scope="col">Course Name</th>
+              <th scope="col">Report Submission Date</th>
+              <th scope="col">Report</th>
+              <th scope="col">Iteration #</th>
+              <th scope="col">Give Feedback</th>
+              <th scope="col">Grade Student</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
     </div>
-</div>
-
-<div class="students">
-    <table class="table table-striped custom-table">
-        <thead>
-        <tr>
-
-            <th scope="col">Student ID</th>
-            <th scope="col">Course Name</th>
-            <th scope="col">Report Submission Date</th>
-            <th scope="col">Report</th>
-            <th scope="col">Iteration #</th>
-            <th scope="col">Give Feedback</th>
-            <th scope="col">Grade Student</th>
-        </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-    </table>
-</div>
-</body>
-
+  </body>
 </html>

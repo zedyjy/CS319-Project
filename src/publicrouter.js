@@ -126,11 +126,11 @@ publicrouter.get("/admin", (req, res) => {
   res.render("AdminHome/AdminHome");
 });
 
-publicrouter.get("/admin-add-user", (req, res) => {
+publicrouter.get("/admin/add-delete-user", (req, res) => {
   res.render("AdminAddUser/AdminAddUser");
 });
 
-publicrouter.get("/admin-view-student-list", (req, res) => {
+publicrouter.get("/admin/view-student-list", (req, res) => {
   res.render("AdminViewStudentList/AdminViewStudentList");
 });
 
