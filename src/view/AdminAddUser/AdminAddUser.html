@@ -17,6 +17,13 @@
       referrerpolicy="no-referrer"
     />
     <!-- Components -->
+    <script src="/js/GlobalSettings/global.js"></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/StudentHome/StyleStudentHome.css"
+    />
     <script
       src="/components/Navbar/defaultnavbar.js"
       type="text/javascript"
@@ -27,112 +34,56 @@
     ></script>
     <script src="/components/Footer/footer.js" type="text/javascript"></script>
   </head>
-  <body>
+  <body style="display: none">
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
     <admin-sidebar-component></admin-sidebar-component>
 
     <div id="viewport">
-      <!-- Sidebar -->
-      <div id="sidebar">
-        <ul class="nav">
-          <li>
-            <a href="/admin">
-              <i class="zmdi zmdi-view-dashboard"></i> Main Menu
-            </a>
-          </li>
-          <li>
-            <a href="#"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
-          </li>
-          <li>
-            <a href="#"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="zmdi zmdi-info-outline"></i> Summer Training
-              Cooridnators
-            </a>
-          </li>
-          <li>
-            <a href="/admin-view-student-list">
-              <i class="zmdi zmdi-comment-more"></i> View Students List
-            </a>
-          </li>
-          <li>
-            <a href="/evaluator/student-list">
-              <i class="zmdi zmdi-comment-more"></i> View Evaluator List
-            </a>
-          </li>
-          <li>
-            <a href="/evaluator/student-list">
-              <i class="zmdi zmdi-comment-more"></i> View Coordinator List
-            </a>
-          </li>
-          <li>
-            <a href="/evaluator/student-list">
-              <i class="zmdi zmdi-comment-more"></i> View Company List
-            </a>
-          </li>
-          <li>
-            <a href="/evaluator/student-list">
-              <i class="zmdi zmdi-comment-more"></i> View TA List
-            </a>
-          </li>
-          <li>
-            <a href="/admin-add-user">
-              <i class="zmdi zmdi-settings"></i> Add/Delete User
-            </a>
-          </li>
-          <li>
-            <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
-          </li>
-          <li>
-            <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>
-          </li>
-        </ul>
+      <!-- Content -->
+      <div id="container">
+        <h2>Add User</h2>
+        <form action="/addUser" method="post">
+          <div class="form-row">
+            <label for="userName">User Name: <a id="star">*</a></label>
+            <input type="text" id="userName" name="userName" required />
+          </div>
+
+          <div class="form-row">
+            <label for="userSurname">User Surname: <a id="star">*</a></label>
+            <input type="text" id="userSurname" name="userSurname" required />
+          </div>
+
+          <div class="form-row">
+            <label for="userId">User ID: <a id="star">*</a></label>
+            <input type="text" id="userId" name="userId" required />
+          </div>
+
+          <label for="userType">User Type: <a id="star">*</a></label>
+          <div class="checkbox-container">
+            <label>
+              <input type="radio" name="userType" value="student" required />
+              Student
+            </label>
+            <label>
+              <input type="radio" name="userType" value="evaluator" /> Evaluator
+            </label>
+            <label>
+              <input type="radio" name="userType" value="ta" /> TA
+            </label>
+            <label>
+              <input type="radio" name="userType" value="admin" /> Admin
+            </label>
+            <label>
+              <input type="radio" name="userType" value="coordinator" />
+              Coordinator
+            </label>
+          </div>
+          <br /><br />
+
+          <input type="submit" value="Add User" />
+        </form>
       </div>
-    </div>
-    <!-- Content -->
-    <div id="container">
-      <h2>Add User</h2>
-      <form action="/addUser" method="post">
-        <div class="form-row">
-          <label for="userName">User Name: <a id="star">*</a></label>
-          <input type="text" id="userName" name="userName" required />
-        </div>
-
-        <div class="form-row">
-          <label for="userSurname">User Surname: <a id="star">*</a></label>
-          <input type="text" id="userSurname" name="userSurname" required />
-        </div>
-
-        <div class="form-row">
-          <label for="userId">User ID: <a id="star">*</a></label>
-          <input type="text" id="userId" name="userId" required />
-        </div>
-
-        <label for="userType">User Type: <a id="star">*</a></label>
-        <div class="checkbox-container">
-          <label>
-            <input type="radio" name="userType" value="student" required />
-            Student
-          </label>
-          <label>
-            <input type="radio" name="userType" value="evaluator" /> Evaluator
-          </label>
-          <label> <input type="radio" name="userType" value="ta" /> TA </label>
-          <label>
-            <input type="radio" name="userType" value="admin" /> Admin
-          </label>
-          <label>
-            <input type="radio" name="userType" value="coordinator" />
-            Coordinator
-          </label>
-        </div>
-        <br /><br />
-
-        <input type="submit" value="Add User" />
-      </form>
     </div>
   </body>
 </html>
