@@ -15,8 +15,7 @@ jQuery(document).ready(function () {
         var courseName = studentInfo.courseName;
         var submissionDate = studentInfo.submissionDate;
         var report = studentInfo.report;
-        var iteration = studentInfo.revisionCount;
-        console.log(iteration);
+        var iteration = studentInfo.iteration;
 
         // Create a new row in the table
         var row = $("<tr></tr>");
@@ -50,14 +49,15 @@ function getStudent(studentID) {
       type: "GET",
       success: function (response) {
         var studentInfo = {
-          studentID: response.studentId,
-          courseName: response.courseName,
+          studentID: response.user_id,
+          courseName: response.courses,
           submissionDate: response.submissionDate,
           report: response.report,
-          iteration: response.revisionCount,
+          iteration: response.iteration,
           feedback: response.feedback,
           grade: response.grade,
         };
+        console.log(studentInfo)
         resolve(studentInfo);
       },
       error: function (xhr, status, error) {

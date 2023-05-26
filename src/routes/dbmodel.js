@@ -87,6 +87,7 @@ const studentSchema = new mongoose.Schema({
   },
   revisionCount: {
     type: Number,
+    default: 2
   },
   evaluatorFeedbackFile: {
     data: Buffer,
