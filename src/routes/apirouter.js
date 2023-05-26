@@ -284,21 +284,16 @@ apirouter.get("/students/:studentId", async (req, res) => {
 
   try {
     const student = await Student.findOne({ user_id: studentId });
-    console.log(student);
 
-    if (student) {
-      res.status(200).json({
-        fullName: student.fullName,
-        surname: student.surname,
-        studentId: student.studentId,
-        courses: student.courses.map((course) => course.name),
-        username: student.username,
-        iteration: student.revisionCount,
-        status: 200,
-      });
-    } else {
-      res.status(404).json({ message: "Student not found" });
-    }
+    res.status(200).json({
+      fullName: student.fullname,
+      surname: student.surname,
+      studentID: student.user_id,
+      courses: student.courses,
+      username: student.fullname,
+      iteration: student.revisionCount,
+      status: 200,
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
