@@ -41,16 +41,23 @@ database.once("connected", () => {
 apirouter.post("/register/:user", async (req, res) => {
   const user_id = req.body.user_id;
   const password = req.body.password;
+  const email = req.body.email ? req.body.email : ""; // Because we handle registraton from home page, and admin-added users
+  const fullname = req.body.fullname ? req.body.fullname : ""; // Because we handle registraton from home page, and admin-added users
   const userType = req.params.user;
+
   try {
     if (userType == "student") {
       // Search the Students collection
-      const registerResult = await registerStudent(user_id, password);
-      console.log(registerResult);
+      const registerResult = await registerStudent(
+        user_id,
+        password,
+        email,
+        fullname
+      );
       if (!registerResult) {
         res
           .status(400)
-          .json({ message: "Student already exists!", status: 400 });
+          .json({ message: "Student or User already exists!", status: 400 });
         return;
       } else {
         res
@@ -59,11 +66,16 @@ apirouter.post("/register/:user", async (req, res) => {
       }
     } else if (userType == "evaluator") {
       // Search the Students collection
-      const registerResult = await registerEvaluator(user_id, password);
+      const registerResult = await registerEvaluator(
+        user_id,
+        password,
+        email,
+        fullname
+      );
       if (!registerResult) {
         res
           .status(400)
-          .json({ message: "Evaluator already exists!", status: 400 });
+          .json({ message: "Evaluator or User already exists!", status: 400 });
         return;
       } else {
         res
@@ -72,11 +84,17 @@ apirouter.post("/register/:user", async (req, res) => {
       }
     } else if (userType == "coordinator") {
       // Search the Students collection
-      const registerResult = await registerCoordinator(user_id, password);
+      const registerResult = await registerCoordinator(
+        user_id,
+        password,
+        email,
+        fullname
+      );
       if (!registerResult) {
-        res
-          .status(400)
-          .json({ message: "Coordinator already exists!", status: 400 });
+        res.status(400).json({
+          message: "Coordinator or User already exists!",
+          status: 400,
+        });
         return;
       } else {
         res.status(200).json({
@@ -86,13 +104,20 @@ apirouter.post("/register/:user", async (req, res) => {
       }
     } else if (userType == "ta") {
       // Search the Students collection
-      const registerResult = await registerTA(user_id, password);
+      const registerResult = await registerTA(
+        user_id,
+        password,
+        email,
+        fullname
+      );
       if (!registerResult) {
-        res.status(400).json({ message: "TA already exists!", status: 400 });
+        res
+          .status(400)
+          .json({ message: "TA or User already exists!", status: 400 });
         return;
       } else {
         res.status(200).json({
-          message: "TA Registered Coordinator",
+          message: "Successfully Registered TA",
           status: 200,
         });
       }
@@ -102,7 +127,7 @@ apirouter.post("/register/:user", async (req, res) => {
   }
 });
 
-async function registerStudent(user_id, password) {
+async function registerStudent(user_id, password, email, fullname) {
   const user = await User.findOne({ user_id: user_id });
   console.log(user);
   if (user) {
@@ -112,6 +137,8 @@ async function registerStudent(user_id, password) {
   const newUser = new User({
     user_id: user_id,
     password: password,
+    email: email,
+    fullname: fullname,
   });
 
   const savedUser = await newUser.save();
@@ -123,7 +150,7 @@ async function registerStudent(user_id, password) {
   return true;
 }
 
-async function registerEvaluator(user_id, password) {
+async function registerEvaluator(user_id, password, email, fullname) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
     return false;
@@ -132,6 +159,8 @@ async function registerEvaluator(user_id, password) {
   const newUser = new User({
     user_id: user_id,
     password: password,
+    email: email,
+    fullname: fullname,
   });
 
   const savedUser = await newUser.save();
@@ -143,7 +172,7 @@ async function registerEvaluator(user_id, password) {
   return true;
 }
 
-async function registerTA(user_id, password) {
+async function registerTA(user_id, password, email, fullname) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
     return false;
@@ -152,6 +181,8 @@ async function registerTA(user_id, password) {
   const newUser = new User({
     user_id: user_id,
     password: password,
+    email: email,
+    fullname: fullname,
   });
 
   const savedUser = await newUser.save();
@@ -163,7 +194,7 @@ async function registerTA(user_id, password) {
   return true;
 }
 
-async function registerCoordinator(user_id, password) {
+async function registerCoordinator(user_id, password, email, fullname) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
     return false;
@@ -172,6 +203,8 @@ async function registerCoordinator(user_id, password) {
   const newUser = new User({
     user_id: user_id,
     password: password,
+    email: email,
+    fullname: fullname,
   });
 
   const savedUser = await newUser.save();
@@ -190,7 +223,7 @@ apirouter.post("/admin-register", async (req, res) => {
   try {
     // Search the admins collection
     const admin = await Admin.findOne({ username: username });
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ user_id: username });
     if (admin || user) {
       return res
         .status(400)
@@ -838,7 +871,7 @@ apirouter.post("/get-all-students", async (req, res) => {
 // Get All Evaluators
 apirouter.post("/get-all-evaluators", async (req, res) => {
   try {
-    const evaluators = await Evaluator.find();
+    const evaluators = await Evaluator.find().populate("user");
     return res.status(200).json({ evaluators: evaluators });
   } catch (error) {
     return res.status(500).json({ error: "Error Getting evaluators" });
@@ -848,7 +881,7 @@ apirouter.post("/get-all-evaluators", async (req, res) => {
 // Get All Coordinators
 apirouter.post("/get-all-coordinators", async (req, res) => {
   try {
-    const coordinators = await Coordinator.find();
+    const coordinators = await Coordinator.find().populate("user");
     return res.status(200).json({ coordinators: coordinators });
   } catch (error) {
     return res.status(500).json({ error: "Error Getting Cooridinators" });
@@ -858,7 +891,7 @@ apirouter.post("/get-all-coordinators", async (req, res) => {
 // Get All TAs
 apirouter.post("/get-all-tas", async (req, res) => {
   try {
-    const tas = await TA.find();
+    const tas = await TA.find().populate("user");
     return res.status(200).json({ tas: tas });
   } catch (error) {
     return res.status(500).json({ error: "Error Getting tas" });

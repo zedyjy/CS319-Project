@@ -44,7 +44,7 @@ function getAllTAs() {
       response.tas.forEach((ta) => {
         return $("#tas-list").append(`
                   <tr scope="row" id="${ta._id}">
-                    <td>${ta.name}</td>
+                    <td>${ta.user.fullname}</td>
                     <td>${ta.user_id}</td>
                     <td>
                     ${ta.students

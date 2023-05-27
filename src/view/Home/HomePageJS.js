@@ -31,7 +31,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var userid = $("#login-Id").val();
+    var userid = $("#login-Id").val().trim();
     var password = $("#login-password").val();
 
     // Send the AJAX request
@@ -101,7 +101,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var student_id = $("#register-student-Id").val();
+    var student_id = $("#register-student-Id").val().trim();
     var password = $("#register-student-password").val();
 
     // Send the AJAX request
@@ -143,7 +143,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-evaluator-Id").val();
+    var studentid = $("#register-evaluator-Id").val().trim();
     var password = $("#register-evaluator-password").val();
 
     // Send the AJAX request
@@ -185,7 +185,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-coordinator-Id").val();
+    var studentid = $("#register-coordinator-Id").val().trim();
     var password = $("#register-coordinator-password").val();
 
     // Send the AJAX request
@@ -227,7 +227,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-ta-Id").val();
+    var studentid = $("#register-ta-Id").val().trim();
     var password = $("#register-ta-password").val();
 
     // Send the AJAX request
@@ -269,7 +269,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var adminId = $("#register-admin-Id").val();
+    var adminId = $("#register-admin-Id").val().trim();
     var adminPassword = $("#register-admin-password").val();
 
     // Create an object to hold the request data

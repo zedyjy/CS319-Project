@@ -123,7 +123,7 @@ function getAllStudents() {
       response.students.forEach((student) => {
         return $("#student-list").append(`
               <tr scope="row" id="${student._id}">
-                <td >${student.name}</td>
+                <td >${student.user.fullname}</td>
                 <td>${student.user_id}</td>
                 <td>
                 ${student.assignedEvaluators
@@ -243,7 +243,7 @@ function getAllEvaluators() {
       response.evaluators.forEach((evaluator) => {
         return $("#evaluators-list").append(`
               <tr scope="row" id="${evaluator._id}">
-                <td>${evaluator.name}</td>
+                <td>${evaluator.user.fullname}</td>
                 <td>${evaluator.user_id}</td>
                 <td>
                 ${evaluator.students
@@ -308,7 +308,7 @@ function getAllTAs() {
       response.tas.forEach((ta) => {
         return $("#tas-list").append(`
               <tr scope="row" id="${ta._id}">
-                <td>${ta.name}</td>
+                <td>${ta.user.fullname}</td>
                 <td>${ta.user_id}</td>
                 <td>
                 ${ta.students

@@ -43,7 +43,7 @@ function getAllStudents() {
       response.students.forEach((student) => {
         return $("#student-list").append(`
             <tr scope="row" id="${student._id}">
-              <td>${student.name}</td>
+              <td>${student.user.fullname}</td>
               <td>${student.user_id}</td>
               
             </tr>`);

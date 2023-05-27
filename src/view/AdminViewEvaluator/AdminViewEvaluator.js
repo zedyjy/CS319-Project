@@ -44,7 +44,7 @@ function getAllEvaluators() {
       response.evaluators.forEach((evaluator) => {
         return $("#evaluators-list").append(`
               <tr scope="row" id="${evaluator._id}">
-                <td>${evaluator.name}</td>
+                <td>${evaluator.user.fullname}</td>
                 <td>${evaluator.user_id}</td>
                 <td>
                 ${evaluator.students

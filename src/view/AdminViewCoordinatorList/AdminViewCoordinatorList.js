@@ -44,7 +44,7 @@ function getAllCoordinators() {
       response.coordinators.forEach((coordinator) => {
         return $("#coordinators-list").append(`
                 <tr scope="row" id="${coordinator._id}">
-                  <td>${coordinator.name}</td>
+                  <td>${coordinator.user.fullname}</td>
                   <td>${coordinator.user_id}</td>
                   <td>
                   

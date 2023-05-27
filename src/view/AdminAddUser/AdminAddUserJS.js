@@ -1,58 +1,8 @@
 const userTypeRadios = document.querySelectorAll('input[name="userType"]');
 
-function sendUserEmail() {
-  // Retrieve the user's email and password
-  var email = "<user_email>"; // Replace with the actual user's email
-  var password = generateRandomPassword();
-
-  // Send an email with the password to the user
-  // Implement your email sending logic here
-
-  // Display a success message to the admin
+function sendUserEmail(user_id, password, email) {
   alert("Email sent to user with the password: " + password);
 }
-
-$(document).ready(function () {
-  console.log("Add User Loaded");
-
-  // Add click event listener to the button with class "btn btn-primary"
-  $(".btn.btn-primary").click(function () {
-    const checkedRadio = document.querySelector(
-      'input[name="userType"]:checked'
-    );
-    if (checkedRadio) {
-      const userType = checkedRadio.value;
-      if (userType === "student") {
-        studentRegister();
-        console.log("student add");
-      } else if (userType === "evaluator") {
-        evaluatorRegister();
-        console.log("evaluator add");
-      } else if (userType === "admin") {
-        adminRegister();
-        console.log("admin add");
-      }
-    }
-  });
-
-  $(".btn delete-user").click(function () {
-    console.log("Delete User Loaded");
-
-    const checkedRadio = document.querySelector(
-      'input[name="userType"]:checked'
-    );
-    deleteUser();
-  });
-});
-
-$(document).ready(function () {
-  $(".delete-user").click(function () {
-    const checkedRadio = document.querySelector(
-      'input[name="userType"]:checked'
-    );
-    deleteUser();
-  });
-});
 
 function deleteUser() {
   // Retrieve the values from the form fields
@@ -67,21 +17,9 @@ function deleteUser() {
     },
     success: function (response) {
       console.log(response);
-      if (response.status == 200) {
-        // Handle the success response here
-        console.log("Delete successful");
-        console.log(response.message);
-        $(".delete-user-response").text("Successfully Registered!");
-      } else {
-        // Handle other status codes or errors here
-        console.log("Deletion failed with status code:", response.status);
-        $(".delete-user-response").text(response.message);
-      }
+      $(".delete-user-response").text(response.message);
     },
     error: function (error) {
-      // Handle the error response here
-      console.log("register failed");
-      console.log(error.responseJSON.message);
       $(".delete-user-response").text(error.responseJSON.message);
     },
   });
@@ -100,102 +38,175 @@ function generateRandomPassword(length) {
   return password;
 }
 
-// Example usage: Generate a random password with a length of 8 characters
+// Add New User
+function addUser() {
+  const generatedPassword = generateRandomPassword(8);
+  const checkedRadio = document.querySelector('input[name="userType"]:checked');
+  if (checkedRadio) {
+    const userType = checkedRadio.value;
+    if (userType === "student") {
+      studentRegister(generatedPassword);
+      console.log("student add");
+    } else if (userType === "evaluator") {
+      evaluatorRegister(generatedPassword);
+      console.log("evaluator add");
+    } else if (userType === "ta") {
+      taRegister(generatedPassword);
+      console.log("evaluator add");
+    } else if (userType === "admin") {
+      adminRegister(generatedPassword);
+      console.log("admin add");
+    } else if (userType === "coordinator") {
+      coordinatorRegister(generatedPassword);
+      console.log("coordinator add");
+    }
+  }
+}
 
-function studentRegister() {
-  event.preventDefault(); // Prevent the form from submitting normally
-
-  const randomPassword = generateRandomPassword(8);
-
+function studentRegister(password) {
   // Retrieve the values from the form fields
-  var student_id = $("#userId").val();
-  var password = randomPassword;
+  var userid = $("#userId").val().trim();
+  var email = $("#userEmail").val();
+  var fullname = $("#userFullname").val();
 
   // Send the AJAX request
   $.ajax({
     url: "/register/student",
     type: "POST",
     data: {
-      user_id: student_id, //DATA as object-value pair here
+      user_id: userid, //DATA as object-value pair here
       password: password,
+      email: email,
+      fullname: fullname,
     },
     success: function (response) {
       console.log(response);
       if (response.status == 200) {
         // Handle the success response here
-        console.log("Register successful");
-        console.log(response.message);
-        $(".add-user-response").text("Successfully Registered!");
+        $(".add-user-response").text(response.message);
+        sendUserEmail(userid, password, email);
       } else {
         // Handle other status codes or errors here
-        console.log("Register failed with status code:", response.status);
         $(".add-user-response").text(response.message);
       }
     },
     error: function (error) {
       // Handle the error response here
-      console.log("register failed");
-      console.log(error.responseJSON.message);
       $(".add-user-response").text(error.responseJSON.message);
     },
   });
 }
 
-//--------------------------
-// Evaluator Forms
-//--------------------------
 // Evaluator Register Form
-function evaluatorRegister() {
-  const randomPassword = generateRandomPassword(8);
-
-  event.preventDefault(); // Prevent the form from submitting normally
-
+function evaluatorRegister(password) {
   // Retrieve the values from the form fields
-  var studentid = $("#userId").val();
-  var password = randomPassword;
+  var userid = $("#userId").val().trim();
+  var email = $("#userEmail").val();
+  var fullname = $("#userFullname").val();
 
   // Send the AJAX request
   $.ajax({
     url: "/register/evaluator",
     type: "POST",
     data: {
-      user_id: studentid, //DATA as object-value pair here
+      user_id: userid, //DATA as object-value pair here
       password: password,
+      email: email,
+      fullname: fullname,
     },
     success: function (response) {
       console.log(response);
       if (response.status == 200) {
         // Handle the success response here
-        console.log("Register successful");
-        console.log(response.message);
-        $(".add-user-response").text("Successfully Registered!");
+        $(".add-user-response").text(response.message);
+        sendUserEmail(userid, password, email);
       } else {
         // Handle other status codes or errors here
-        console.log("Register failed with status code:", response.status);
         $(".add-user-response").text(response.message);
       }
     },
     error: function (error) {
       // Handle the error response here
-      console.log("register failed");
-      console.log(error.responseJSON.message);
       $(".add-user-response").text(error.responseJSON.message);
     },
   });
 }
 
-//--------------------------
-// Admin Forms
-//--------------------------
-// Admin Register Form
-function adminRegister() {
-  const randomPassword = generateRandomPassword(8);
-
-  event.preventDefault(); // Prevent the form from submitting normally
-
+// TA Register Form
+function taRegister(password) {
   // Retrieve the values from the form fields
-  var adminId = $("#userId").val();
-  var adminPassword = randomPassword;
+  var userid = $("#userId").val().trim();
+  var email = $("#userEmail").val();
+  var fullname = $("#userFullname").val();
+
+  // Send the AJAX request
+  $.ajax({
+    url: "/register/ta",
+    type: "POST",
+    data: {
+      user_id: userid, //DATA as object-value pair here
+      password: password,
+      email: email,
+      fullname: fullname,
+    },
+    success: function (response) {
+      console.log(response);
+      if (response.status == 200) {
+        // Handle the success response here
+        $(".add-user-response").text(response.message);
+        sendUserEmail(userid, password, email);
+      } else {
+        // Handle other status codes or errors here
+        $(".add-user-response").text(response.message);
+      }
+    },
+    error: function (error) {
+      // Handle the error response here
+      $(".add-user-response").text(error.responseJSON.message);
+    },
+  });
+}
+
+// Coordinator Register Form
+function coordinatorRegister(password) {
+  // Retrieve the values from the form fields
+  var userid = $("#userId").val().trim();
+  var email = $("#userEmail").val();
+  var fullname = $("#userFullname").val();
+
+  // Send the AJAX request
+  $.ajax({
+    url: "/register/coordinator",
+    type: "POST",
+    data: {
+      user_id: userid, //DATA as object-value pair here
+      password: password,
+      email: email,
+      fullname: fullname,
+    },
+    success: function (response) {
+      console.log(response);
+      if (response.status == 200) {
+        // Handle the success response here
+        $(".add-user-response").text(response.message);
+        sendUserEmail(userid, password, email);
+      } else {
+        // Handle other status codes or errors here
+        $(".add-user-response").text(response.message);
+      }
+    },
+    error: function (error) {
+      // Handle the error response here
+      $(".add-user-response").text(error.responseJSON.message);
+    },
+  });
+}
+
+// Admin Register Form
+function adminRegister(password) {
+  // Retrieve the values from the form fields
+  var adminId = $("#userId").val().trim();
+  var adminPassword = password;
 
   // Create an object to hold the request data
   var requestData = {

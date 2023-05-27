@@ -1,15 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body {
-  padding-top: 2em;
-  background: #3c7478; /* fallback for old browsers */
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-}
 
 #viewport {
   padding-left: 250px;
+  margin-top: 20px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -64,6 +57,7 @@ body {
   flex: 0 0 150px; /* Adjust the width as needed */
   margin-right: 1em;
 }
+
 
 .input-width {
   width: 60px;
