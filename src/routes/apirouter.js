@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const app = express();
+const nodemailer = require("nodemailer");
 const apirouter = express.Router();
 const {
   User,
@@ -1042,6 +1044,13 @@ apirouter.post("/remove-assigned-student", async (req, res) => {
       .json({ error: "Error De-Assigning Student", status: 500 });
   }
 });
+const transporter = nodemailer.createTransport({
+  service: "hotmail",
+  auth: {
+    user: "bilkentinternship@outlook.com", // Replace with your Hotmail email address
+    pass: "Quasointernship41", // Replace with your Hotmail password
+  },
+});
 
 // Get Student Current Internship Company Details
 apirouter.post("/get-current-internship-company-details", async (req, res) => {
@@ -1073,6 +1082,35 @@ apirouter.post("/get-current-internship-company-details", async (req, res) => {
       .status(500)
       .json({ error: "Error Getting Internship Company Details" });
   }
+});
+
+// Define a route for sending emails
+apirouter.post("/send-email", (req, res) => {
+  const { email, password } = req.body;
+
+  // Prepare the email message
+  const mailOptions = {
+    from: "bilkentinternship@outlook.com",
+    to: email,
+    subject: "Your Account Password",
+    text: "Your password is: " + password,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log("Error sending email:", error);
+      res.status(500).json({ message: "Failed to send email" });
+    } else {
+      console.log("Email sent:", info.response);
+      res.status(200).json({ message: "Email sent successfully" });
+    }
+  });
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log("Server started on port 3000");
 });
 
 //End file and export modules
