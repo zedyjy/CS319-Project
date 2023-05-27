@@ -360,4 +360,10 @@ function redirectToUserHomePage() {
       window.location.href = "/ta";
     }
   }
+  else if (userType === "Coordinator") {
+    if (window.location.pathname !== "/coordinator") {
+      // Prevent infinite redirect loop
+      window.location.href = "/coordinator";
+    }
+  }
 }

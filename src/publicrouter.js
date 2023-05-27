@@ -185,4 +185,12 @@ publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
 
+//---------------------------------------
+// ---------- Coordinator Page ---------- //
+//---------------------------------------
+publicrouter.get("/coordinator", (req, res) => {
+  res.render("CoordinatorHomePage/CoordinatorHome");
+});
+
+
 module.exports = publicrouter;
