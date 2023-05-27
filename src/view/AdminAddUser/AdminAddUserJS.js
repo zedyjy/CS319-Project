@@ -32,8 +32,54 @@ $(document).ready(function () {
             }
         }
     });
+
+    $(".btn delete-user").click(function () {
+        console.log("Delete User Loaded");
+
+        const checkedRadio = document.querySelector('input[name="userType"]:checked');
+        deleteUser();
+    });
 });
 
+$(document).ready(function () {
+    $(".delete-user").click(function () {
+        const checkedRadio = document.querySelector('input[name="userType"]:checked');
+        deleteUser();
+    });
+});
+
+function deleteUser() {
+    // Retrieve the values from the form fields
+    var user_id = $("#userId-delete").val();
+
+    // Send the AJAX request
+    $.ajax({
+        url: "/delete/student",
+        type: "POST",
+        data: {
+            user_id: user_id, //DATA as object-value pair here
+        },
+        success: function (response) {
+            console.log(response);
+            if (response.status == 200) {
+                // Handle the success response here
+                console.log("Delete successful");
+                console.log(response.message);
+                $(".delete-user-response").text("Successfully Registered!");
+            } else {
+                // Handle other status codes or errors here
+                console.log("Register failed with status code:", response.status);
+                $(".delete-user-response").text(response.message);
+            }
+        },
+        error: function (error) {
+            // Handle the error response here
+            console.log("register failed");
+            console.log(error.responseJSON.message);
+            $(".delete-user-response").text(error.responseJSON.message);
+        },
+    });
+}
 
 function generateRandomPassword(length) {
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-=_+';
