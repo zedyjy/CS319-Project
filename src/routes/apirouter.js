@@ -795,6 +795,16 @@ apirouter.post("/get-all-evaluators", async (req, res) => {
   }
 });
 
+// Get All Coordinators
+apirouter.post("/get-all-coordinators", async (req, res) => {
+  try {
+    const coordinators = await Coordinator.find();
+    return res.status(200).json({ coordinators: coordinators });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting Cooridinators" });
+  }
+});
+
 // Get All TAs
 apirouter.post("/get-all-tas", async (req, res) => {
   try {
@@ -858,6 +868,7 @@ apirouter.post("/assign-student", async (req, res) => {
         student.assignedTAs.push(user_id);
         ta.students.push(student_id);
         await ta.save();
+        await student.save();
         return res
           .status(200)
           .json({ message: "Student Assigned to TA", status: 200 });
