@@ -80,7 +80,6 @@ const studentSchema = new mongoose.Schema({
   },
   mainReportID: {
     type: String,
-    required: true,
   },
   // Student-specific fields...
 });
@@ -248,7 +247,6 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
-
 const reportSchema = new mongoose.Schema({
   relatedStudentID: {
     type: String,
@@ -262,7 +260,7 @@ const reportSchema = new mongoose.Schema({
     type: String,
   },
   oldFeedbackIDs: {
-    type: [String]
+    type: [String],
   },
   feedbackRequired: {
     type: Boolean,
@@ -288,8 +286,6 @@ const reportSchema = new mongoose.Schema({
   reportSubmissionDeadline: {
     type: Date,
   },
-
-
 });
 
 // Create models

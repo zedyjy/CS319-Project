@@ -1,14 +1,16 @@
 <!-- This is a placeholder page-->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload Report</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -25,35 +27,49 @@
     <script src="/js/StudentUploadReport/StudentUploadReport.js"></script>
 
     <!-- CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/StudentHome/StyleStudentHome.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/StudentUploadReport/StyleStudentUploadReport.css"
+    />
 
     <!-- Components -->
-    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
-</head>
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Navbar/studentnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
 
-<body style="display: none">
+  <body style="display: none">
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
     <student-sidebar-component></student-sidebar-component>
 
     <div id="viewport">
-        <!-- Sidebar -->
+      <!-- Sidebar -->
 
-
-        <!-- Content -->
-        <div class="container">
-            <div class="col-auto">
-                <p>Submit Report</p>
-            </div>
-            <div class="col-auto">
-                <button onclick="submitReport()" class="btn btn-primary">
-                    Submit
-                </button>
-            </div>
+      <!-- Content -->
+      <div class="container">
+        <div class="col-auto">
+          <p>Submit Report</p>
         </div>
+        <div class="col-auto">
+          <button onclick="submitReport()" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

@@ -1,7 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const apirouter = express.Router();
-const { User, Student, Evaluator, Company, Admin, TA, Report } = require("./dbmodel");
+const {
+  User,
+  Student,
+  Evaluator,
+  Company,
+  Admin,
+  TA,
+  Report,
+} = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
@@ -313,11 +321,8 @@ apirouter.post("/submit-report", async (req, res) => {
   try {
     const report = await Report.findOne({ relatedStudentID: student_id });
     if (report) {
-      res
-        .status(404)
-        .json({ message: "Report Already Exists", status: 400 }); // This should be changed to replace report in the future.
-    }
-    else {
+      res.status(404).json({ message: "Report Already Exists", status: 400 }); // This should be changed to replace report in the future.
+    } else {
       const newReport = new Report({
         relatedStudentID: student_id,
         mainReportID: student_id,
@@ -339,7 +344,6 @@ apirouter.post("/submit-report", async (req, res) => {
     res.status(400).json({ message: error });
   }
 });
-
 
 // GET all User Courses
 apirouter.post("/get-courses", async (req, res) => {
@@ -390,8 +394,6 @@ apirouter.get("/reports/:studentId", async (req, res) => {
   try {
     const report = await Report.findOne({ relatedStudentID: studentId });
     if (report) {
-
-
       res.status(200).json({
         mainReportID: report.mainReportID,
         currentFeedbackID: report.currentFeedbackID,
@@ -405,15 +407,13 @@ apirouter.get("/reports/:studentId", async (req, res) => {
         reportSubmissionDeadline: report.reportSubmissionDeadline,
         status: 200,
       });
-    }
-    else {
+    } else {
       console.log("No such report.");
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
-
 
 // Upload File
 apirouter.post(
