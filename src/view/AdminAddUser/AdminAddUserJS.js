@@ -1,12 +1,24 @@
+const nodemailer = require("nodemailer");
 const userTypeRadios = document.querySelectorAll('input[name="userType"]');
 
 // ------SEND EMAILS TO USERS------
-
-function sendUserEmail(user_id, password, email) {
-  //ADD YOUR CODE HERE
-  alert("Email sent to user with the password: " + password);
+function sendUserEmail(userid, password, email) {
+  // Make an AJAX request to the server-side route for sending emails
+  $.ajax({
+    url: '/send-email',
+    type: 'POST',
+    data: {
+      email: email,
+      password: password
+    },
+    success: function (response) {
+      console.log('Email sent:', response.message);
+    },
+    error: function (error) {
+      console.log('Error sending email:', error.responseJSON.message);
+    }
+  });
 }
-
 // ------SEND EMAILS TO USERS END------
 
 function deleteUser() {
@@ -89,7 +101,7 @@ function studentRegister(password) {
       if (response.status == 200) {
         // Handle the success response here
         $(".add-user-response").text(response.message);
-        sendUserEmail(userid, password, email);
+        sendUserEmail(userid, password, email); // Send email to user
       } else {
         // Handle other status codes or errors here
         $(".add-user-response").text(response.message);

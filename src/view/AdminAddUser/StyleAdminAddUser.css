@@ -9,6 +9,10 @@
   transition: all 0.5s ease;
 }
 
+#container {
+  padding-left: 2.5em;
+}
+
 /* User Type Checkboxes */
 #checkbox-container {
   display: flex;
