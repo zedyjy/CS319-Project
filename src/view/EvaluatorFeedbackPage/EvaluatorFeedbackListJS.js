@@ -10,37 +10,71 @@ jQuery(document).ready(function () {
   Promise.all(studentPromises)
     .then((studentInfos) => {
       studentInfos.forEach((studentInfo) => {
-        var studentName = studentInfo.name;
+        var studentName = studentInfo.studentName;
         var studentID = studentInfo.studentID;
         var courseName = studentInfo.courseName;
-        var submissionDate = studentInfo.submissionDate;
-        var report = studentInfo.report;
-        var iteration = studentInfo.iteration;
+        var surname = studentInfo.surname;
+        var mainReportID = studentInfo.mainReportID;
+        console.log(mainReportID);
 
-        // Create a new row in the table
-        var row = $("<tr></tr>");
+        if (mainReportID == null) {
+          var submissionDate = "No report";
+          var reportText = "No report";
+          var iteration = "No report";
 
-        // Populate the row with the student information
-        row.append(`<td>${studentID}</td>`);
-        row.append(`<td>${courseName}</td>`);
-        row.append(`<td>${submissionDate}</td>`);
-        row.append(`<td>${report}</td>`);
-        row.append(`<td>${iteration}</td>`);
-        row.append(
-          `<td><a id="grade" href="#" onclick="redirectToFeedback(${studentID})">Give Feedback</a></td>`
-        );
-        row.append(
-          `<td><button onclick="gradeStudent('${studentID}')">Grade Student</button></td>`
-        );
+          // Create a new row in the table
+          var row = $("<tr></tr>");
 
-        // Add the row to the table body
-        $(".table tbody").append(row);
-      });
-    })
-    .catch((error) => {
-      console.error(error);
+          // Populate the row with the student information
+          row.append(`<td>${studentID}</td>`);
+          row.append(`<td>${courseName}</td>`);
+          row.append(`<td>${submissionDate}</td>`);
+          row.append(`<td>${reportText}</td>`);
+          row.append(`<td>${iteration}</td>`);
+          row.append(
+            `<td><a id="grade" href="#" onclick="redirectToFeedback(${studentID})">Give Feedback</a></td>`
+          );
+          row.append(
+            `<td><button onclick="gradeStudent('${studentID}')">Grade Student</button></td>`
+          );
+
+          // Add the row to the table body
+          $(".table tbody").append(row);
+        }
+
+        getReport(studentID)
+          .then((report) => {
+            console.log(studentID);
+            var submissionDate = report ? report.lastReportSubmission : "No report";
+            var reportText = report ? "Placeholder for button" : "No report";
+            var iteration = report ? report.iteration : "No report";
+
+            // Create a new row in the table
+            var row = $("<tr></tr>");
+
+            // Populate the row with the student information
+            row.append(`<td>${studentID}</td>`);
+            row.append(`<td>${courseName}</td>`);
+            row.append(`<td>${submissionDate}</td>`);
+            row.append(`<td>${reportText}</td>`);
+            row.append(`<td>${iteration}</td>`);
+            row.append(
+              `<td><a id="grade" href="#" onclick="redirectToFeedback(${studentID})">Give Feedback</a></td>`
+            );
+            row.append(
+              `<td><button onclick="gradeStudent('${studentID}')">Grade Student</button></td>`
+            );
+
+            // Add the row to the table body
+            $(".table tbody").append(row);
+          })
+      })
     });
-});
+})
+
+
+
+
 
 function getStudent(studentID) {
   return new Promise((resolve, reject) => {
@@ -49,16 +83,43 @@ function getStudent(studentID) {
       type: "GET",
       success: function (response) {
         var studentInfo = {
-          studentID: response.user_id,
+          studentID: response.studentID,
           courseName: response.courses,
-          submissionDate: response.submissionDate,
-          report: response.report,
-          iteration: response.iteration,
-          feedback: response.feedback,
-          grade: response.grade,
+          studentName: response.fullName,
+          surname: response.surname,
+          mainReportID: response.mainReportID,
         };
         console.log(studentInfo)
         resolve(studentInfo);
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+        reject(error);
+      },
+    });
+  });
+}
+
+function getReport(studentID) {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url: `/reports/${studentID}`,
+      type: "GET",
+      success: function (response) {
+        var reportInfo = {
+          mainReportID: response.mainReportID,
+          currentFeedbackID: response.currentFeedbackID,
+          oldFeedbackIDs: response.oldFeedbackIDs,
+          revisionRequired: response.revisionRequired,
+          feedbackRequired: response.feedbackRequired,
+          gradingItemID: response.gradingItemID,
+          iteration: response.iteration,
+          lastReportSubmission: response.lastReportSubmission,
+          revisionDeadline: response.revisionDeadline,
+          reportSubmissionDeadline: response.reportSubmissionDeadline,
+        };
+        console.log(reportInfo)
+        resolve(reportInfo);
       },
       error: function (xhr, status, error) {
         console.error(error);

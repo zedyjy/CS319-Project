@@ -1,6 +1,6 @@
 const tableBody = document.querySelector("#tableBody");
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     console.log("STUDENT HOME Page JS Loaded");
 
     // Retrieve the student ID from sessionStorage
@@ -11,14 +11,14 @@ jQuery(document).ready(function() {
     $.ajax({
         url: `/students/${studentID}`,
         type: "GET",
-        success: function(response) {
+        success: function (response) {
             // Retrieve the relevant information from the response
-            var studentName = response.name;
-            var courseName = response.courseName;
-            var submissionDate = response.submissionDate;
-            var report = response.report;
-            var iteration = response.revisionCount;
-            var grade = response.grade;
+            var studentName = response.fullname;
+            var courseName = response.courses;
+            var report = "response.report";
+            var iteration = response.iteration;
+            var grade = "response.grade";
+            var submissionDate = "Placeholder";
             console.log(iteration);
             // Create a new row in the table
             var row = $("<tr></tr>");
@@ -30,13 +30,40 @@ jQuery(document).ready(function() {
             row.append(`<td>${submissionDate}</td>`);
             row.append(`<td>${report}</td>`);
             row.append(`<td>${iteration}</td>`);
-            row.append(`<td>${ grade !== null ? grade : "Not graded yet"}</td>`);
+            row.append(`<td>${grade !== null ? grade : "Not graded yet"}</td>`);
 
             // Add the row to the table body
             $(".table tbody").append(row);
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error(error);
         }
     });
 });
+
+
+function getReport(studentID) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `/students/${studentID}`,
+            type: "GET",
+            success: function (response) {
+                var studentInfo = {
+                    studentID: response.user_id,
+                    courseName: response.courses,
+                    submissionDate: response.submissionDate,
+                    report: response.report,
+                    iteration: response.iteration,
+                    feedback: response.feedback,
+                    grade: response.grade,
+                };
+                console.log(studentInfo)
+                resolve(studentInfo);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                reject(error);
+            },
+        });
+    });
+}

@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const apirouter = express.Router();
-const { User, Student, Evaluator, Company, Admin, TA } = require("./dbmodel");
+const { User, Student, Evaluator, Company, Admin, TA, Report } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
@@ -307,6 +307,40 @@ apirouter.post("/enroll-course/student", async (req, res) => {
   }
 });
 
+// Submit new report
+apirouter.post("/submit-report", async (req, res) => {
+  const student_id = req.body.student_id;
+  try {
+    const report = await Report.findOne({ relatedStudentID: student_id });
+    if (report) {
+      res
+        .status(404)
+        .json({ message: "Report Already Exists", status: 400 }); // This should be changed to replace report in the future.
+    }
+    else {
+      const newReport = new Report({
+        relatedStudentID: student_id,
+        mainReportID: student_id,
+        lastReportSubmission: new Date(),
+      });
+      await newReport.save();
+
+      await Student.updateOne(
+        { user_id: student_id },
+        { $set: { mainReportID: student_id } }
+      );
+
+      res.status(200).json({
+        message: "Sucessfully submitted Report",
+        status: 200,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
+
 // GET all User Courses
 apirouter.post("/get-courses", async (req, res) => {
   const user_id = req.body.user_id;
@@ -332,7 +366,6 @@ apirouter.post("/get-courses", async (req, res) => {
 // Retrieve student information
 apirouter.get("/students/:studentId", async (req, res) => {
   const studentId = req.params.studentId;
-  console.log(studentId);
 
   try {
     const student = await Student.findOne({ user_id: studentId });
@@ -342,14 +375,45 @@ apirouter.get("/students/:studentId", async (req, res) => {
       surname: student.surname,
       studentID: student.user_id,
       courses: student.courses,
-      username: student.fullname,
-      iteration: student.revisionCount,
+      mainReportID: student.mainReportID,
       status: 200,
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
+// Retrieve report information
+apirouter.get("/reports/:studentId", async (req, res) => {
+  const studentId = req.params.studentId;
+
+  try {
+    const report = await Report.findOne({ relatedStudentID: studentId });
+    if (report) {
+
+
+      res.status(200).json({
+        mainReportID: report.mainReportID,
+        currentFeedbackID: report.currentFeedbackID,
+        oldFeedbackIDs: report.oldFeedbackIDs,
+        revisionRequired: report.revisionRequired,
+        feedbackRequired: report.feedbackRequired,
+        gradingItemID: report.gradingItemID,
+        iteration: report.iteration,
+        lastReportSubmission: report.lastReportSubmission,
+        revisionDeadline: report.revisionDeadline,
+        reportSubmissionDeadline: report.reportSubmissionDeadline,
+        status: 200,
+      });
+    }
+    else {
+      console.log("No such report.");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 
 // Upload File
 apirouter.post(

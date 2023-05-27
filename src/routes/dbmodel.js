@@ -78,38 +78,9 @@ const studentSchema = new mongoose.Schema({
   courseGrade: {
     type: String,
   },
-  internshipReportFile: {
-    data: Buffer,
-    contentType: String,
-  },
-  internshipReportSubmissionStatus: {
+  mainReportID: {
     type: String,
-  },
-  revisionCount: {
-    type: Number,
-    default: 2,
-  },
-  evaluatorFeedbackFile: {
-    data: Buffer,
-    contentType: String,
-  },
-  evaluatorFeedbackStatus: {
-    type: String,
-  },
-  revisionDeadline: {
-    type: Date,
-  },
-  reportSubmissionDeadline: {
-    type: Date,
-  },
-  name: {
-    type: String,
-  },
-  grade: {
-    type: Number,
-  },
-  courseName: {
-    type: String,
+    required: true,
   },
   // Student-specific fields...
 });
@@ -263,10 +234,9 @@ const gradingFormSchema = new mongoose.Schema({
 });
 
 const adminSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  report_id: {
     required: true,
+    type: String,
   },
   userType: {
     type: String,
@@ -278,6 +248,50 @@ const adminSchema = new mongoose.Schema({
   },
 });
 
+
+const reportSchema = new mongoose.Schema({
+  relatedStudentID: {
+    type: String,
+    required: true,
+  },
+  mainReportID: {
+    type: String,
+    required: true,
+  },
+  currentFeedbackID: {
+    type: String,
+  },
+  oldFeedbackIDs: {
+    type: [String]
+  },
+  feedbackRequired: {
+    type: Boolean,
+    default: false,
+  },
+  revisionRequired: {
+    type: Boolean,
+    default: false,
+  },
+  gradingItemID: {
+    type: String,
+  },
+  iteration: {
+    type: Number,
+    default: 1,
+  },
+  lastReportSubmission: {
+    type: Date,
+  },
+  revisionDeadline: {
+    type: Date,
+  },
+  reportSubmissionDeadline: {
+    type: Date,
+  },
+
+
+});
+
 // Create models
 const User = mongoose.model("User", userSchema);
 const Student = mongoose.model("Student", studentSchema);
@@ -286,6 +300,7 @@ const TA = mongoose.model("TA", taSchema);
 const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
+const Report = mongoose.model("Report", reportSchema);
 
 module.exports = {
   User,
@@ -295,4 +310,5 @@ module.exports = {
   Company,
   GradingForm,
   Admin,
+  Report,
 };
