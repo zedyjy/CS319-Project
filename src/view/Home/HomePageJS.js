@@ -318,6 +318,8 @@ $(document).ready(function () {
       window.location.href = "/student";
     } else if (userType === "Evaluator") {
       window.location.href = "/evaluator";
+    } else if (userType === "TA") {
+      window.location.href = "/ta";
     }
   });
 });
@@ -351,6 +353,11 @@ function redirectToUserHomePage() {
     if (window.location.pathname !== "/admin") {
       // Prevent infinite redirect loop
       window.location.href = "/admin";
+    }
+  } else if (userType === "TA") {
+    if (window.location.pathname !== "/ta") {
+      // Prevent infinite redirect loop
+      window.location.href = "/ta";
     }
   }
 }
