@@ -146,7 +146,7 @@ async function registerStudent(user_id, password, email, fullname) {
     user_id: user_id,
   });
   const newGradingForm = new GradingForm({
-    studentID: req.body.user_id,
+    studentID: user_id,
   });
   await newStudent.save();
   await newGradingForm.save();
