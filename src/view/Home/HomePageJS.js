@@ -178,6 +178,90 @@ $(document).ready(function () {
   });
 
   //--------------------------
+  // Coordinator Forms
+  //--------------------------
+  // Coordinator Register Form
+  $("#register-coordinator-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#register-coordinator-Id").val();
+    var password = $("#register-coordinator-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/register/coordinator",
+      type: "POST",
+      data: {
+        user_id: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Register successful");
+          console.log(response.message);
+
+          $(".register-coordinator-response").text("Successfully Regsitered!");
+        } else {
+          // Handle other status codes or errors here
+          $(".register-coordinator-response").text(response.message);
+          console.log("Register failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("register failed");
+        $(".register-coordinator-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
+  //--------------------------
+  // TA Forms
+  //--------------------------
+  // TA Register Form
+  $("#register-ta-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#register-ta-Id").val();
+    var password = $("#register-ta-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/register/ta",
+      type: "POST",
+      data: {
+        user_id: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Register successful");
+          console.log(response.message);
+
+          $(".register-ta-response").text("Successfully Regsitered!");
+        } else {
+          // Handle other status codes or errors here
+          $(".register-ta-response").text(response.message);
+          console.log("Register failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("register failed");
+        $(".register-ta-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
+  //--------------------------
   // Admin Forms
   //--------------------------
   // Admin Register Form

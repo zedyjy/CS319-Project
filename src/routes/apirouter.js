@@ -8,6 +8,7 @@ const {
   Company,
   Admin,
   TA,
+  Coordinator,
   Report,
 } = require("./dbmodel");
 const path = require("path");
@@ -39,117 +40,148 @@ database.once("connected", () => {
 // Register
 apirouter.post("/register/:user", async (req, res) => {
   const user_id = req.body.user_id;
-  if (req.params.user == "student") {
-    try {
-      // Search the evaluators collection
-      Evaluator.findOne({ user_id: user_id }).then(async (evaluator) => {
-        if (evaluator) {
-          res
-            .status(400)
-            .json({ message: "Evaluator already exists!", status: 400 });
-          return;
-        }
-
-        // Search the users collection
-        User.findOne({ user_id: user_id }).then(async (user) => {
-          if (user) {
-            res
-              .status(400)
-              .json({ message: "User already exists!", status: 400 });
-            return;
-          }
-
-          // Search the students collection
-          Student.findOne({ user_id: user_id }).then(async (student) => {
-            if (student) {
-              res
-                .status(400)
-                .json({ message: "Student already exists!", status: 400 });
-              return;
-            }
-
-            // Create new user and student if no duplicates found
-            const newUser = new User({
-              user_id: req.body.user_id,
-              password: req.body.password,
-            });
-
-            try {
-              const savedUser = await newUser.save();
-              const newStudent = new Student({
-                user: savedUser._id, // Use the saved user's ID as the reference
-                user_id: req.body.user_id,
-              });
-              await newStudent.save();
-              res
-                .status(200)
-                .json({ message: "Successfully Registered", status: 200 });
-            } catch (error) {
-              res.status(400).json({ message: error.message, status: 400 });
-            }
-          });
+  const password = req.body.password;
+  const userType = req.params.user;
+  try {
+    if (userType == "student") {
+      // Search the Students collection
+      const registerResult = await registerStudent(user_id, password);
+      console.log(registerResult);
+      if (!registerResult) {
+        res
+          .status(400)
+          .json({ message: "Student already exists!", status: 400 });
+        return;
+      } else {
+        res
+          .status(200)
+          .json({ message: "Successfully Registered Student", status: 200 });
+      }
+    } else if (userType == "evaluator") {
+      // Search the Students collection
+      const registerResult = await registerEvaluator(user_id, password);
+      if (!registerResult) {
+        res
+          .status(400)
+          .json({ message: "Evaluator already exists!", status: 400 });
+        return;
+      } else {
+        res
+          .status(200)
+          .json({ message: "Successfully Registered Evaluator", status: 200 });
+      }
+    } else if (userType == "coordinator") {
+      // Search the Students collection
+      const registerResult = await registerCoordinator(user_id, password);
+      if (!registerResult) {
+        res
+          .status(400)
+          .json({ message: "Coordinator already exists!", status: 400 });
+        return;
+      } else {
+        res.status(200).json({
+          message: "Successfully Registered Coordinator",
+          status: 200,
         });
-      });
-    } catch (error) {
-      res.status(400).json({ message: error.message, status: 400 });
-    }
-  } else if (req.params.user == "evaluator") {
-    try {
-      // Search the evaluators collection
-      Evaluator.findOne({ user_id: user_id }).then(async (evaluator) => {
-        if (evaluator) {
-          res
-            .status(400)
-            .json({ message: "Evaluator already exists!", status: 400 });
-          return;
-        }
-
-        // Search the users collection
-        User.findOne({ user_id: user_id }).then(async (user) => {
-          if (user) {
-            res
-              .status(400)
-              .json({ message: "User already exists!", status: 400 });
-            return;
-          }
-
-          // Search the students collection
-          Student.findOne({ user_id: user_id }).then(async (student) => {
-            if (student) {
-              res
-                .status(400)
-                .json({ message: "Student already exists!", status: 400 });
-              return;
-            }
-
-            // Create new user and student if no duplicates found
-            const newUser = new User({
-              user_id: req.body.user_id,
-              password: req.body.password,
-            });
-
-            try {
-              const savedUser = await newUser.save();
-              const newEvaluator = new Evaluator({
-                user: savedUser._id, // Use the saved user's ID as the reference
-                user_id: req.body.user_id,
-              });
-              await newEvaluator.save();
-              res.status(200).json({
-                message: "Successfully Registered Evaluator",
-                status: 200,
-              });
-            } catch (error) {
-              res.status(400).json({ message: error.message, status: 400 });
-            }
-          });
+      }
+    } else if (userType == "ta") {
+      // Search the Students collection
+      const registerResult = await registerTA(user_id, password);
+      if (!registerResult) {
+        res.status(400).json({ message: "TA already exists!", status: 400 });
+        return;
+      } else {
+        res.status(200).json({
+          message: "TA Registered Coordinator",
+          status: 200,
         });
-      });
-    } catch (error) {
-      res.status(400).json({ message: error.message, status: 400 });
+      }
     }
+  } catch (error) {
+    res.status(400).json({ message: error.message, status: 400 });
   }
 });
+
+async function registerStudent(user_id, password) {
+  const user = await User.findOne({ user_id: user_id });
+  console.log(user);
+  if (user) {
+    return false;
+  }
+
+  const newUser = new User({
+    user_id: user_id,
+    password: password,
+  });
+
+  const savedUser = await newUser.save();
+  const newStudent = new Student({
+    user: savedUser._id, // Use the saved user's ID as the reference
+    user_id: user_id,
+  });
+  await newStudent.save();
+  return true;
+}
+
+async function registerEvaluator(user_id, password) {
+  const user = await User.findOne({ user_id: user_id });
+  if (user) {
+    return false;
+  }
+
+  const newUser = new User({
+    user_id: user_id,
+    password: password,
+  });
+
+  const savedUser = await newUser.save();
+  const newEvaluator = new Evaluator({
+    user: savedUser._id, // Use the saved user's ID as the reference
+    user_id: user_id,
+  });
+  await newEvaluator.save();
+  return true;
+}
+
+async function registerTA(user_id, password) {
+  const user = await User.findOne({ user_id: user_id });
+  if (user) {
+    return false;
+  }
+
+  const newUser = new User({
+    user_id: user_id,
+    password: password,
+  });
+
+  const savedUser = await newUser.save();
+  const newTA = new TA({
+    user: savedUser._id, // Use the saved user's ID as the reference
+    user_id: user_id,
+  });
+  await newTA.save();
+  return true;
+}
+
+async function registerCoordinator(user_id, password) {
+  const user = await User.findOne({ user_id: user_id });
+  if (user) {
+    return false;
+  }
+
+  const newUser = new User({
+    user_id: user_id,
+    password: password,
+  });
+
+  const savedUser = await newUser.save();
+  const newCoordinator = new Coordinator({
+    user: savedUser._id, // Use the saved user's ID as the reference
+    user_id: user_id,
+  });
+  await newCoordinator.save();
+  return true;
+}
 
 // Admin Register
 apirouter.post("/admin-register", async (req, res) => {
@@ -214,6 +246,30 @@ apirouter.post("/login", async (req, res) => {
             gradingForms: user.gradingForms,
             status: 200,
           });
+        } else if (userType === "TA") {
+          var user = await TA.findOne({
+            user_id: req.body.user_id,
+          });
+          res.status(200).json({
+            message: "Logged In",
+            userType: user.userType,
+            courses: user.courses,
+            students: user.students,
+            gradingForms: user.gradingForms,
+            status: 200,
+          });
+        } else if (userType === "Coordinator") {
+          var user = await Coordinator.findOne({
+            user_id: req.body.user_id,
+          });
+          res.status(200).json({
+            message: "Logged In",
+            userType: user.userType,
+            courses: user.courses,
+            students: user.students,
+            gradingForms: user.gradingForms,
+            status: 200,
+          });
         } else if (userType === "Admin") {
           console.log("IT IS ADMIN");
           var user = await Admin.findOne({
@@ -246,6 +302,18 @@ async function getUserType(usernameParam) {
     const evaluator = await Evaluator.findOne({ user_id: user_id });
     if (evaluator) {
       return "Evaluator";
+    }
+
+    // Search the Coordinators collection
+    const coordinator = await Coordinator.findOne({ user_id: user_id });
+    if (coordinator) {
+      return "Coordinator";
+    }
+
+    // Search the TA collection
+    const ta = await TA.findOne({ user_id: user_id });
+    if (ta) {
+      return "TA";
     }
 
     // Search the students collection

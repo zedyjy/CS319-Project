@@ -171,18 +171,58 @@
             </div>
           </div>
         </div>
+        <!-- Coordinator -->
         <div class="column">
           <div class="box" onclick="toggleForms(4)">
             <button class="main-button">Coordinator Register</button>
           </div>
           <div class="forms" id="forms4" style="display: none">
-            <form>
-              <h1>FORM 4</h1>
-            </form>
-            <form>
-              <h1>FORM 4</h1>
-              <!-- Form content for Box 4 -->
-            </form>
+            <div class="register-form">
+              <form style="margin-top: 20px">
+                <label>Coordinator Username:</label>
+                <input type="text" id="register-coordinator-Id" required />
+
+                <label>Password:</label>
+                <input
+                  type="password"
+                  id="register-coordinator-password"
+                  required
+                />
+                <div>
+                  <button
+                    id="register-coordinator-button"
+                    class="btn btn-primary"
+                  >
+                    Register
+                  </button>
+                </div>
+              </form>
+              <p class="register-coordinator-response"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TA -->
+        <div class="column">
+          <div class="box" onclick="toggleForms(5)">
+            <button class="main-button">TA Register</button>
+          </div>
+          <div class="forms" id="forms5" style="display: none">
+            <div class="register-form">
+              <form style="margin-top: 20px">
+                <label>TA Username:</label>
+                <input type="text" id="register-ta-Id" required />
+
+                <label>Password:</label>
+                <input type="password" id="register-ta-password" required />
+                <div>
+                  <button id="register-ta-button" class="btn btn-primary">
+                    Register
+                  </button>
+                </div>
+              </form>
+              <p class="register-ta-response"></p>
+            </div>
           </div>
         </div>
       </div>

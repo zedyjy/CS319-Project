@@ -136,6 +136,26 @@ const taSchema = new mongoose.Schema({
   // TA-specific fields...
 });
 
+//Coordinator Schema
+const coordinatorSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  userType: {
+    type: String,
+    default: "Coordinator",
+  },
+  user_id: {
+    type: String,
+    required: true,
+  },
+  courses: {
+    type: [String],
+  },
+});
+
 //Company Schema
 const companySchema = new mongoose.Schema({
   students: {
@@ -300,6 +320,7 @@ const User = mongoose.model("User", userSchema);
 const Student = mongoose.model("Student", studentSchema);
 const Evaluator = mongoose.model("Evaluator", evaluatorSchema);
 const TA = mongoose.model("TA", taSchema);
+const Coordinator = mongoose.model("Coordinator", coordinatorSchema);
 const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
@@ -310,6 +331,7 @@ module.exports = {
   Student,
   Evaluator,
   TA,
+  Coordinator,
   Company,
   GradingForm,
   Admin,
