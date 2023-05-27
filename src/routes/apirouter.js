@@ -316,23 +316,41 @@ apirouter.post("/enroll-course/student", async (req, res) => {
 });
 
 // Submit new report
-apirouter.post("/submit-report", async (req, res) => {
+apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
   const student_id = req.body.student_id;
   try {
     const report = await Report.findOne({ relatedStudentID: student_id });
     if (report) {
+      await fs.promises.unlink(
+        path.join(__dirname, "../../uploads", req.file.filename)
+      );
       res.status(404).json({ message: "Report Already Exists", status: 400 }); // This should be changed to replace report in the future.
     } else {
+      if (!req.file) {
+        // No file was uploaded
+        res.status(400).json({ message: "No file uploaded" });
+        return;
+      }
+
+      // Access the uploaded file using req.file
+      const uploadedFile = req.file;
+
+      // Generate a unique filename
+      const uniqueFilename = Date.now() + "-" + uploadedFile.originalname;
+
+      // Move the uploaded file to a permanent location
+      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+      fs.renameSync(uploadedFile.path, destination);
       const newReport = new Report({
         relatedStudentID: student_id,
-        mainReportID: student_id,
+        mainReportID: uniqueFilename,
         lastReportSubmission: new Date(),
       });
       await newReport.save();
 
       await Student.updateOne(
         { user_id: student_id },
-        { $set: { mainReportID: student_id } }
+        { $set: { mainReportID: uniqueFilename } }
       );
 
       res.status(200).json({
@@ -405,94 +423,25 @@ apirouter.get("/reports/:studentId", async (req, res) => {
         lastReportSubmission: report.lastReportSubmission,
         revisionDeadline: report.revisionDeadline,
         reportSubmissionDeadline: report.reportSubmissionDeadline,
+        report: report,
         status: 200,
       });
     } else {
-      console.log("No such report.");
+      res.status(404).json({ message: "No Such Report" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
 
-// Upload File
-apirouter.post(
-  "/student/upload-file",
-  upload.single("file"),
-  async (req, res) => {
-    try {
-      // Find the student by user_id
-      const student = await Student.findOne({
-        user_id: req.body.user_id,
-      });
-      if (!student) {
-        // Student not found
-        res.status(404).json({ error: "Student not found" });
-        return;
-      }
-
-      // Check if student already has a resume file
-      if (student.resume) {
-        await fs.promises.unlink(
-          path.join(__dirname, "../../uploads", req.file.filename)
-        );
-        res.status(400).json({ error: "Student already has a resume file" });
-        return;
-      }
-
-      if (!req.file) {
-        // No file was uploaded
-        res.status(400).json({ error: "No file uploaded" });
-        return;
-      }
-
-      // Access the uploaded file using req.file
-      const uploadedFile = req.file;
-
-      // Generate a unique filename
-      const uniqueFilename = Date.now() + "-" + uploadedFile.originalname;
-
-      try {
-        // Move the uploaded file to a permanent location
-        const destination = path.join(
-          __dirname,
-          "../../uploads",
-          uniqueFilename
-        );
-        fs.renameSync(uploadedFile.path, destination);
-
-        // Update the student's resume field with the filename
-        student.resume = uniqueFilename;
-        await student.save();
-
-        // Example response
-        res.json({ message: "File uploaded successfully" });
-      } catch (error) {
-        console.error("Error saving the file: ", error);
-        res.status(500).json({ error: "Error saving the file" });
-      }
-    } catch (error) {
-      console.error("Error finding the student: ", error);
-      res.status(500).json({ error: "Error finding the student" });
-    }
-  }
-);
-
 // Get File
-apirouter.post("/student/get-file", async (req, res) => {
-  const student = await Student.findOne({ user_id: req.body.user_id });
-  if (!student) {
-    // Student not found
-    res.status(404).json({ error: "Student not found" });
-    return;
-  }
+apirouter.post("/get-file", async (req, res) => {
+  const filename = req.body.filename;
   // Check if student already has a resume file
-  if (!student.resume) {
-    res.status(404).json({ error: "No Resume Exists!" });
+  if (!filename) {
+    res.status(404).json({ error: "File Param Cannot be Empty!" });
     return;
   }
-
-  const filename = student.resume;
 
   try {
     // Check if the file exists
@@ -511,52 +460,41 @@ apirouter.post("/student/get-file", async (req, res) => {
   }
 });
 
-// Get File Name
-apirouter.post("/student/get-file-name", async (req, res) => {
-  const student = await Student.findOne({ user_id: req.body.user_id });
-  if (!student) {
-    // Student not found
-    res.status(404).json({ error: "Student not found" });
-    return;
-  }
-  const filename = student.resume;
-
+// Delete Student Report
+apirouter.post("/delete-report", async (req, res) => {
+  const studentID = req.body.studentID;
+  const mainReportID = req.body.mainReportID;
   try {
-    res.status(200).json({ message: "File found", filename: filename });
-  } catch (error) {
-    console.error("Error retrieving the file name: ", error);
-    res.status(500).json({ error: "Error retrieving the file" });
-  }
-});
-
-// Delete Student Resume
-apirouter.post("/student/delete-resume", async (req, res) => {
-  try {
-    const student = await Student.findOne({ user_id: req.body.user_id });
+    const report = await Report.findOne({ mainReportID: mainReportID });
+    if (!report) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+    await report.deleteOne();
+    const student = await Student.findOne({ user_id: studentID });
     if (!student) {
       return res.status(404).json({ error: "Student not found" });
     }
 
-    const filename = student.resume;
-    if (!filename) {
-      return res.status(404).json({ error: "File not found" });
-    }
+    const filename = mainReportID;
     const filePath = path.join(__dirname, "../../uploads", filename);
 
     try {
       await fs.promises.unlink(filePath);
-      student.resume = "";
+      student.mainReportID = "";
       await student.save();
-      return res.status(200).json({ message: `File Deleted: ${filename}` });
+      return res.status(200).json({ message: `Report Deleted: ${filename}` });
     } catch (error) {
-      console.error("Error deleting the file or file does not exist:", error);
+      console.error(
+        "Error deleting the Report or Report does not exist:",
+        error
+      );
       return res
         .status(500)
-        .json({ error: "Error deleting the file or file does not exist" });
+        .json({ error: "Error deleting the Report or Report does not exist" });
     }
   } catch (error) {
-    console.error("Error retrieving the file name: ", error);
-    return res.status(500).json({ error: "Error retrieving the file" });
+    console.error("Error retrieving the Report name: ", error);
+    return res.status(500).json({ error: "Error retrieving the Report" });
   }
 });
 

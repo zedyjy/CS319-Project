@@ -509,3 +509,25 @@ th {
 .table-responsive > .table-bordered {
     border: 0;
 }
+
+
+.overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    min-width: 30%;
+    min-height: 30%;
+    width: 500px;
+    height: 500px;
+    background-color:#aeaeae;
+    display: none;
+    padding: 5px;
+    border-radius:5px ;
+  }
+
+  .overlay h3, .overlay-deassign h3 {
+    text-align: center;
+    margin: 10px;
+  }

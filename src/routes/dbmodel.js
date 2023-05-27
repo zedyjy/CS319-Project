@@ -262,6 +262,10 @@ const reportSchema = new mongoose.Schema({
   oldFeedbackIDs: {
     type: [String],
   },
+  feedbackStatus: {
+    type: Boolean,
+    default: false,
+  },
   feedbackRequired: {
     type: Boolean,
     default: false,
@@ -285,6 +289,7 @@ const reportSchema = new mongoose.Schema({
   },
   reportSubmissionDeadline: {
     type: Date,
+    default: "2024-05-27T01:00:17.475Z",
   },
 });
 

@@ -143,44 +143,44 @@ function getAllStudents() {
                   student._id
                 }')">Assign Evaluator/TA</button>
                 <div class="overlay ${student._id}">
-                <button class="btn btn-danger" onclick="closeOverlay('${
-                  student._id
-                }')">Close</button>
-                <div>
-                <h3>Assign Evaluator/TA</h3>
-                <p>Student: ${student.user_id}</p>
-                <input
-                type="text"
-                id="assign-evaluator-ta-${student._id}"
-                placeholder="Evaluator/TA ID"
-                />
-                <button class="btn btn-primary" onclick="assignEvaluatorTA('${
-                  student.user_id
-                }', '${student._id}')">Assign </button>
-                <p class="${student._id}"></p>
-                </div>
+                  <button class="btn btn-danger" onclick="closeOverlay('${
+                    student._id
+                  }')">Close</button>
+                  <div>
+                  <h3>Assign Evaluator/TA</h3>
+                  <p>Student: ${student.user_id}</p>
+                  <input
+                  type="text"
+                  id="assign-evaluator-ta-${student._id}"
+                  placeholder="Evaluator/TA ID"
+                  />
+                  <button class="btn btn-primary" onclick="assignEvaluatorTA('${
+                    student.user_id
+                  }', '${student._id}')">Assign </button>
+                  <p class="${student._id}"></p>
+                  </div>
                 </div>
 
                 <button class="btn btn-danger"  onclick="showOverlayDeAssign('${
                   student._id
                 }')">De Assign Evaluator/TA</button>
                     <div class="overlay-deassign ${student._id}">
-                    <button class="btn btn-danger" onclick="closeOverlayDeAssign('${
-                      student._id
-                    }')">Close</button>
-                    <div>
-                    <h3>De Assign Evaluator/TA</h3>
-                    <p>Student: ${student.user_id}</p>
-                    <input
-                    type="text"
-                    id="deassign-evaluator-ta-${student._id}"
-                    placeholder="Evaluator/TA ID"
-                    />
-                    <button class="btn btn-danger" onclick="deassignEvaluatorTA('${
-                      student.user_id
-                    }', '${student._id}')">De Assign </button>
-                    <p class="deassign${student._id}"></p>
-                    </div>
+                      <button class="btn btn-danger" onclick="closeOverlayDeAssign('${
+                        student._id
+                      }')">Close</button>
+                      <div>
+                      <h3>De Assign Evaluator/TA</h3>
+                      <p>Student: ${student.user_id}</p>
+                      <input
+                      type="text"
+                      id="deassign-evaluator-ta-${student._id}"
+                      placeholder="Evaluator/TA ID"
+                      />
+                      <button class="btn btn-danger" onclick="deassignEvaluatorTA('${
+                        student.user_id
+                      }', '${student._id}')">De Assign </button>
+                      <p class="deassign${student._id}"></p>
+                      </div>
                     </div>
                 
                 </td>

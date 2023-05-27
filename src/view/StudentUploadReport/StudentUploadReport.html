@@ -8,11 +8,18 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
       crossorigin="anonymous"
     />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <!-- Global Settings -->
     <script src="/js/GlobalSettings/global.js"></script>
@@ -62,13 +69,35 @@
       <!-- Content -->
       <div class="container">
         <div class="col-auto">
-          <p>Submit Report</p>
+          <p>Submit New Report</p>
         </div>
         <div class="col-auto">
+          <input type="file" id="report-input" accept=".pdf" />
           <button onclick="submitReport()" class="btn btn-primary">
             Submit
           </button>
+          <p class="submit-report-response"></p>
         </div>
+        <!-- Reports Table -->
+        <div class="table-responsive">
+          <table class="table table-striped reports-table">
+            <thead>
+              <tr>
+                <th scope="col">Report File Name</th>
+                <th scope="col">Eval/TA Feedback Status</th>
+                <th scope="col">Iteration</th>
+                <th scope="col">Revision Required</th>
+                <th scope="col">Upload Date</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reports-list">
+              <!-- Table rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+        <p class="delete-report-response" style="color: red"></p>
       </div>
     </div>
   </body>
