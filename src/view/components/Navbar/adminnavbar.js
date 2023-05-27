@@ -34,7 +34,7 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-evaluator-list">
               <i class="zmdi zmdi-comment-more"></i> View Evaluator List
             </a>
           </li>
@@ -71,6 +71,7 @@ adminnavbarTemplate.innerHTML = `
       </div>
 </div>
 `;
+
 class AdminSidebar extends HTMLElement {
   constructor() {
     super();

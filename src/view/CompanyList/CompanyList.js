@@ -53,12 +53,12 @@ function getAllCompanies() {
             <td>${company.sector}</td>
             <td>
               <div class="row">
-                <button class="btn-small" onclick="applyToCompany('${
+                <button class="btn-small btn-primary" onclick="applyToCompany('${
                   company._id
                 }')">
                   Apply
                 </button>
-                <button class="btn-small" onclick="viewCompanyDetails('${
+                <button class="btn-small btn-primary" onclick="viewCompanyDetails('${
                   company._id
                 }')">
                   View Details

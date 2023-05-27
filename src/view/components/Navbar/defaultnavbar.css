@@ -13,9 +13,11 @@
     width: 100%;
     overflow: hidden;
     align-items: center;
-    background-color: #03414D;
+    background-color: #e9ebec;
     padding-top: 10px;
+    padding-bottom: 10px;
     z-index: 100; /* Ensure the navbar is above other elements */
+    font-weight: bold ;
 }
 .logo{
     font-size: 1.2em;
@@ -38,6 +40,7 @@
 /* Right-aligned section inside the top navigation */
 .topnav-right {
     float: right;
+    margin-right: 10px;
 }
 .login-page img {
     position: relative;
@@ -54,28 +57,28 @@ a:visited{
     text-decoration: none;
     outline: none;
     border: none;
-    color: white;
+    color: rgb(23, 22, 22);
 }
 
 body {
-    background: #03414D; /* fallback for old browsers */
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-button {
+} 
+.topnav-right button {
     font-family: "Roboto", sans-serif;
-    background-color:#03414D;
     height: max-content;
-    color: #fff;
-    padding: 0px 20px;
-    border: none;
+    color: rgb(23, 22, 22);
+    border: 1px solid grey;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1.3em;
+
     transition: background-color 0.3s ease;
-    font-size: 1.2em;
   }
   
   button:hover {
-    background-color: #276769;
+    background-color: #0f1010;
+    color: white;
+    background-color: rgb(97, 96, 96);
   }

@@ -58,6 +58,7 @@ evaluatornavbarTemplate.innerHTML = `
   </div>
 </div>
 `;
+
 class EvaluatorSidebar extends HTMLElement {
   constructor() {
     super();

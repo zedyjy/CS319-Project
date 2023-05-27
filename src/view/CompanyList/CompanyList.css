@@ -1,12 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body {
-    padding-top: 2em;
-    background: #3C7478; /* fallback for old browsers */
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-}
+
 .topnav {
     overflow: hidden;
     align-items: center;
@@ -159,8 +152,7 @@ h2 {
     -o-transition: .3s all ease;
     transition: .3s all ease; }
 
-.custom-table tbody tr:hover td, .custom-table tbody tr:focus td {
-    color: #fff; }
+
 
 .custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
     color: #fdd114; }

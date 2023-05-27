@@ -1,12 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body {
-    padding-top: 2em;
-    background: #3C7478; /* fallback for old browsers */
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-}
+
 .topnav {
     overflow: hidden;
     align-items: center;
@@ -77,7 +70,7 @@ a:visited{
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #03414D;
+    background: #181818;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -160,7 +153,7 @@ h2 {
     transition: .3s all ease; }
 
 .custom-table tbody tr:hover td, .custom-table tbody tr:focus td {
-    color: #fff; }
+    color: #757474; }
 
 .custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
     color: #fdd114; }
@@ -518,7 +511,8 @@ th {
 }
 
 .search-container {
-    padding: 1em 16em;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .searchInput {
@@ -527,11 +521,12 @@ th {
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
+    border: 2px solid grey;
 }
 
 .searchInput:focus {
     outline: none;
-    box-shadow: 0 0 5px #2b95d6;
+    border: 2px solid black;
 }
 
 
@@ -545,7 +540,14 @@ th {
     min-height: 30%;
     width: auto;
     height: auto;
-    background-color:#ffffff;
+    background-color:#aeaeae;
     display: none;
+    padding: 5px;
+    border-radius:5px ;
+  }
+
+  .overlay h3, .overlay-deassign h3 {
+    text-align: center;
+    margin: 10px;
   }
   

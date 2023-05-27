@@ -15,21 +15,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <!-- Global Settings -->
+
+    <!-- Global Js -->
     <script src="/js/GlobalSettings/global.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/css/GlobalSettings/global.css"
-    />
+
     <!-- JS -->
-    <script src="/js/AdminAssignments/AdminAssignments.js"></script>
+    <script src="/js/AdminViewEvaluator/AdminViewEvaluator.js"></script>
+
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/AdminAssignments/AdminAssignments.css" />
     <link
       rel="stylesheet"
-      type="text/css"
-      href="/css/StudentHome/StyleStudentHome.css"
+      href="/css/AdminViewEvaluator/AdminViewEvaluator.css"
     />
 
     <!-- Components -->
@@ -50,38 +46,6 @@
     <admin-sidebar-component></admin-sidebar-component>
 
     <div id="viewport" class="mt-5">
-      <!-- Student Tables -->
-      <div class="container">
-        <h1>Students</h1>
-        <!-- Student Search Box -->
-
-        <div class="search-container">
-          <input
-            type="text"
-            class="searchInput"
-            id="student-searchInput"
-            placeholder="Search Student by Name or ID"
-          />
-        </div>
-        <!-- Student Table -->
-        <div class="table-responsive" style="overflow-y: scroll; height: 300px">
-          <table class="table table-striped student-table">
-            <thead>
-              <tr>
-                <th scope="col">Student Name</th>
-                <th scope="col">Student ID</th>
-                <th scope="col">Assigned Evaluators</th>
-                <th scope="col">Assigned TAs</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="student-list">
-              <!-- Table rows will be dynamically added here -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       <!-- Evaluators Tables -->
       <div class="container">
         <h1>Evaluators</h1>
