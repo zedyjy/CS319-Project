@@ -6,7 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <title>Admin View Students</title>
-    <link rel="stylesheet" href="/css/AdminAddUser/StyleAdminAddUser.css"/>
+    <link rel="stylesheet" href="/css/AdminAddUser/StyleAdminAddUser.css" />
     <script src="/js/AdminAddUser/AdminAddUserJS.js"></script>
     <link
       rel="stylesheet"
@@ -46,68 +46,86 @@
     <defaultnavbar-component></defaultnavbar-component>
     <admin-sidebar-component></admin-sidebar-component>
 
-      <!-- Content -->
-      <div id="container">
-        <h2>Add User</h2>
-          <div class="form-row">
-            <label for="userName">User Name: <a id="star">*</a></label>
-            <input type="text" id="userName" name="userName" required />
-          </div>
+    <!-- Content -->
+    <div id="container">
+      <h2>Add User</h2>
+      <div class="form-row">
+        <label for="userName">User Name: <a id="star">*</a></label>
+        <input type="text" id="userName" name="userName" required />
+      </div>
 
-          <div class="form-row">
-            <label for="userSurname">User Surname: <a id="star">*</a></label>
-            <input type="text" id="userSurname" name="userSurname" required />
-          </div>
+      <div class="form-row">
+        <label for="userSurname">User Surname: <a id="star">*</a></label>
+        <input type="text" id="userSurname" name="userSurname" required />
+      </div>
 
-          <div class="form-row">
-            <label for="userId">User ID: <a id="star">*</a></label>
-            <input type="text" id="userId" name="userId" required />
-          </div>
+      <div class="form-row">
+        <label for="userId">User ID: <a id="star">*</a></label>
+        <input type="text" id="userId" name="userId" required />
+      </div>
 
-          <label for="userType">User Type: <a id="star">*</a></label>
-        <div id="checkbox-container">
-          <label>
-            <input type="radio" name="userType" value="student" required />
-            Student
-          </label>
-          <label>
-            <input type="radio" name="userType" value="evaluator" /> Evaluator
-          </label>
-          <label>
-            <input type="radio" name="userType" value="ta" /> TA
-          </label>
-          <label>
-            <input type="radio" name="userType" value="admin" /> Admin
-          </label>
-          <label>
-            <input type="radio" name="userType" value="coordinator" />
-            Coordinator
-          </label>
-        </div>
+      <label for="userType">User Type: <a id="star">*</a></label>
+      <div id="checkbox-container">
+        <label>
+          <input
+            class="input-width"
+            type="radio"
+            name="userType"
+            value="student"
+            required
+          />
+          Student
+        </label>
+        <label>
+          <input
+            class="input-width"
+            type="radio"
+            name="userType"
+            value="evaluator"
+          />
+          Evaluator
+        </label>
+        <label>
+          <input class="input-width" type="radio" name="userType" value="ta" />
+          TA
+        </label>
+        <label>
+          <input
+            class="input-width"
+            type="radio"
+            name="userType"
+            value="admin"
+          />
+          Admin
+        </label>
+        <label>
+          <input
+            class="input-width"
+            type="radio"
+            name="userType"
+            value="coordinator"
+          />
+          Coordinator
+        </label>
+      </div>
 
-        <br /><br />
-          <button class="btn btn-primary">
-            Add User
-          </button>
-        <button class="btn send-email" onclick="sendUserEmail()">
-          Send Email with Password to User
-        </button>
-          <p class="add-user-response"></p>
+      <br /><br />
+      <button class="btn btn-primary">Add User</button>
+      <button class="btn send-email" onclick="sendUserEmail()">
+        Send Email with Password to User
+      </button>
+      <p class="add-user-response"></p>
 
+      <h2>Delete User</h2>
 
-    <h2>Delete User</h2>
+      <div class="form-row">
+        <label for="userId-delete">User ID: <a id="star">*</a></label>
+        <input type="text" id="userId-delete" name="userId" required />
+      </div>
 
-    <div class="form-row">
-      <label for="userId-delete">User ID: <a id="star">*</a></label>
-      <input type="text" id="userId-delete" name="userId" required />
+      <br /><br />
+      <button class="delete-user">Delete User</button>
+      <p class="delete-user-response"></p>
     </div>
-
-    <br /><br />
-    <button class="delete-user">
-      Delete User
-    </button>
-    <p class="delete-user-response"></p>
-    </div>
-
   </body>
 </html>
