@@ -12,6 +12,7 @@ const {
   TA,
   Coordinator,
   Report,
+  InternshipCompany,
 } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
@@ -1052,38 +1053,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Get Student Current Internship Company Details
-apirouter.post("/get-current-internship-company-details", async (req, res) => {
-  const student_id = req.body.user_id;
-
-  try {
-    const student = await Student.findOne({ user_id: student_id });
-    if (!student) {
-      return res.status(404).json({
-        message: "Student Does Not Exist",
-        status: 404,
-      });
-    }
-
-    if (!student.internshipcompany) {
-      return res.status(404).json({
-        message: "You do not have a internship company registered!",
-        status: 404,
-      });
-    }
-
-    await student.populate("internshipcompany");
-
-    return res
-      .status(200)
-      .json({ internshipcompany: student.internshipcompany });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: "Error Getting Internship Company Details" });
-  }
-});
-
 // returns true if email sent, false otherwise
 async function sendEmail(email, subject, messageToSend) {
   // Prepare the email message
@@ -1128,6 +1097,157 @@ apirouter.post("/send-registration-email", async (req, res) => {
 // Start the server
 app.listen(3000, () => {
   console.log("Server started on port 3000");
+});
+
+// Get Student Current Internship Company Details
+apirouter.post("/get-current-internship-company-details", async (req, res) => {
+  const student_id = req.body.user_id;
+
+  try {
+    const student = await Student.findOne({ user_id: student_id });
+    if (!student) {
+      return res.status(404).json({
+        message: "Student Does Not Exist",
+        status: 404,
+      });
+    }
+
+    if (!student.internshipcompany) {
+      return res.status(404).json({
+        message: "You do not have a internship company registered!",
+        status: 404,
+      });
+    }
+
+    await student.populate("internshipcompany");
+
+    return res
+      .status(200)
+      .json({ internshipcompany: student.internshipcompany });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Getting Internship Company Details" });
+  }
+});
+
+// Register Intership Company
+apirouter.post(
+  "/register-internship-company",
+  upload.single("file"),
+  async (req, res) => {
+    try {
+      const student_id = req.body.student_id;
+      const name = req.body.companyName ? req.body.companyName : "";
+      const email = req.body.companyEmail;
+      const city = req.body.companyCity ? req.body.companyCity : "";
+      const sector = req.body.companySector ? req.body.companySector : "";
+
+      const student = await Student.findOne({ user_id: student_id });
+      const internshipcompany = student.internshipcompany ? true : false;
+      const studentHasReport = student.mainReportID ? true : false;
+      if (internshipcompany || !studentHasReport) {
+        await fs.promises.unlink(
+          path.join(__dirname, "../../uploads", req.file.filename)
+        );
+        res.status(404).json({
+          message:
+            "Internship Company Already Exists or You dont have a internship report yet",
+          status: 400,
+        });
+      } else {
+        if (!req.file) {
+          // No file was uploaded
+          res.status(400).json({ message: "No file uploaded" });
+          return;
+        }
+        console.log("REGISTEREING");
+        // Access the uploaded file using req.file
+        const uploadedFile = req.file;
+
+        // Generate a unique filename
+        const uniqueFilename =
+          Date.now() +
+          "-" +
+          "acceptance-letter" +
+          "-" +
+          uploadedFile.originalname;
+
+        // Move the uploaded file to a permanent location
+        const destination = path.join(
+          __dirname,
+          "../../uploads",
+          uniqueFilename
+        );
+        fs.renameSync(uploadedFile.path, destination);
+
+        const newInternshipCompany = new InternshipCompany({
+          relatedStudentID: student_id,
+          name: name,
+          email: email,
+          city: city,
+          sector: sector,
+          acceptanceLetterFile: uniqueFilename,
+        });
+        await newInternshipCompany.save();
+
+        student.internshipcompany = newInternshipCompany._id;
+        await student.save();
+
+        const studentReport = await Report.findOne({
+          relatedStudentID: student_id,
+        });
+        studentReport.internshipcompany = newInternshipCompany._id;
+        await studentReport.save();
+
+        res.status(200).json({
+          message: "Sucessfully Registered Internship Company",
+          status: 200,
+        });
+      }
+    } catch (error) {
+      if (req.file) {
+        await fs.promises.unlink(
+          path.join(__dirname, "../../uploads", req.file.filename)
+        );
+      }
+
+      res.status(400).json({ message: error });
+    }
+  }
+);
+
+//Remove Internship Company
+apirouter.post("/remove-internship-company", async (req, res) => {
+  const internshipcompany_id = req.body.internshipcompany_id;
+  try {
+    const internshipcompany = await InternshipCompany.findOne({
+      _id: internshipcompany_id,
+    });
+    await fs.promises.unlink(
+      path.join(
+        __dirname,
+        "../../uploads",
+        internshipcompany.acceptanceLetterFile
+      )
+    );
+
+    const student_id = internshipcompany.relatedStudentID;
+    const student = await Student.findOne({ user_id: student_id });
+    student.internshipcompany = null;
+    await student.save();
+
+    const studentReport = await Report.findOne({
+      relatedStudentID: student_id,
+    });
+    studentReport.internshipcompany = null;
+    await studentReport.save();
+
+    await InternshipCompany.findOneAndDelete({ _id: internshipcompany_id });
+    res.status(200).json({ message: "Internship Company Deleted" });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Removing Internship Company" });
+  }
 });
 
 //End file and export modules

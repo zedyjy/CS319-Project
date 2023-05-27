@@ -71,69 +71,97 @@
     <div id="viewport" class="mt-5">
       <!-- Content -->
       <div class="container">
-        <h1 class="mb-5">Your Current Internship Company Details</h1>
         <div class="container">
-          <div class="current-internship-company-details"></div>
-          <div
-            class="container register-company"
-            style="width: 50%; margin: 0px"
-          >
-            <div class="row">
-              <div class="col">
-                <label for="companyName">Company Name (required)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="companyName"
-                  required
-                />
-              </div>
+          <h1 class="mb-5">Your Current Internship Company Details</h1>
+
+          <!-- Reports Table -->
+          <div class="table-responsive">
+            <table
+              class="table table-striped current-internship-company-details-reports-table"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Sector</th>
+                  <th scope="col">Acceptance Letter</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="current-internship-company-details-reports-list">
+                <!-- Table rows will be dynamically added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p
+          class="alert-danger remove-internship-company-response"
+          role="alert"
+        ></p>
+
+        <div class="container register-company" style="width: 50%; margin: 0px">
+          <div class="row">
+            <div class="">
+              <label for="companyName">Company Name (required)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="companyName"
+                required
+              />
             </div>
-            <div class="row">
-              <div class="col">
-                <label for="companyEmail">Company Email (required)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="companyEmail"
-                  required
-                />
-              </div>
+          </div>
+          <div class="row">
+            <div class="">
+              <label for="companyEmail">Company Email (required)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="companyEmail"
+                required
+              />
             </div>
-            <div class="row">
-              <div class="col">
-                <label for="companyCity">Company City</label>
-                <input type="text" class="form-control" id="companyCity" />
-              </div>
+          </div>
+          <div class="row">
+            <div class="">
+              <label for="companyCity">Company City</label>
+              <input type="text" class="form-control" id="companyCity" />
             </div>
-            <div class="row">
-              <div class="col">
-                <label for="companySector">Company Sector</label>
-                <input type="text" class="form-control" id="companySector" />
-              </div>
+          </div>
+          <div class="row">
+            <div class="">
+              <label for="companySector">Company Sector</label>
+              <input type="text" class="form-control" id="companySector" />
             </div>
-            <div class="row">
-              <div class="col">
-                <label for="company-acceptance-letter-input"
-                  >Company Acceptance Letter (PDF)</label
-                >
-                <input
-                  type="file"
-                  class="form-control-file"
-                  id="company-acceptance-letter-input"
-                  accept=".pdf"
-                />
-              </div>
+          </div>
+          <div class="row">
+            <div class="">
+              <label for="company-acceptance-letter-input"
+                >Company Acceptance Letter (PDF)</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="company-acceptance-letter-input"
+                accept=".pdf"
+                style="height: 44px"
+                required
+              />
             </div>
-            <div class="row">
-              <div class="col">
-                <button
-                  onclick="registerInternshipCompany()"
-                  class="btn btn-primary"
-                >
-                  Register
-                </button>
-              </div>
+          </div>
+          <div class="row">
+            <div class="">
+              <button
+                onclick="registerInternshipCompany()"
+                class="btn btn-primary"
+              >
+                Register
+              </button>
+              <p
+                class="alert-danger register-internship-company-response"
+                role="alert"
+              ></p>
             </div>
           </div>
         </div>
