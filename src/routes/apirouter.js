@@ -1,7 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const apirouter = express.Router();
-const { User, Student, Evaluator, Company, Admin, TA } = require("./dbmodel");
+const {
+  User,
+  Student,
+  Evaluator,
+  Company,
+  Admin,
+  TA,
+  Report,
+} = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
@@ -207,7 +215,7 @@ apirouter.post("/login", async (req, res) => {
             status: 200,
           });
         } else if (userType === "Admin") {
-          console.log("IT IS AMDIN");
+          console.log("IT IS ADMIN");
           var user = await Admin.findOne({
             username: req.body.user_id,
           });
@@ -307,6 +315,163 @@ apirouter.post("/enroll-course/student", async (req, res) => {
   }
 });
 
+// Submit Feedback
+apirouter.post("/submit-feedback", upload.single("file"), async (req, res) => {
+  const student_id = req.body.student_id;
+  const feedback_text = req.body.feedback_text;
+  try {
+    const student = await Student.findOne({ user_id: student_id });
+    if (!student) {
+      await fs.promises.unlink(
+        path.join(__dirname, "../../uploads", req.file.filename)
+      );
+      res.status(404).json({ message: "Student Does Not Exist", status: 404 });
+    } else {
+      if (!req.file) {
+        // No file was uploaded
+        res.status(400).json({ message: "No file uploaded" });
+        return;
+      }
+
+      // Access the uploaded file using req.file
+      const uploadedFile = req.file;
+
+      // Generate a unique filename
+      const uniqueFilename =
+        Date.now() + "-" + "feedback" + "-" + uploadedFile.originalname;
+
+      // Move the uploaded file to a permanent location
+      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+      fs.renameSync(uploadedFile.path, destination);
+      const report = await Report.findOne({ relatedStudentID: student_id });
+      report.feedbackRequired = false;
+      report.revisionRequired = true;
+      report.feedbackStatus = true;
+      report.currentFeedbackNotes = feedback_text;
+      report.currentFeedbackID = uniqueFilename;
+      report.oldFeedbackIDs.push(uniqueFilename);
+      await report.save();
+
+      res.status(200).json({
+        message: "Sucessfully submitted Feedback",
+        status: 200,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
+// Submit Revision Report // MAX 3 iterations
+apirouter.post(
+  "/submit-revision-report",
+  upload.single("file"),
+  async (req, res) => {
+    const student_id = req.body.student_id;
+    try {
+      const report = await Report.findOne({ relatedStudentID: student_id });
+      if (!report) {
+        await fs.promises.unlink(
+          path.join(__dirname, "../../uploads", req.file.filename)
+        );
+        res.status(404).json({ message: "Report Does Not Exist", status: 404 });
+      } else if (report.iteration >= 3) {
+        await fs.promises.unlink(
+          path.join(__dirname, "../../uploads", req.file.filename)
+        );
+        res.status(500).json({
+          message: "Max Iteration Count Reached, please contact evaluator/TA",
+          status: 500,
+        });
+      } else {
+        if (!req.file) {
+          // No file was uploaded
+          res.status(400).json({ message: "No file uploaded" });
+          return;
+        }
+
+        // Access the uploaded file using req.file
+        const uploadedFile = req.file;
+
+        // Generate a unique filename
+        const uniqueFilename =
+          Date.now() + "-" + "revision" + "-" + uploadedFile.originalname;
+
+        // Move the uploaded file to a permanent location
+        const destination = path.join(
+          __dirname,
+          "../../uploads",
+          uniqueFilename
+        );
+        fs.renameSync(uploadedFile.path, destination);
+
+        report.feedbackRequired = true;
+        report.revisionRequired = false;
+        report.feedbackStatus = false;
+        report.revisionReportID = uniqueFilename;
+        report.iteration = report.iteration + 1;
+        await report.save();
+
+        res.status(200).json({
+          message: "Sucessfully submitted Revison Report",
+          status: 200,
+        });
+      }
+    } catch (error) {
+      res.status(400).json({ message: error });
+    }
+  }
+);
+
+// Submit new report
+apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
+  const student_id = req.body.student_id;
+  try {
+    const report = await Report.findOne({ relatedStudentID: student_id });
+    if (report) {
+      await fs.promises.unlink(
+        path.join(__dirname, "../../uploads", req.file.filename)
+      );
+      res.status(404).json({ message: "Report Already Exists", status: 400 }); // This should be changed to replace report in the future.
+    } else {
+      if (!req.file) {
+        // No file was uploaded
+        res.status(400).json({ message: "No file uploaded" });
+        return;
+      }
+
+      // Access the uploaded file using req.file
+      const uploadedFile = req.file;
+
+      // Generate a unique filename
+      const uniqueFilename = Date.now() + "-" + uploadedFile.originalname;
+
+      // Move the uploaded file to a permanent location
+      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+      fs.renameSync(uploadedFile.path, destination);
+      const newReport = new Report({
+        relatedStudentID: student_id,
+        mainReportID: uniqueFilename,
+        revisionReportID: uniqueFilename,
+        lastReportSubmission: new Date(),
+      });
+      await newReport.save();
+
+      await Student.updateOne(
+        { user_id: student_id },
+        { $set: { mainReportID: uniqueFilename } }
+      );
+
+      res.status(200).json({
+        message: "Sucessfully submitted Report",
+        status: 200,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
 // GET all User Courses
 apirouter.post("/get-courses", async (req, res) => {
   const user_id = req.body.user_id;
@@ -332,7 +497,6 @@ apirouter.post("/get-courses", async (req, res) => {
 // Retrieve student information
 apirouter.get("/students/:studentId", async (req, res) => {
   const studentId = req.params.studentId;
-  console.log(studentId);
 
   try {
     const student = await Student.findOne({ user_id: studentId });
@@ -342,8 +506,7 @@ apirouter.get("/students/:studentId", async (req, res) => {
       surname: student.surname,
       studentID: student.user_id,
       courses: student.courses,
-      username: student.fullname,
-      iteration: student.revisionCount,
+      mainReportID: student.mainReportID,
       status: 200,
     });
   } catch (error) {
@@ -351,84 +514,43 @@ apirouter.get("/students/:studentId", async (req, res) => {
   }
 });
 
-// Upload File
-apirouter.post(
-  "/student/upload-file",
-  upload.single("file"),
-  async (req, res) => {
-    try {
-      // Find the student by user_id
-      const student = await Student.findOne({
-        user_id: req.body.user_id,
+// Retrieve report information
+apirouter.get("/reports/:studentId", async (req, res) => {
+  const studentId = req.params.studentId;
+
+  try {
+    const report = await Report.findOne({ relatedStudentID: studentId });
+    if (report) {
+      res.status(200).json({
+        mainReportID: report.mainReportID,
+        currentFeedbackID: report.currentFeedbackID,
+        oldFeedbackIDs: report.oldFeedbackIDs,
+        revisionRequired: report.revisionRequired,
+        feedbackRequired: report.feedbackRequired,
+        gradingItemID: report.gradingItemID,
+        iteration: report.iteration,
+        lastReportSubmission: report.lastReportSubmission,
+        revisionDeadline: report.revisionDeadline,
+        reportSubmissionDeadline: report.reportSubmissionDeadline,
+        report: report,
+        status: 200,
       });
-      if (!student) {
-        // Student not found
-        res.status(404).json({ error: "Student not found" });
-        return;
-      }
-
-      // Check if student already has a resume file
-      if (student.resume) {
-        await fs.promises.unlink(
-          path.join(__dirname, "../../uploads", req.file.filename)
-        );
-        res.status(400).json({ error: "Student already has a resume file" });
-        return;
-      }
-
-      if (!req.file) {
-        // No file was uploaded
-        res.status(400).json({ error: "No file uploaded" });
-        return;
-      }
-
-      // Access the uploaded file using req.file
-      const uploadedFile = req.file;
-
-      // Generate a unique filename
-      const uniqueFilename = Date.now() + "-" + uploadedFile.originalname;
-
-      try {
-        // Move the uploaded file to a permanent location
-        const destination = path.join(
-          __dirname,
-          "../../uploads",
-          uniqueFilename
-        );
-        fs.renameSync(uploadedFile.path, destination);
-
-        // Update the student's resume field with the filename
-        student.resume = uniqueFilename;
-        await student.save();
-
-        // Example response
-        res.json({ message: "File uploaded successfully" });
-      } catch (error) {
-        console.error("Error saving the file: ", error);
-        res.status(500).json({ error: "Error saving the file" });
-      }
-    } catch (error) {
-      console.error("Error finding the student: ", error);
-      res.status(500).json({ error: "Error finding the student" });
+    } else {
+      res.status(404).json({ message: "No Such Report" });
     }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
-);
+});
 
 // Get File
-apirouter.post("/student/get-file", async (req, res) => {
-  const student = await Student.findOne({ user_id: req.body.user_id });
-  if (!student) {
-    // Student not found
-    res.status(404).json({ error: "Student not found" });
-    return;
-  }
+apirouter.post("/get-file", async (req, res) => {
+  const filename = req.body.filename;
   // Check if student already has a resume file
-  if (!student.resume) {
-    res.status(404).json({ error: "No Resume Exists!" });
+  if (!filename) {
+    res.status(404).json({ error: "File Param Cannot be Empty!" });
     return;
   }
-
-  const filename = student.resume;
 
   try {
     // Check if the file exists
@@ -447,52 +569,41 @@ apirouter.post("/student/get-file", async (req, res) => {
   }
 });
 
-// Get File Name
-apirouter.post("/student/get-file-name", async (req, res) => {
-  const student = await Student.findOne({ user_id: req.body.user_id });
-  if (!student) {
-    // Student not found
-    res.status(404).json({ error: "Student not found" });
-    return;
-  }
-  const filename = student.resume;
-
+// Delete Student Report
+apirouter.post("/delete-report", async (req, res) => {
+  const studentID = req.body.studentID;
+  const mainReportID = req.body.mainReportID;
   try {
-    res.status(200).json({ message: "File found", filename: filename });
-  } catch (error) {
-    console.error("Error retrieving the file name: ", error);
-    res.status(500).json({ error: "Error retrieving the file" });
-  }
-});
-
-// Delete Student Resume
-apirouter.post("/student/delete-resume", async (req, res) => {
-  try {
-    const student = await Student.findOne({ user_id: req.body.user_id });
+    const report = await Report.findOne({ mainReportID: mainReportID });
+    if (!report) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+    await report.deleteOne();
+    const student = await Student.findOne({ user_id: studentID });
     if (!student) {
       return res.status(404).json({ error: "Student not found" });
     }
 
-    const filename = student.resume;
-    if (!filename) {
-      return res.status(404).json({ error: "File not found" });
-    }
+    const filename = mainReportID;
     const filePath = path.join(__dirname, "../../uploads", filename);
 
     try {
       await fs.promises.unlink(filePath);
-      student.resume = "";
+      student.mainReportID = "";
       await student.save();
-      return res.status(200).json({ message: `File Deleted: ${filename}` });
+      return res.status(200).json({ message: `Report Deleted: ${filename}` });
     } catch (error) {
-      console.error("Error deleting the file or file does not exist:", error);
+      console.error(
+        "Error deleting the Report or Report does not exist:",
+        error
+      );
       return res
         .status(500)
-        .json({ error: "Error deleting the file or file does not exist" });
+        .json({ error: "Error deleting the Report or Report does not exist" });
     }
   } catch (error) {
-    console.error("Error retrieving the file name: ", error);
-    return res.status(500).json({ error: "Error retrieving the file" });
+    console.error("Error retrieving the Report name: ", error);
+    return res.status(500).json({ error: "Error retrieving the Report" });
   }
 });
 
@@ -625,5 +736,143 @@ apirouter.post("/get-all-tas", async (req, res) => {
     return res.status(500).json({ error: "Error Getting tas" });
   }
 });
+
+// Assign Students to Users
+apirouter.post("/assign-student", async (req, res) => {
+  const user_id = req.body.user_id;
+  const student_id = req.body.student_id;
+
+  try {
+    const student = await Student.findOne({
+      user_id: student_id,
+    });
+    if (!student) {
+      return res.status(404).json({
+        message: "Student Does Not Exist",
+        status: 404,
+      });
+    }
+
+    const userType = await getUserType(user_id);
+    if (userType === "Student") {
+      return res.status(400).json({
+        message: "Student Cannot be Assigned to a Student",
+        status: 400,
+      });
+    } else if (userType === "Evaluator") {
+      const evaluator = await Evaluator.findOne({
+        user_id: user_id,
+      });
+      if (evaluator.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student Already Assigned to Evaluator",
+          status: 400,
+        });
+      } else {
+        student.assignedEvaluators.push(user_id);
+        evaluator.students.push(student_id);
+        await evaluator.save();
+        await student.save();
+        return res
+          .status(200)
+          .json({ message: "Student Assigned to Evaluator", status: 200 });
+      }
+    } else if (userType === "TA") {
+      const ta = await TA.findOne({
+        user_id: user_id,
+      });
+      if (ta.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student Already Assigned to TA",
+          status: 400,
+        });
+      } else {
+        student.assignedTAs.push(user_id);
+        ta.students.push(student_id);
+        await ta.save();
+        return res
+          .status(200)
+          .json({ message: "Student Assigned to TA", status: 200 });
+      }
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Assigning Student", status: 500 });
+  }
+});
+
+// Remove Student Assignments from Users
+apirouter.post("/remove-assigned-student", async (req, res) => {
+  const user_id = req.body.user_id;
+  const student_id = req.body.student_id;
+  try {
+    const student = await Student.findOne({
+      user_id: student_id,
+    });
+    if (!student) {
+      return res.status(404).json({
+        message: "Student Does Not Exist",
+        status: 404,
+      });
+    }
+    const userType = await getUserType(user_id);
+    if (userType === "Student") {
+      return res.status(400).json({
+        message: "Student Cannot be De-Assigned from a Student",
+        status: 400,
+      });
+    } else if (userType === "Evaluator") {
+      const evaluator = await Evaluator.findOne({
+        user_id: user_id,
+      });
+      if (!evaluator.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student is NOT Assigned to Evaluator",
+          status: 400,
+        });
+      } else {
+        const evalIndex = student.assignedEvaluators.findIndex(
+          (id) => id === user_id
+        );
+        student.assignedEvaluators.splice(evalIndex, 1);
+        const studentIndex = evaluator.students.findIndex(
+          (id) => id === student_id
+        );
+        evaluator.students.splice(studentIndex, 1);
+        await evaluator.save();
+        await student.save();
+        return res
+          .status(200)
+          .json({ message: "Student De-Assigned from Evaluator", status: 200 });
+      }
+    } else if (userType === "TA") {
+      const ta = await TA.findOne({
+        user_id: user_id,
+      });
+      if (!ta.students.includes(student_id)) {
+        return res.status(400).json({
+          message: "Student is NOT Assigned to TA",
+          status: 400,
+        });
+      } else {
+        const taIndex = student.assignedTAs.findIndex((id) => id === user_id);
+        student.assignedTAs.splice(taIndex, 1);
+        const studentIndex = ta.students.findIndex((id) => id === student_id);
+        ta.students.splice(studentIndex, 1);
+        await ta.save();
+        await student.save();
+        return res
+          .status(200)
+          .json({ message: "Student De-Assigned from TA", status: 200 });
+      }
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error De-Assigning Student", status: 500 });
+  }
+});
+
 //End file and export modules
 module.exports = apirouter;

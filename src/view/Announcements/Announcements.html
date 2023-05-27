@@ -13,8 +13,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <!-- Global JS -->
+    <!-- Global Settings -->
     <script src="/js/GlobalSettings/global.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/GlobalSettings/global.css"
+    />
 
 
     <!-- CSS-->
@@ -36,6 +41,11 @@
       defer
     ></script>
     <script
+      src="/components/Navbar/EvaluatorSidebarJS.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
       src="/components/Footer/footer.js"
       type="text/javascript"
       defer
@@ -43,8 +53,10 @@
   </head>
 <body style="display: none;">
     <!-- NAVIGATION MENUS -->
+    <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
     <student-sidebar-component></student-sidebar-component>
+    <evaluator-sidebar-component></evaluator-sidebar-component>
 
     <div id="viewport">
         <!-- Sidebar -->

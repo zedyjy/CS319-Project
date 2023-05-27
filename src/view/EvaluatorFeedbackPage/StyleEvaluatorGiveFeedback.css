@@ -1,11 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body {
-    background: #3C7478; /* fallback for old browsers */
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-}
+
 .topnav {
     overflow: hidden;
     align-items: center;
@@ -492,19 +486,4 @@ th {
 
   }
   
-  #feedback-info input[type="file"] {
-    margin-top: 0.5em;
-  }
-  
-  #feedback-info input[type="submit"] {
-    margin-top: 1em;
-    padding: 0.5em 1em;
-    background-color:#03414D;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  #feedback-info input[type="submit"]:hover {
-    background-color:crimson;
-  }
+

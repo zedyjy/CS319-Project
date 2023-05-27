@@ -7,7 +7,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <title>Admin View Students</title>
+    <title>Admin Assign Users</title>
 
     <link
       rel="stylesheet"
@@ -15,19 +15,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <!-- Global Settings -->
+
+    <!-- Global Js -->
     <script src="/js/GlobalSettings/global.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/css/GlobalSettings/global.css"
-    />
+
     <!-- JS -->
-    <script src="/js/AdminViewStudentList/AdminViewStudentJS.js"></script>
+    <script src="/js/AdminViewEvaluator/AdminViewEvaluator.js"></script>
+
     <!-- CSS -->
     <link
       rel="stylesheet"
-      href="/css/AdminViewStudentList/StyleAdminViewStudentList.css"
+      href="/css/AdminViewEvaluator/AdminViewEvaluator.css"
     />
 
     <!-- Components -->
@@ -47,33 +45,32 @@
     <defaultnavbar-component></defaultnavbar-component>
     <admin-sidebar-component></admin-sidebar-component>
 
-    <div id="viewport">
-      <!-- Sidebar -->
-      <!-- Content -->
-      <!-- Content -->
+    <div id="viewport" class="mt-5">
+      <!-- Evaluators Tables -->
       <div class="container">
-        <h1>Students</h1>
+        <h1>Evaluators</h1>
+        <!-- Evaluators Search Box -->
+
         <div class="search-container">
           <input
             type="text"
-            id="searchInput"
-            placeholder="Search Student by Name or ID"
+            class="searchInput"
+            id="evaluator-searchInput"
+            placeholder="Search Evaluators by Name or ID"
           />
         </div>
-
-        <div class="table-responsive">
-          <table class="table table-striped custom-table" id="grade-table">
+        <!-- Evaluators Table -->
+        <div class="table-responsive" style="overflow-y: scroll; height: 300px">
+          <table class="table table-striped evaluator-table">
             <thead>
               <tr>
-                <th scope="col">Student Name</th>
-                <th scope="col">Student ID</th>
-                <th scope="col">Course Name</th>
-                <th scope="col">View Info</th>
-                <th scope="col">Edit User</th>
-                <th scope="col">Delete User</th>
+                <th scope="col">Evaluator Name</th>
+                <th scope="col">Evaluator ID</th>
+                <th scope="col">Assigned Students</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody id="student-list">
+            <tbody id="evaluators-list">
               <!-- Table rows will be dynamically added here -->
             </tbody>
           </table>

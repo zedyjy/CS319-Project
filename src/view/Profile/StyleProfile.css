@@ -1,8 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+
 
 .container {
     max-width: 800px;
@@ -70,26 +66,12 @@ h1 {
     margin-bottom: 5px;
 }
 
-.password-section input[type="password"] {
-    width: fit-content;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
 .password-section .actions {
     margin-top: 10px;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body {
-    padding-top: 2em;
-    background: #3C7478; /* fallback for old browsers */
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-}
+
 .topnav {
     overflow: hidden;
     align-items: center;

@@ -3,7 +3,7 @@
 .topnav {
     overflow: hidden;
     align-items: center;
-    background: #d8dada;
+    background: #03414D;
     padding: 0.7em 0 0;
     max-width: 100%;
     max-height: 100%;
@@ -47,7 +47,6 @@ a:visited{
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    margin-top: 50px;
 }
 
 #content {
@@ -154,7 +153,7 @@ h2 {
     transition: .3s all ease; }
 
 .custom-table tbody tr:hover td, .custom-table tbody tr:focus td {
-    color: #626060; }
+    color: #757474; }
 
 .custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
     color: #fdd114; }
@@ -516,7 +515,7 @@ th {
     margin-top: 20px;
 }
 
-#searchInput {
+.searchInput {
     width: 300px;
     padding: 10px;
     border: none;
@@ -525,7 +524,30 @@ th {
     border: 2px solid grey;
 }
 
-#searchInput:focus {
+.searchInput:focus {
     outline: none;
-    border: 2px solid black;;
+    border: 2px solid black;
 }
+
+
+.overlay, .overlay-deassign {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    min-width: 30%;
+    min-height: 30%;
+    width: auto;
+    height: auto;
+    background-color:#aeaeae;
+    display: none;
+    padding: 5px;
+    border-radius:5px ;
+  }
+
+  .overlay h3, .overlay-deassign h3 {
+    text-align: center;
+    margin: 10px;
+  }
+  

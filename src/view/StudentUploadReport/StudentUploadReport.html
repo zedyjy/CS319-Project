@@ -1,109 +1,129 @@
-
+<!-- This is a placeholder page-->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload Report</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <!-- Global JS -->
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Global Settings -->
     <script src="/js/GlobalSettings/global.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/GlobalSettings/global.css"
+    />
 
     <!-- JS -->
+
     <script src="/js/StudentUploadReport/StudentUploadReport.js"></script>
 
     <!-- CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/StudentUploadReport/StyleStudentUploadReport.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/StudentUploadReport/StyleStudentUploadReport.css"
+    />
 
     <!-- Components -->
-    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
-    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Navbar/studentnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
 
+  <body style="display: none">
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <student-sidebar-component></student-sidebar-component>
 
-</head>
+    <div id="viewport">
+      <!-- Sidebar -->
 
-<body >
-<!-- NAVIGATION MENUS -->
-<defaultnavbar-component></defaultnavbar-component>
-<student-sidebar-component></student-sidebar-component>
-
-
-<div id="viewport">
-
-    <!-- Content -->
-    <div class="container">
-        <h2 class="mb-5">My Reports</h2>
-        <div class="table-responsive">
-
-            <table class="table table-striped custom-table">
-                <thead>
-                <tr>
-
-                    <th scope="col">Student ID</th>
-                    <th scope="col">Course Name</th>
-                    <th scope="col">Report Submission Date</th>
-                    <th scope="col">Report</th>
-                    <th scope="col">Iteration #</th>
-                    <th scope="col">Upload Here</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr scope="row">
-                    <td>
-                        22002572
-                    </td>
-                    <td>
-                        CS299
-                    </td>
-                    <td>
-                        14/05/2023
-                    </td>
-                    <td><a href="C:\Users\zeyne\WebstormProjects\CS319-Project\src\assets\ExampleReport\CS319_DesignReport_Iter1_Quaso.pdf">My Report</a></td>
-                    <td>1</td>
-                    <td>Uploaded</td>
-
-                </tr>
-
-                <td>
-                    22002572
-                </td>
-                <td>
-                    CS299
-                </td>
-                <td>
-                    --------
-                </td>
-                <td>Not uploaded yet</td>
-                <td>2</td>
-                <td><input type="file" id="myFile" name="filename">
-                    <input type="submit"></td>
-
-                </tr>
-                <td>
-                    22002572
-                </td>
-                <td>
-                    CS299
-                </td>
-                <td>
-                    --------
-                </td>
-                <td>Not uploaded yet</td>
-                <td>3</td>
-                <td><input type="file" id="myFile" name="filename">
-                    <input type="submit"></td>
-
-                </tr>
-
-                </tbody>
-            </table>
+      <!-- Content -->
+      <div class="container">
+        <h1>Submitted Reports</h1>
+        <div class="col-auto">
+          <p>Submit New Report</p>
         </div>
-    </div>
-</div>
+        <div class="col-auto">
+          <input type="file" id="report-input" accept=".pdf" />
+          <button onclick="submitReport()" class="btn btn-primary">
+            Submit
+          </button>
+          <p class="submit-report-response"></p>
+        </div>
+        <!-- Reports Table -->
+        <div class="table-responsive">
+          <table class="table table-striped reports-table">
+            <thead>
+              <tr>
+                <th scope="col">Report File Name</th>
+                <th scope="col">Eval/TA Feedback Status</th>
+                <th scope="col">Iteration</th>
+                <th scope="col">Revision Required</th>
+                <th scope="col">Upload Date</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reports-list">
+              <!-- Table rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+        <p class="delete-report-response" style="color: red"></p>
+      </div>
 
-</body>
+      <div class="container">
+        <h1>Reports Pending Revision</h1>
+
+        <!-- Reports Table -->
+        <div class="table-responsive">
+          <table class="table table-striped revision-reports-table">
+            <thead>
+              <tr>
+                <th scope="col">Report File Name</th>
+                <th scope="col">Eval/TA Feedback Status</th>
+                <th scope="col">Iteration</th>
+                <th scope="col">Revision Required</th>
+                <th scope="col">Upload Date</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="revision-reports-list">
+              <!-- Table rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

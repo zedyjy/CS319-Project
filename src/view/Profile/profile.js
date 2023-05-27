@@ -37,7 +37,7 @@ $(document).ready(function () {
     console.log(user_id);
 
     $.ajax({
-      url: "/student/get-file",
+      url: "/get-file",
       type: "POST",
       data: {
         user_id: user_id,

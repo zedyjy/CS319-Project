@@ -134,6 +134,13 @@ publicrouter.get("/admin/view-student-list", (req, res) => {
   res.render("AdminViewStudentList/AdminViewStudentList");
 });
 
+publicrouter.get("/admin/assignments", (req, res) => {
+  res.render("AdminAssignments/AdminAssignments");
+});
+publicrouter.get("/admin/view-evaluator-list", (req, res) => {
+  res.render("AdminViewEvaluator/AdminViewEvaluator");
+});
+
 //---------------------------------------
 // ---------- Company Pages ---------- //
 //---------------------------------------

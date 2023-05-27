@@ -6,9 +6,10 @@ footer {
     flex-shrink: 0;
     justify-content: space-between;
     align-items: center;
-    background-color: #03414D;
+    background-color: black;
   }
-  p{
+  footer p{
+    color: white;
     justify-content: center;
   }
 

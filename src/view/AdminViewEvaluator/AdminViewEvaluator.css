@@ -3,7 +3,7 @@
 .topnav {
     overflow: hidden;
     align-items: center;
-    background: #d8dada;
+    background: #03414D;
     padding: 0.7em 0 0;
     max-width: 100%;
     max-height: 100%;
@@ -154,7 +154,7 @@ h2 {
     transition: .3s all ease; }
 
 .custom-table tbody tr:hover td, .custom-table tbody tr:focus td {
-    color: #626060; }
+    color: #535252; }
 
 .custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
     color: #fdd114; }
@@ -516,7 +516,7 @@ th {
     margin-top: 20px;
 }
 
-#searchInput {
+#evaluator-searchInput {
     width: 300px;
     padding: 10px;
     border: none;
@@ -525,7 +525,7 @@ th {
     border: 2px solid grey;
 }
 
-#searchInput:focus {
+#evaluator-searchInput:focus {
     outline: none;
-    border: 2px solid black;;
+    border: 2px solid black;
 }

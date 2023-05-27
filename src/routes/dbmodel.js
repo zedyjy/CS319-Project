@@ -66,8 +66,8 @@ const studentSchema = new mongoose.Schema({
   courses: {
     type: [String],
   },
-  assignedEvaluator: {
-    type: String,
+  assignedEvaluators: {
+    type: [String],
   },
   assignedTAs: {
     type: [String],
@@ -78,37 +78,7 @@ const studentSchema = new mongoose.Schema({
   courseGrade: {
     type: String,
   },
-  internshipReportFile: {
-    data: Buffer,
-    contentType: String,
-  },
-  internshipReportSubmissionStatus: {
-    type: String,
-  },
-  revisionCount: {
-    type: Number,
-    default: 2
-  },
-  evaluatorFeedbackFile: {
-    data: Buffer,
-    contentType: String,
-  },
-  evaluatorFeedbackStatus: {
-    type: String,
-  },
-  revisionDeadline: {
-    type: Date,
-  },
-  reportSubmissionDeadline: {
-    type: Date,
-  },
-  name: {
-    type: String,
-  },
-  grade: {
-    type: Number,
-  },
-  courseName: {
+  mainReportID: {
     type: String,
   },
   // Student-specific fields...
@@ -263,11 +233,6 @@ const gradingFormSchema = new mongoose.Schema({
 });
 
 const adminSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
   userType: {
     type: String,
     default: "Admin",
@@ -275,6 +240,58 @@ const adminSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+  },
+});
+
+const reportSchema = new mongoose.Schema({
+  relatedStudentID: {
+    type: String,
+    required: true,
+  },
+  mainReportID: {
+    type: String,
+    required: true,
+  },
+  revisionReportID: {
+    type: String,
+  },
+  currentFeedbackID: {
+    type: String,
+  },
+  currentFeedbackNotes: {
+    type: String,
+  },
+  oldFeedbackIDs: {
+    type: [String],
+  },
+  feedbackStatus: {
+    type: Boolean,
+    default: false,
+  },
+  feedbackRequired: {
+    type: Boolean,
+    default: true,
+  },
+  revisionRequired: {
+    type: Boolean,
+    default: false,
+  },
+  gradingItemID: {
+    type: String,
+  },
+  iteration: {
+    type: Number,
+    default: 1,
+  },
+  lastReportSubmission: {
+    type: Date,
+  },
+  revisionDeadline: {
+    type: Date,
+  },
+  reportSubmissionDeadline: {
+    type: Date,
+    default: "2024-05-27T01:00:17.475Z",
   },
 });
 
@@ -286,6 +303,7 @@ const TA = mongoose.model("TA", taSchema);
 const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
+const Report = mongoose.model("Report", reportSchema);
 
 module.exports = {
   User,
@@ -295,4 +313,5 @@ module.exports = {
   Company,
   GradingForm,
   Admin,
+  Report,
 };

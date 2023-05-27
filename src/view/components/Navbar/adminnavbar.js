@@ -34,7 +34,7 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-evaluator-list">
               <i class="zmdi zmdi-comment-more"></i> View Evaluator List
             </a>
           </li>
@@ -54,6 +54,11 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
+            <a href="/admin/assignments">
+              <i class="zmdi zmdi-comment-more"></i> Assign Users
+            </a>
+          </li>
+          <li>
             <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
           </li>
           <li>
@@ -66,6 +71,7 @@ adminnavbarTemplate.innerHTML = `
       </div>
 </div>
 `;
+
 class AdminSidebar extends HTMLElement {
   constructor() {
     super();

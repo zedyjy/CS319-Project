@@ -1,139 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log In Page</title>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-    
-    <!-- Global JS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Global Settings -->
     <script src="/js/GlobalSettings/global.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/GlobalSettings/global.css"
+    />
 
     <!-- JS -->
     <script src="/js/Home/HomePageJS.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/css/Home/StyleHome.css">
+    <link rel="stylesheet" type="text/css" href="/css/Home/StyleHome.css" />
 
     <!-- Components -->
-    <script src="components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
-    <script src="components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
-    <script src="components/Footer/footer.js" type="text/javascript" defer></script>
-</head>
-<body style="display: none;">
+    <script
+      src="components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="components/Navbar/studentnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
+  <body style="display: none">
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
 
-<!-- NAVIGATION MENUS -->
-<defaultnavbar-component></defaultnavbar-component>
-
-<div class="form">
-<div class="login-page">
-    <img src="/assets/logo.svg" alt="Bilkent Logo">
+    <div class="form">
+      <div class="login-page">
+        <img src="/assets/logo.svg" alt="Bilkent Logo" />
         <p class="welcome"><a>Welcome to Bilkent Internship System</a></p>
         <button id="goto-homepage">Goto your Dashboard</button>
-        
-    </div>
-    
-    <div class="login-form">
-      <form>
-        <div>
-          <input type="text" placeholder="Student ID:" id="login-Id" name="user_id" required>
-        </div>
-        <div>
-          <input type="password" placeholder="Password:" id="login-password" name="password" required>
-        </div>
-          <button id="login-button" class="form-button">Login</button>
+      </div>
+
+      <div class="login-form">
+        <form>
+          <div>
+            <input
+              type="text"
+              placeholder="Student ID:"
+              id="login-Id"
+              name="user_id"
+              required
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password:"
+              id="login-password"
+              name="password"
+              required
+            />
+          </div>
+          <button id="login-button" class="btn btn-primary">Login</button>
         </form>
         <p class="login-response"></p>
-  </div>
+      </div>
 
-    <div id="line"></div>
+      <div id="line"></div>
 
-    <div class="row forms-group">
+      <div class="row forms-group">
         <!-- Student -->
         <div class="column">
           <div class="box" onclick="toggleForms(1)">
-            <button>Student Register</button>
+            <button class="main-button">Student Register</button>
           </div>
-          <div class="forms" id="forms1">
-            
+          <div class="forms" id="forms1" style="display: none">
             <div class="register-form">
-                <form style="margin-top: 20px;">
-                    <label>Student ID:</label>
-                    <input type="text" id="register-student-Id"  required>
-                    
-                    <label >Password:</label>
-                    <input type="password" id="register-student-password"  required>
-                    <div>
-                    <button id="student-register-button" class="form-button">Register</button>
-                    </div>
-                </form>
-                  <p class="register-student-response"></p>
+              <form style="margin-top: 20px">
+                <label>Student ID:</label>
+                <input type="text" id="register-student-Id" required />
+
+                <label>Password:</label>
+                <input
+                  type="password"
+                  id="register-student-password"
+                  required
+                />
+                <div>
+                  <button id="student-register-button" class="btn btn-primary">
+                    Register
+                  </button>
+                </div>
+              </form>
+              <p class="register-student-response"></p>
             </div>
           </div>
         </div>
         <!-- Evaluator -->
         <div class="column">
           <div class="box" onclick="toggleForms(2)">
-            <button>Evaluator Register</button>
+            <button class="main-button">Evaluator Register</button>
           </div>
-          <div class="forms" id="forms2">
-        
+          <div class="forms" id="forms2" style="display: none">
             <div class="register-form">
-                <form style="margin-top: 20px;">
-                    <label >Evaluator ID:</label>
-                    <input type="text" id="register-evaluator-Id"  required>
-                    
-                    <label >Password:</label>
-                    <input type="password" id="register-evaluator-password" required>
-                    <div>
-                    <button id="register-evaluator-button" class="form-button">Register</button>
-                    </div>
-                  </form>
-                  <p class="register-evaluator-response"></p>
+              <form style="margin-top: 20px">
+                <label>Evaluator ID:</label>
+                <input type="text" id="register-evaluator-Id" required />
+
+                <label>Password:</label>
+                <input
+                  type="password"
+                  id="register-evaluator-password"
+                  required
+                />
+                <div>
+                  <button
+                    id="register-evaluator-button"
+                    class="btn btn-primary"
+                  >
+                    Register
+                  </button>
+                </div>
+              </form>
+              <p class="register-evaluator-response"></p>
             </div>
           </div>
         </div>
         <!-- Admin -->
         <div class="column">
           <div class="box" onclick="toggleForms(3)">
-            <button>Admin Register</button>
+            <button class="main-button">Admin Register</button>
           </div>
-            <div class="forms" id="forms3">
+          <div class="forms" id="forms3" style="display: none">
+            <div class="register-form">
+              <form style="margin-top: 20px">
+                <label>Admin Username:</label>
+                <input type="text" id="register-admin-Id" required />
 
-                <div class="register-form">
-                    <form style="margin-top: 20px;">
-                        <label >Admin Username:</label>
-                        <input type="text" id="register-admin-Id" required>
-
-                        <label >Password:</label>
-                        <input type="password" id="register-admin-password" required>
-                        <div>
-                            <button id="register-admin-button" class="form-button">Register</button>
-                        </div>
-                    </form>
-                    <p class="register-admin-response"></p>
+                <label>Password:</label>
+                <input type="password" id="register-admin-password" required />
+                <div>
+                  <button id="register-admin-button" class="btn btn-primary">
+                    Register
+                  </button>
                 </div>
+              </form>
+              <p class="register-admin-response"></p>
             </div>
+          </div>
         </div>
         <div class="column">
           <div class="box" onclick="toggleForms(4)">
-            <button>Coordinator Register</button>
+            <button class="main-button">Coordinator Register</button>
           </div>
-          <div class="forms" id="forms4">
+          <div class="forms" id="forms4" style="display: none">
             <form>
               <h1>FORM 4</h1>
-            
             </form>
             <form>
-                <h1>FORM 4</h1> <!-- Form content for Box 4 -->
+              <h1>FORM 4</h1>
+              <!-- Form content for Box 4 -->
             </form>
           </div>
         </div>
       </div>
-</div>
-</div>
-<footer-component></footer-component>
-</body>
+    </div>
+
+    <footer-component></footer-component>
+  </body>
 </html>

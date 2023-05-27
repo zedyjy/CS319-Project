@@ -1,0 +1,21 @@
+body {
+    padding-top: 2em;
+    background: #d8dada; /* fallback for old browsers */
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+}
+
+input {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 2px solid grey;
+}
+
+button {
+    margin-top: 15px;
+}
