@@ -66,8 +66,8 @@ const studentSchema = new mongoose.Schema({
   courses: {
     type: [String],
   },
-  assignedEvaluator: {
-    type: String,
+  assignedEvaluators: {
+    type: [String],
   },
   assignedTAs: {
     type: [String],
