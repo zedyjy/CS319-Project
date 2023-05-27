@@ -118,7 +118,20 @@ publicrouter.get("/evaluator/give-feedback", (req, res) => {
 publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });
+//---------------------------------------
+// ---------- Evaluator Pages ---------- //
+//---------------------------------------
+publicrouter.get("/ta", (req, res) => {
+  res.render("TaHome/TaHomePage");
+});
 
+publicrouter.get("/ta/give-feedback", (req, res) => {
+  res.render("TaFeedbackPage/TaGiveFeedbackPage");
+});
+
+publicrouter.get("/ta/student-list", (req, res) => {
+  res.render("TaFeedbackPage/TaFeedbackListPage");
+});
 //---------------------------------------
 // ---------- Admin Pages ---------- //
 //---------------------------------------
