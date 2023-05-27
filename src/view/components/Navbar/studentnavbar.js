@@ -32,11 +32,6 @@ studentnavbarTemplate.innerHTML = `
       </a>
     </li>
     <li>
-      <a href="/student/view-report">
-        <i class="zmdi zmdi-comment-more"></i> View Reports
-      </a>
-    </li>
-    <li>
       <a href="#"> <i class="zmdi zmdi-comment-more"></i> Grades </a>
     </li>
     <li>
