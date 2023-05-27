@@ -1,8 +1,13 @@
 const userTypeRadios = document.querySelectorAll('input[name="userType"]');
 
+// ------SEND EMAILS TO USERS------
+
 function sendUserEmail(user_id, password, email) {
+  //ADD YOUR CODE HERE
   alert("Email sent to user with the password: " + password);
 }
+
+// ------SEND EMAILS TO USERS END------
 
 function deleteUser() {
   // Retrieve the values from the form fields
