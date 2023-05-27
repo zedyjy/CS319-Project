@@ -527,7 +527,7 @@ th {
     border-radius:5px ;
   }
 
-  .overlay h3, .overlay-deassign h3 {
+  .overlay h3, .overlay p {
     text-align: center;
     margin: 10px;
   }

@@ -215,7 +215,7 @@ apirouter.post("/login", async (req, res) => {
             status: 200,
           });
         } else if (userType === "Admin") {
-          console.log("IT IS AMDIN");
+          console.log("IT IS ADMIN");
           var user = await Admin.findOne({
             username: req.body.user_id,
           });
@@ -315,6 +315,114 @@ apirouter.post("/enroll-course/student", async (req, res) => {
   }
 });
 
+// Submit Feedback
+apirouter.post("/submit-feedback", upload.single("file"), async (req, res) => {
+  const student_id = req.body.student_id;
+  const feedback_text = req.body.feedback_text;
+  try {
+    const student = await Student.findOne({ user_id: student_id });
+    if (!student) {
+      await fs.promises.unlink(
+        path.join(__dirname, "../../uploads", req.file.filename)
+      );
+      res.status(404).json({ message: "Student Does Not Exist", status: 404 });
+    } else {
+      if (!req.file) {
+        // No file was uploaded
+        res.status(400).json({ message: "No file uploaded" });
+        return;
+      }
+
+      // Access the uploaded file using req.file
+      const uploadedFile = req.file;
+
+      // Generate a unique filename
+      const uniqueFilename =
+        Date.now() + "-" + "feedback" + "-" + uploadedFile.originalname;
+
+      // Move the uploaded file to a permanent location
+      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+      fs.renameSync(uploadedFile.path, destination);
+      const report = await Report.findOne({ relatedStudentID: student_id });
+      report.feedbackRequired = false;
+      report.revisionRequired = true;
+      report.feedbackStatus = true;
+      report.currentFeedbackNotes = feedback_text;
+      report.currentFeedbackID = uniqueFilename;
+      report.oldFeedbackIDs.push(uniqueFilename);
+      await report.save();
+
+      res.status(200).json({
+        message: "Sucessfully submitted Feedback",
+        status: 200,
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
+// Submit Revision Report // MAX 3 iterations
+apirouter.post(
+  "/submit-revision-report",
+  upload.single("file"),
+  async (req, res) => {
+    const student_id = req.body.student_id;
+    try {
+      const report = await Report.findOne({ relatedStudentID: student_id });
+      if (!report) {
+        await fs.promises.unlink(
+          path.join(__dirname, "../../uploads", req.file.filename)
+        );
+        res.status(404).json({ message: "Report Does Not Exist", status: 404 });
+      } else if (report.iteration >= 3) {
+        await fs.promises.unlink(
+          path.join(__dirname, "../../uploads", req.file.filename)
+        );
+        res.status(500).json({
+          message: "Max Iteration Count Reached, please contact evaluator/TA",
+          status: 500,
+        });
+      } else {
+        if (!req.file) {
+          // No file was uploaded
+          res.status(400).json({ message: "No file uploaded" });
+          return;
+        }
+
+        // Access the uploaded file using req.file
+        const uploadedFile = req.file;
+
+        // Generate a unique filename
+        const uniqueFilename =
+          Date.now() + "-" + "revision" + "-" + uploadedFile.originalname;
+
+        // Move the uploaded file to a permanent location
+        const destination = path.join(
+          __dirname,
+          "../../uploads",
+          uniqueFilename
+        );
+        fs.renameSync(uploadedFile.path, destination);
+
+        report.feedbackRequired = true;
+        report.revisionRequired = false;
+        report.feedbackStatus = false;
+        report.revisionReportID = uniqueFilename;
+        report.iteration = report.iteration + 1;
+        await report.save();
+
+        res.status(200).json({
+          message: "Sucessfully submitted Revison Report",
+          status: 200,
+        });
+      }
+    } catch (error) {
+      res.status(400).json({ message: error });
+    }
+  }
+);
+
 // Submit new report
 apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
   const student_id = req.body.student_id;
@@ -344,6 +452,7 @@ apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
       const newReport = new Report({
         relatedStudentID: student_id,
         mainReportID: uniqueFilename,
+        revisionReportID: uniqueFilename,
         lastReportSubmission: new Date(),
       });
       await newReport.save();

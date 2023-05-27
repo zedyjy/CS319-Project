@@ -68,6 +68,7 @@
 
       <!-- Content -->
       <div class="container">
+        <h1>Submitted Reports</h1>
         <div class="col-auto">
           <p>Submit New Report</p>
         </div>
@@ -98,6 +99,30 @@
           </table>
         </div>
         <p class="delete-report-response" style="color: red"></p>
+      </div>
+
+      <div class="container">
+        <h1>Reports Pending Revision</h1>
+
+        <!-- Reports Table -->
+        <div class="table-responsive">
+          <table class="table table-striped revision-reports-table">
+            <thead>
+              <tr>
+                <th scope="col">Report File Name</th>
+                <th scope="col">Eval/TA Feedback Status</th>
+                <th scope="col">Iteration</th>
+                <th scope="col">Revision Required</th>
+                <th scope="col">Upload Date</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="revision-reports-list">
+              <!-- Table rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </body>

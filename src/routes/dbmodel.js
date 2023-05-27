@@ -233,10 +233,6 @@ const gradingFormSchema = new mongoose.Schema({
 });
 
 const adminSchema = new mongoose.Schema({
-  report_id: {
-    required: true,
-    type: String,
-  },
   userType: {
     type: String,
     default: "Admin",
@@ -256,7 +252,13 @@ const reportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  revisionReportID: {
+    type: String,
+  },
   currentFeedbackID: {
+    type: String,
+  },
+  currentFeedbackNotes: {
     type: String,
   },
   oldFeedbackIDs: {
@@ -268,7 +270,7 @@ const reportSchema = new mongoose.Schema({
   },
   feedbackRequired: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   revisionRequired: {
     type: Boolean,
