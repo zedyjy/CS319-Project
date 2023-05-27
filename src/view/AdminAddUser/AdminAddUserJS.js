@@ -4,19 +4,21 @@ const userTypeRadios = document.querySelectorAll('input[name="userType"]');
 // ------SEND EMAILS TO USERS------
 function sendUserEmail(userid, password, email) {
   // Make an AJAX request to the server-side route for sending emails
+  const messageToSend = `Your username is: ${userid} and your password is: ${password}`;
+
   $.ajax({
-    url: '/send-email',
-    type: 'POST',
+    url: "/send-registration-email",
+    type: "POST",
     data: {
       email: email,
-      password: password
+      messageToSend: messageToSend,
     },
     success: function (response) {
-      console.log('Email sent:', response.message);
+      console.log("Email sent:", response.message);
     },
     error: function (error) {
-      console.log('Error sending email:', error.responseJSON.message);
-    }
+      console.log("Error sending email:", error.responseJSON.message);
+    },
   });
 }
 // ------SEND EMAILS TO USERS END------

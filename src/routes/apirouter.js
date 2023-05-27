@@ -1084,28 +1084,45 @@ apirouter.post("/get-current-internship-company-details", async (req, res) => {
   }
 });
 
-// Define a route for sending emails
-apirouter.post("/send-email", (req, res) => {
-  const { email, password } = req.body;
-
+// returns true if email sent, false otherwise
+async function sendEmail(email, subject, messageToSend) {
   // Prepare the email message
   const mailOptions = {
     from: "bilkentinternship@outlook.com",
     to: email,
-    subject: "Your Account Password",
-    text: "Your password is: " + password,
+    subject: subject,
+    text: messageToSend,
   };
 
   // Send the email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("Error sending email:", error);
-      res.status(500).json({ message: "Failed to send email" });
-    } else {
-      console.log("Email sent:", info.response);
-      res.status(200).json({ message: "Email sent successfully" });
+  const result = await transporter.sendMail(mailOptions);
+  const response = result.response;
+
+  if (response.includes("OK")) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Define a route for sending emails
+apirouter.post("/send-registration-email", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const messageToSend = req.body.messageToSend;
+    const subject = "Your Account Password";
+
+    const result = await sendEmail(email, subject, messageToSend);
+    console.log(result);
+    if (!result) {
+      return res
+        .status(500)
+        .json({ error: "Error Getting Internship Company Details" });
     }
-  });
+    return res.status(200).json({ message: "Email Sent" });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Sending Email" });
+  }
 });
 
 // Start the server
