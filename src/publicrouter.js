@@ -140,6 +140,12 @@ publicrouter.get("/admin/assignments", (req, res) => {
 publicrouter.get("/admin/view-evaluator-list", (req, res) => {
   res.render("AdminViewEvaluator/AdminViewEvaluator");
 });
+publicrouter.get("/admin/view-coordinator-list", (req, res) => {
+  res.render("AdminViewCoordinatorList/AdminViewCoordinatorList");
+});
+publicrouter.get("/admin/view-tas-list", (req, res) => {
+  res.render("AdminViewTAList/AdminViewTAList");
+});
 
 //---------------------------------------
 // ---------- Company Pages ---------- //

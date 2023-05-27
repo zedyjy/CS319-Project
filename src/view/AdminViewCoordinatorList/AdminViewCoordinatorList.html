@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Admin Assign Users</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Global Js -->
+    <script src="/js/GlobalSettings/global.js"></script>
+
+    <!-- JS -->
+    <script src="/js/AdminViewCoordinatorList/AdminViewCoordinatorList.js"></script>
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="/css/AdminViewCoordinatorList/AdminViewCoordinatorList.css"
+    />
+
+    <!-- Components -->
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/components/Navbar/adminnavbar.js"
+      type="text/javascript"
+    ></script>
+    <script src="/components/Footer/footer.js" type="text/javascript"></script>
+  </head>
+
+  <body style="display: none">
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <admin-sidebar-component></admin-sidebar-component>
+
+    <div id="viewport" class="mt-5">
+      <!-- Coordinators Tables -->
+      <div class="container">
+        <h1>Coordinators</h1>
+        <!-- Coordinators Search Box -->
+
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="coordinator-searchInput"
+            placeholder="Search Coordinators by Name or ID"
+          />
+        </div>
+        <!-- Coordinators Table -->
+        <div class="table-responsive" style="overflow-y: scroll; height: 300px">
+          <table class="table table-striped coordinator-table">
+            <thead>
+              <tr>
+                <th scope="col">Coordinators Name</th>
+                <th scope="col">Coordinators ID</th>
+                <th scope="col">Assigned Students</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="coordinators-list">
+              <!-- Table rows will be dynamically added here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

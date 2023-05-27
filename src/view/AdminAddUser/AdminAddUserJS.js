@@ -60,7 +60,7 @@ function deleteUser() {
 
   // Send the AJAX request
   $.ajax({
-    url: "/delete/student",
+    url: "/delete",
     type: "POST",
     data: {
       user_id: user_id, //DATA as object-value pair here

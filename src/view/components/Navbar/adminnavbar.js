@@ -39,17 +39,17 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-coordinator-list">
               <i class="zmdi zmdi-comment-more"></i> View Coordinator List
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/company">
               <i class="zmdi zmdi-comment-more"></i> View Company List
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-tas-list">
               <i class="zmdi zmdi-comment-more"></i> View TA List
             </a>
           </li>

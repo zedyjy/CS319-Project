@@ -336,16 +336,66 @@ async function getUserType(usernameParam) {
 }
 
 // DELETE a user
-apirouter.post("/delete/:student", async (req, res) => {
+apirouter.post("/delete", async (req, res) => {
+  const user_id = req.body.user_id;
+  const existingUser = await User.findOne({ user_id: user_id });
+  if (!existingUser) {
+    res.status(404).json({ message: "User not found" });
+  }
+  const userType = await getUserType(user_id);
   try {
-    const result = await Student.findOneAndDelete({
-      user_id: req.body.user_id,
-    });
-
-    if (result) {
-      res.status(200).json({ message: "User deleted", result: result });
-    } else {
-      res.status(404).json({ message: "User not found" });
+    if (userType === "Student") {
+      const result = await Student.findOneAndDelete({
+        user_id: req.body.user_id,
+      });
+      await User.findOneAndDelete({ user_id: req.body.user_id });
+      if (result) {
+        res.status(200).json({ message: "Student deleted", result: result });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    } else if (userType === "Evaluator") {
+      const result = await Evaluator.findOneAndDelete({
+        user_id: req.body.user_id,
+      });
+      await User.findOneAndDelete({ user_id: req.body.user_id });
+      if (result) {
+        res.status(200).json({ message: "Evaluator deleted", result: result });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    } else if (userType === "TA") {
+      const result = await TA.findOneAndDelete({
+        user_id: req.body.user_id,
+      });
+      await User.findOneAndDelete({ user_id: req.body.user_id });
+      if (result) {
+        res.status(200).json({ message: "TA deleted", result: result });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    } else if (userType === "Coordinator") {
+      const result = await Coordinator.findOneAndDelete({
+        user_id: req.body.user_id,
+      });
+      await User.findOneAndDelete({ user_id: req.body.user_id });
+      if (result) {
+        res
+          .status(200)
+          .json({ message: "Coordinator deleted", result: result });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    } else if (userType === "Admin") {
+      const result = await Admin.findOneAndDelete({
+        username: req.body.user_id,
+      });
+      await User.findOneAndDelete({ user_id: req.body.user_id });
+      if (result) {
+        res.status(200).json({ message: "Admin deleted", result: result });
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
     }
   } catch (error) {
     res.status(400).json({ message: error });
