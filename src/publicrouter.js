@@ -101,6 +101,10 @@ publicrouter.get("/student/upload-report", (req, res) => {
   res.render("StudentUploadReport/StudentUploadReport");
 });
 
+publicrouter.get("/student/grades", (req, res) => {
+  res.render("StudentGrades/StudentGradesPage");
+});
+
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
