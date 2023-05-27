@@ -1,11 +1,11 @@
 $(document).ready(function () {
-  console.log("ADMIN EVAL LOADED JS");
-  getAllEvaluators();
+  console.log("ADMIN TA LOADED JS");
+  getAllTAs();
 });
 // Wait for the document to load
 document.addEventListener("DOMContentLoaded", function () {
   // Get the search input element
-  var searchInput = document.getElementById("evaluator-searchInput");
+  var searchInput = document.getElementById("ta-searchInput");
 
   // Add an event listener to the search input
   searchInput.addEventListener("input", function () {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var searchQuery = searchInput.value.toLowerCase();
 
     // Get all the rows in the table body
-    var rows = document.querySelectorAll(".evaluator-table tbody tr");
+    var rows = document.querySelectorAll(".ta-table tbody tr");
 
     // Iterate through the rows
     for (var i = 0; i < rows.length; i++) {
@@ -34,27 +34,27 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function getAllEvaluators() {
+function getAllTAs() {
   $.ajax({
-    url: "/get-all-evaluators",
+    url: "/get-all-tas",
     type: "POST",
     data: "",
     success: function (response) {
       console.log(response);
-      response.evaluators.forEach((evaluator) => {
-        return $("#evaluators-list").append(`
-              <tr scope="row" id="${evaluator._id}">
-                <td>${evaluator.user.fullname}</td>
-                <td>${evaluator.user_id}</td>
-                <td>
-                ${evaluator.students
-                  .map((student) => {
-                    console.log(student);
-                    return student;
-                  })
-                  .join(", ")}
-                </td>
-              </tr>`);
+      response.tas.forEach((ta) => {
+        return $("#tas-list").append(`
+                  <tr scope="row" id="${ta._id}">
+                    <td>${ta.user.fullname}</td>
+                    <td>${ta.user_id}</td>
+                    <td>
+                    ${ta.students
+                      .map((student) => {
+                        console.log(student);
+                        return student;
+                      })
+                      .join(", ")}
+                    </td>
+                  </tr>`);
       });
     },
     error: function (error) {

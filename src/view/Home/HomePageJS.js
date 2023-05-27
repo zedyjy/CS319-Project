@@ -31,7 +31,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var userid = $("#login-Id").val();
+    var userid = $("#login-Id").val().trim();
     var password = $("#login-password").val();
 
     // Send the AJAX request
@@ -101,7 +101,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var student_id = $("#register-student-Id").val();
+    var student_id = $("#register-student-Id").val().trim();
     var password = $("#register-student-password").val();
 
     // Send the AJAX request
@@ -143,7 +143,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var studentid = $("#register-evaluator-Id").val();
+    var studentid = $("#register-evaluator-Id").val().trim();
     var password = $("#register-evaluator-password").val();
 
     // Send the AJAX request
@@ -178,6 +178,90 @@ $(document).ready(function () {
   });
 
   //--------------------------
+  // Coordinator Forms
+  //--------------------------
+  // Coordinator Register Form
+  $("#register-coordinator-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#register-coordinator-Id").val().trim();
+    var password = $("#register-coordinator-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/register/coordinator",
+      type: "POST",
+      data: {
+        user_id: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Register successful");
+          console.log(response.message);
+
+          $(".register-coordinator-response").text("Successfully Regsitered!");
+        } else {
+          // Handle other status codes or errors here
+          $(".register-coordinator-response").text(response.message);
+          console.log("Register failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("register failed");
+        $(".register-coordinator-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
+  //--------------------------
+  // TA Forms
+  //--------------------------
+  // TA Register Form
+  $("#register-ta-button").on("click", function (event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Retrieve the values from the form fields
+    var studentid = $("#register-ta-Id").val().trim();
+    var password = $("#register-ta-password").val();
+
+    // Send the AJAX request
+    $.ajax({
+      url: "/register/ta",
+      type: "POST",
+      data: {
+        user_id: studentid, //DATA as object-value pair here
+        password: password,
+      },
+      success: function (response) {
+        console.log(response);
+        if (response.status == 200) {
+          // Handle the success response here
+          console.log("Register successful");
+          console.log(response.message);
+
+          $(".register-ta-response").text("Successfully Regsitered!");
+        } else {
+          // Handle other status codes or errors here
+          $(".register-ta-response").text(response.message);
+          console.log("Register failed with status code:", response.status);
+        }
+      },
+      error: function (error) {
+        // Handle the error response here
+        console.log("register failed");
+        $(".register-ta-response").text(error.responseJSON.message);
+        console.log(error.responseJSON.message);
+      },
+    });
+  });
+
+  //--------------------------
   // Admin Forms
   //--------------------------
   // Admin Register Form
@@ -185,7 +269,7 @@ $(document).ready(function () {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Retrieve the values from the form fields
-    var adminId = $("#register-admin-Id").val();
+    var adminId = $("#register-admin-Id").val().trim();
     var adminPassword = $("#register-admin-password").val();
 
     // Create an object to hold the request data
@@ -234,6 +318,8 @@ $(document).ready(function () {
       window.location.href = "/student";
     } else if (userType === "Evaluator") {
       window.location.href = "/evaluator";
+    } else if (userType === "TA") {
+      window.location.href = "/ta";
     }
   });
 });
@@ -267,6 +353,17 @@ function redirectToUserHomePage() {
     if (window.location.pathname !== "/admin") {
       // Prevent infinite redirect loop
       window.location.href = "/admin";
+    }
+  } else if (userType === "TA") {
+    if (window.location.pathname !== "/ta") {
+      // Prevent infinite redirect loop
+      window.location.href = "/ta";
+    }
+  }
+  else if (userType === "Coordinator") {
+    if (window.location.pathname !== "/coordinator") {
+      // Prevent infinite redirect loop
+      window.location.href = "/coordinator";
     }
   }
 }

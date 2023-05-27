@@ -1,19 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-body {
-  padding-top: 2em;
-  background: #3c7478; /* fallback for old browsers */
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-}
 
 #viewport {
   padding-left: 250px;
+  margin-top: 20px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+}
+
+#container {
+  padding-left: 2.5em;
 }
 
 /* User Type Checkboxes */
@@ -65,11 +62,7 @@ body {
   margin-right: 1em;
 }
 
-.form-row input[type="text"] {
-  padding: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+
 .input-width {
   width: 60px;
 }

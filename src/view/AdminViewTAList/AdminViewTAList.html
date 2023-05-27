@@ -7,7 +7,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <title>Admin View Evaluators</title>
+    <title>Admin View TAs</title>
 
     <link
       rel="stylesheet"
@@ -20,13 +20,10 @@
     <script src="/js/GlobalSettings/global.js"></script>
 
     <!-- JS -->
-    <script src="/js/AdminViewEvaluator/AdminViewEvaluator.js"></script>
+    <script src="/js/AdminViewTAList/AdminViewTAList.js"></script>
 
     <!-- CSS -->
-    <link
-      rel="stylesheet"
-      href="/css/AdminViewEvaluator/AdminViewEvaluator.css"
-    />
+    <link rel="stylesheet" href="/css/AdminViewTAList/AdminViewTAList.css" />
 
     <!-- Components -->
     <script
@@ -55,22 +52,22 @@
           <input
             type="text"
             class="searchInput"
-            id="evaluator-searchInput"
-            placeholder="Search Evaluators by Name or ID"
+            id="ta-searchInput"
+            placeholder="Search TAs by Name or ID"
           />
         </div>
         <!-- Evaluators Table -->
         <div class="table-responsive" style="overflow-y: scroll; height: 300px">
-          <table class="table table-striped evaluator-table">
+          <table class="table table-striped ta-table">
             <thead>
               <tr>
-                <th scope="col">Evaluator Name</th>
-                <th scope="col">Evaluator ID</th>
+                <th scope="col">TA Name</th>
+                <th scope="col">TA ID</th>
                 <th scope="col">Assigned Students</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody id="evaluators-list">
+            <tbody id="tas-list">
               <!-- Table rows will be dynamically added here -->
             </tbody>
           </table>

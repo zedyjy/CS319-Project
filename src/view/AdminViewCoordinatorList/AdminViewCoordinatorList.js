@@ -1,10 +1,11 @@
 $(document).ready(function () {
-  getAllStudents();
+  console.log("ADMIN Coordinator LOADED JS");
+  getAllCoordinators();
 });
 // Wait for the document to load
 document.addEventListener("DOMContentLoaded", function () {
   // Get the search input element
-  var searchInput = document.getElementById("searchInput");
+  var searchInput = document.getElementById("coordinator-searchInput");
 
   // Add an event listener to the search input
   searchInput.addEventListener("input", function () {
@@ -12,18 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
     var searchQuery = searchInput.value.toLowerCase();
 
     // Get all the rows in the table body
-    var rows = document.querySelectorAll(".custom-table tbody tr");
+    var rows = document.querySelectorAll(".coordinator-table tbody tr");
 
     // Iterate through the rows
     for (var i = 0; i < rows.length; i++) {
       var row = rows[i];
-      var studentName = row.cells[0].textContent.toLowerCase();
-      var studentId = row.cells[1].textContent.toLowerCase();
+      var evaluatorName = row.cells[0].textContent.toLowerCase();
+      var evaluatorId = row.cells[1].textContent.toLowerCase();
 
       // Show or hide the row based on the search input
       if (
-        studentId.includes(searchQuery) ||
-        studentName.includes(searchQuery)
+        evaluatorId.includes(searchQuery) ||
+        evaluatorName.includes(searchQuery)
       ) {
         row.style.display = ""; // Show the row
       } else {
@@ -33,20 +34,22 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function getAllStudents() {
+function getAllCoordinators() {
   $.ajax({
-    url: "/get-all-students",
+    url: "/get-all-coordinators",
     type: "POST",
     data: "",
     success: function (response) {
       console.log(response);
-      response.students.forEach((student) => {
-        return $("#student-list").append(`
-            <tr scope="row" id="${student._id}">
-              <td>${student.user.fullname}</td>
-              <td>${student.user_id}</td>
-              
-            </tr>`);
+      response.coordinators.forEach((coordinator) => {
+        return $("#coordinators-list").append(`
+                <tr scope="row" id="${coordinator._id}">
+                  <td>${coordinator.user.fullname}</td>
+                  <td>${coordinator.user_id}</td>
+                  <td>
+                  
+                  </td>
+                </tr>`);
       });
     },
     error: function (error) {

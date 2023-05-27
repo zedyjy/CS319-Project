@@ -117,7 +117,7 @@ h2 {
 
 .custom-table {
     min-width: 900px;
-    padding-left: 16em;
+    padding-left: 0em;
 
 }
 .custom-table thead tr, .custom-table thead th {
@@ -151,6 +151,8 @@ h2 {
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease; }
+
+
 
 .custom-table tbody tr:hover td .more, .custom-table tbody tr:focus td .more {
     color: #fdd114; }
@@ -343,6 +345,58 @@ th {
     border-color: #ed969e;
 }
 
+.table-hover .table-danger:hover {
+    background-color: #f1b0b7;
+}
+
+.table-hover .table-danger:hover > td,
+.table-hover .table-danger:hover > th {
+    background-color: #f1b0b7;
+}
+
+.table-light,
+.table-light > th,
+.table-light > td {
+    background-color: #fdfdfe;
+}
+
+.table-light th,
+.table-light td,
+.table-light thead th,
+.table-light tbody + tbody {
+    border-color: #fbfcfc;
+}
+
+.table-hover .table-light:hover {
+    background-color: #ececf6;
+}
+
+.table-hover .table-light:hover > td,
+.table-hover .table-light:hover > th {
+    background-color: #ececf6;
+}
+
+.table-dark,
+.table-dark > th,
+.table-dark > td {
+    background-color: #c6c8ca;
+}
+
+.table-dark th,
+.table-dark td,
+.table-dark thead th,
+.table-dark tbody + tbody {
+    border-color: #95999c;
+}
+
+.table-hover .table-dark:hover {
+    background-color: #b9bbbe;
+}
+
+.table-hover .table-dark:hover > td,
+.table-hover .table-dark:hover > th {
+    background-color: #b9bbbe;
+}
 
 .table-active,
 .table-active > th,
@@ -455,35 +509,10 @@ th {
     border: 0;
 }
 
-#feedback-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 2em;
-    padding-left: 20em;
-  }
-  
-  #feedback-info div {
-    margin-bottom: 1.5em;
-  }
-  
-  #feedback-info label {
-    font-weight: bold;
-    margin-right: 0.5em;
-  }
-  
-  #feedback-info a {
-    text-decoration: none;
-    color: #c8cbcf;
-    border-bottom: 1px solid white;
+.form-control {
+    border: 1px solid black;
+}
 
-  }
-
-  #feedback-info a:hover {
-    text-decoration: none;
-    color: black;
-    border-bottom: 1px solid white;
-
-  }
-  
-
+.row {
+    margin-top: 10px;
+}

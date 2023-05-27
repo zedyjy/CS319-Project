@@ -108,6 +108,10 @@ publicrouter.get("/student/grades", (req, res) => {
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
+
+publicrouter.get("/internship-company", (req, res) => {
+  res.render("StudentInternshipCompany/StudentInternshipCompany");
+});
 //---------------------------------------
 // ---------- Evaluator Pages ---------- //
 //---------------------------------------
@@ -122,7 +126,20 @@ publicrouter.get("/evaluator/give-feedback", (req, res) => {
 publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });
+//---------------------------------------
+// ---------- Evaluator Pages ---------- //
+//---------------------------------------
+publicrouter.get("/ta", (req, res) => {
+  res.render("TaHome/TaHomePage");
+});
 
+publicrouter.get("/ta/give-feedback", (req, res) => {
+  res.render("TaFeedbackPage/TaGiveFeedbackPage");
+});
+
+publicrouter.get("/ta/student-list", (req, res) => {
+  res.render("TaFeedbackPage/TaFeedbackListPage");
+});
 //---------------------------------------
 // ---------- Admin Pages ---------- //
 //---------------------------------------
@@ -141,8 +158,21 @@ publicrouter.get("/admin/view-student-list", (req, res) => {
 publicrouter.get("/admin/assignments", (req, res) => {
   res.render("AdminAssignments/AdminAssignments");
 });
+
 publicrouter.get("/admin/view-evaluator-list", (req, res) => {
   res.render("AdminViewEvaluator/AdminViewEvaluator");
+});
+
+publicrouter.get("/admin/view-coordinator-list", (req, res) => {
+  res.render("AdminViewCoordinatorList/AdminViewCoordinatorList");
+});
+
+publicrouter.get("/admin/view-tas-list", (req, res) => {
+  res.render("AdminViewTAList/AdminViewTAList");
+});
+
+publicrouter.get("/admin/view-company-list", (req, res) => {
+  res.render("AdminViewCompanyList/AdminViewCompanyList");
 });
 
 //---------------------------------------
@@ -158,5 +188,13 @@ publicrouter.get("/company", (req, res) => {
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
+
+//---------------------------------------
+// ---------- Coordinator Page ---------- //
+//---------------------------------------
+publicrouter.get("/coordinator", (req, res) => {
+  res.render("CoordinatorHomePage/CoordinatorHome");
+});
+
 
 module.exports = publicrouter;

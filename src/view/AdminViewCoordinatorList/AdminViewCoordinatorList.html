@@ -7,7 +7,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <title>Admin View Evaluators</title>
+    <title>Admin View Coordinators</title>
 
     <link
       rel="stylesheet"
@@ -20,12 +20,12 @@
     <script src="/js/GlobalSettings/global.js"></script>
 
     <!-- JS -->
-    <script src="/js/AdminViewEvaluator/AdminViewEvaluator.js"></script>
+    <script src="/js/AdminViewCoordinatorList/AdminViewCoordinatorList.js"></script>
 
     <!-- CSS -->
     <link
       rel="stylesheet"
-      href="/css/AdminViewEvaluator/AdminViewEvaluator.css"
+      href="/css/AdminViewCoordinatorList/AdminViewCoordinatorList.css"
     />
 
     <!-- Components -->
@@ -46,31 +46,31 @@
     <admin-sidebar-component></admin-sidebar-component>
 
     <div id="viewport" class="mt-5">
-      <!-- Evaluators Tables -->
+      <!-- Coordinators Tables -->
       <div class="container">
-        <h1>Evaluators</h1>
-        <!-- Evaluators Search Box -->
+        <h1>Coordinators</h1>
+        <!-- Coordinators Search Box -->
 
         <div class="search-container">
           <input
             type="text"
             class="searchInput"
-            id="evaluator-searchInput"
-            placeholder="Search Evaluators by Name or ID"
+            id="coordinator-searchInput"
+            placeholder="Search Coordinators by Name or ID"
           />
         </div>
-        <!-- Evaluators Table -->
+        <!-- Coordinators Table -->
         <div class="table-responsive" style="overflow-y: scroll; height: 300px">
-          <table class="table table-striped evaluator-table">
+          <table class="table table-striped coordinator-table">
             <thead>
               <tr>
-                <th scope="col">Evaluator Name</th>
-                <th scope="col">Evaluator ID</th>
+                <th scope="col">Coordinators Name</th>
+                <th scope="col">Coordinators ID</th>
                 <th scope="col">Assigned Students</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody id="evaluators-list">
+            <tbody id="coordinators-list">
               <!-- Table rows will be dynamically added here -->
             </tbody>
           </table>

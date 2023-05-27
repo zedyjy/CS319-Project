@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Evaluator Give Feedback</title>
+    <title>TA Students</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -30,13 +30,10 @@
     />
 
     <!-- JS -->
-    <script src="/js/EvaluatorFeedbackPage/EvaluatorFeedbackListJS.js"></script>
+    <script src="/js/TaFeedbackPage/TaFeedbackListPage.js"></script>
 
     <!-- CSS-->
-    <link
-      rel="stylesheet"
-      href="/css/EvaluatorFeedbackPage/StyleEvaluatorFeedbackList.css"
-    />
+    <link rel="stylesheet" href="/css/TaFeedbackPage/TaFeedbackListPage.css" />
 
     <!-- Components -->
     <script
@@ -54,12 +51,17 @@
       type="text/javascript"
       defer
     ></script>
+    <script
+      src="/components/Navbar/TaSidebar.js"
+      type="text/javascript"
+      defer
+    ></script>
   </head>
 
   <body>
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
-    <evaluator-sidebar-component></evaluator-sidebar-component>
+    <ta-sidebar-component></ta-sidebar-component>
 
     <!-- Content -->
     <div id="viewport" class="mt-5">
@@ -84,7 +86,6 @@
               <th scope="col">Report</th>
               <th scope="col">Iteration #</th>
               <th scope="col">Give Feedback</th>
-              <th scope="col">Grade Student</th>
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>

@@ -23,7 +23,7 @@ adminnavbarTemplate.innerHTML = `
             <a href="#"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/summer-training-coordinators">
               <i class="zmdi zmdi-info-outline"></i> Summer Training
               Cooridnators
             </a>
@@ -39,17 +39,17 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-coordinator-list">
               <i class="zmdi zmdi-comment-more"></i> View Coordinator List
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-company-list">
               <i class="zmdi zmdi-comment-more"></i> View Company List
             </a>
           </li>
           <li>
-            <a href="/evaluator/student-list">
+            <a href="/admin/view-tas-list">
               <i class="zmdi zmdi-comment-more"></i> View TA List
             </a>
           </li>
@@ -60,9 +60,6 @@ adminnavbarTemplate.innerHTML = `
           </li>
           <li>
             <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
-          </li>
-          <li>
-            <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
           </li>
           <li>
             <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>

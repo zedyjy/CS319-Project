@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <title>Admin View Students</title>
+    <title>Admin Add/Delete Users</title>
     <link rel="stylesheet" href="/css/AdminAddUser/StyleAdminAddUser.css" />
-    <script src="/js/AdminAddUser/AdminAddUserJS.js"></script>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
-      integrity="sha512-s1y7J05cB0Npr7VxTJ0ZmxYzZMvq3f+V8HDXDyJ7mE1v2AsmHtP+Gg6c0Z/5/5RbUB5A5/aZeNbjFy+mB0pJNw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <!-- JS -->
+    <script src="/js/AdminAddUser/AdminAddUserJS.js"></script>
     <!-- Global Settings -->
     <script src="/js/GlobalSettings/global.js"></script>
     <link
@@ -29,7 +31,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="/css/StudentHome/StyleStudentHome.css"
+      href="/css/AdminAddUser/StyleAdminAddUser.css"
     />
     <script
       src="/components/Navbar/defaultnavbar.js"
@@ -48,20 +50,22 @@
 
     <!-- Content -->
     <div id="container">
+    <div id="viewport">
       <h2>Add User</h2>
-      <div class="form-row">
-        <label for="userName">User Name: <a id="star">*</a></label>
-        <input type="text" id="userName" name="userName" required />
-      </div>
-
-      <div class="form-row">
-        <label for="userSurname">User Surname: <a id="star">*</a></label>
-        <input type="text" id="userSurname" name="userSurname" required />
-      </div>
 
       <div class="form-row">
         <label for="userId">User ID: <a id="star">*</a></label>
         <input type="text" id="userId" name="userId" required />
+      </div>
+
+      <div class="form-row">
+        <label for="userEmail">Email: <a id="star">*</a></label>
+        <input type="text" id="userEmail" name="userEmail" required />
+      </div>
+
+      <div class="form-row">
+        <label for="userFullname">Full Name: <a id="star">*</a></label>
+        <input type="text" id="userFullname" name="userFullname" required />
       </div>
 
       <label for="userType">User Type: <a id="star">*</a></label>
@@ -108,24 +112,20 @@
           Coordinator
         </label>
       </div>
-
-      <br /><br />
-      <button class="btn btn-primary">Add User</button>
-      <button class="btn send-email" onclick="sendUserEmail()">
-        Send Email with Password to User
+      <button class="btn btn-primary" onclick="addUser()">
+        Add User and Send Email to User with Password
       </button>
       <p class="add-user-response"></p>
 
+      <div class="mt-5"></div>
       <h2>Delete User</h2>
-
       <div class="form-row">
         <label for="userId-delete">User ID: <a id="star">*</a></label>
         <input type="text" id="userId-delete" name="userId" required />
       </div>
-
-      <br /><br />
-      <button class="delete-user">Delete User</button>
+      <button class="btn btn-danger" onclick="deleteUser()">Delete User</button>
       <p class="delete-user-response"></p>
+    </div>
     </div>
   </body>
 </html>
