@@ -140,4 +140,12 @@ publicrouter.get("/admin/view-student-list", (req, res) => {
 publicrouter.get("/company", (req, res) => {
   res.render("CompanyList/CompanyList");
 });
+
+//---------------------------------------
+// ---------- Profile Page ---------- //
+//---------------------------------------
+publicrouter.get("/profile", (req, res) => {
+  res.render("Profile/Profile");
+});
+
 module.exports = publicrouter;

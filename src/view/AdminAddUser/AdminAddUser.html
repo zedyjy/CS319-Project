@@ -6,8 +6,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <title>Admin View Students</title>
-    <link rel="stylesheet" href="StyleAdminAddUser.css" />
-    <script src="AdminAddUserJS.js"></script>
+    <link rel="stylesheet" href="/css/AdminAddUser/StyleAdminAddUser.css" />
+    <script src="/js/AdminAddUser/AdminAddUserJS.js"></script>
 
     <link
       rel="stylesheet"
@@ -43,7 +43,6 @@
       <!-- Content -->
       <div id="container">
         <h2>Add User</h2>
-        <form action="/addUser" method="post">
           <div class="form-row">
             <label for="userName">User Name: <a id="star">*</a></label>
             <input type="text" id="userName" name="userName" required />
@@ -80,9 +79,13 @@
             </label>
           </div>
           <br /><br />
-
-          <input type="submit" value="Add User" />
-        </form>
+          <button class="btn btn-primary">
+            Add User
+          </button>
+        <button class="btn send-email" onclick="sendUserEmail()">
+          Send Email with Password to User
+        </button>
+          <p class="add-user-response"></p>
       </div>
     </div>
   </body>
