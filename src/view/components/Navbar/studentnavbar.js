@@ -32,7 +32,7 @@ studentnavbarTemplate.innerHTML = `
       </a>
     </li>
     <li>
-      <a href="#"> <i class="zmdi zmdi-comment-more"></i> Grades </a>
+      <a href="/student/grades"> <i class="zmdi zmdi-comment-more"></i> Grades </a>
     </li>
     <li>
       <a href="/profile"> <i class="zmdi zmdi-comment-more"></i> Profile </a>

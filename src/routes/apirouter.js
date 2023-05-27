@@ -12,6 +12,7 @@ const {
   TA,
   Coordinator,
   Report,
+  GradingForm,
   InternshipCompany,
 } = require("./dbmodel");
 const path = require("path");
@@ -145,7 +146,11 @@ async function registerStudent(user_id, password, email, fullname) {
     user: savedUser._id, // Use the saved user's ID as the reference
     user_id: user_id,
   });
+  const newGradingForm = new GradingForm({
+    studentID: user_id,
+  });
   await newStudent.save();
+  await newGradingForm.save();
   return true;
 }
 
@@ -465,10 +470,38 @@ apirouter.post("/enroll-course/student", async (req, res) => {
   }
 });
 
+// Change grading status to revision
+apirouter.post("/change-to-revision", async (req, res) => {
+  const student_id = req.body.studentID;
+  console.log(student_id);
+  console.log("student_id");
+  try {
+    const grade = await GradingForm.findOne({ studentID: student_id });
+    const report = await Report.findOne({ relatedStudentID: student_id });
+
+    report.feedbackRequired = true;
+    report.revisionRequired = false;
+    report.feedbackStatus = false;
+
+    grade.gradingFormSubmissionStatus = "Revision";
+    grade.revisionRequest = true;
+    await grade.save();
+    await report.save();
+
+    res.status(200).json({
+      message: "Grading status changed to revision.",
+      status: 200,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
 // Submit Feedback
 apirouter.post("/submit-feedback", upload.single("file"), async (req, res) => {
   const student_id = req.body.student_id;
   const feedback_text = req.body.feedback_text;
+  const grade_text = req.body.grade_text;
   try {
     const student = await Student.findOne({ user_id: student_id });
     if (!student) {
@@ -494,19 +527,61 @@ apirouter.post("/submit-feedback", upload.single("file"), async (req, res) => {
       const destination = path.join(__dirname, "../../uploads", uniqueFilename);
       fs.renameSync(uploadedFile.path, destination);
       const report = await Report.findOne({ relatedStudentID: student_id });
+      const grade = await GradingForm.findOne({ studentID: student_id });
       report.feedbackRequired = false;
       report.revisionRequired = true;
       report.feedbackStatus = true;
+      console.log(grade_text);
       report.currentFeedbackNotes = feedback_text;
       report.currentFeedbackID = uniqueFilename;
       report.oldFeedbackIDs.push(uniqueFilename);
+
+      grade.currentFeedbackOverallGrade = grade_text;
+      grade.gradingFormSubmissionStatus = "Feedback";
       await report.save();
+      await grade.save();
 
       res.status(200).json({
         message: "Sucessfully submitted Feedback",
         status: 200,
       });
     }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+});
+
+// Submit Grade
+apirouter.post("/submit-grade", upload.single("file"), async (req, res) => {
+  const workQuality = req.body.workQuality;
+  const sumOfEvaluation = req.body.sumOfEvaluation;
+  const reportQuality = req.body.reportQuality;
+  const studentID = req.body.studentID;
+
+  try {
+    const report = await Report.findOne({ relatedStudentID: studentID });
+    const grade = await GradingForm.findOne({ studentID: studentID });
+
+    report.feedbackRequired = false;
+    report.revisionRequired = false;
+
+    if (grade.gradingFormSubmissionStatus === "Revision") {
+      grade.gradingFormSubmissionStatus = "Unchangable";
+    } else {
+      grade.gradingFormSubmissionStatus = "Final";
+    }
+
+    grade.workQuality = workQuality;
+    grade.sumOfEvaluationScores = sumOfEvaluation;
+    grade.reportQuality = reportQuality;
+
+    await grade.save();
+    await report.save();
+
+    res.status(200).json({
+      message: "Sucessfully submitted Grade",
+      status: 200,
+    });
   } catch (error) {
     res.status(400).json({ message: error });
   }
@@ -687,6 +762,43 @@ apirouter.get("/reports/:studentId", async (req, res) => {
       });
     } else {
       res.status(404).json({ message: "No Such Report" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Retrieve grade information
+apirouter.get("/grades/:studentId", async (req, res) => {
+  const studentId = req.params.studentId;
+
+  try {
+    const grade = await GradingForm.findOne({ studentID: studentId });
+    if (grade) {
+      res.status(200).json({
+        gradingFormSubmissionStatus: grade.gradingFormSubmissionStatus,
+        currentFeedbackID: grade.currentFeedbackID,
+        revisionRequest: grade.revisionRequest,
+        currentFeedbackOverallGrade: grade.currentFeedbackOverallGrade,
+
+        companyEvaluationFormAverage: grade.companyEvaluationFormAverage,
+        relatedToDepartment: grade.relatedToDepartment,
+        supervisorHasEngineeringBackground:
+          grade.supervisorHasEngineeringBackground,
+
+        finalRevisionDate: grade.finalRevisionDate,
+
+        workQuality: grade.workQuality,
+        sumOfEvaluationScores: grade.sumOfEvaluationScores,
+        reportQuality: grade.reportQuality,
+
+        taUsername: grade.taUsername,
+        evaluatorusername: grade.evaluatorusername,
+
+        status: 200,
+      });
+    } else {
+      res.status(404).json({ message: "No Such Grade" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });

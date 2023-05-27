@@ -101,6 +101,10 @@ publicrouter.get("/student/upload-report", (req, res) => {
   res.render("StudentUploadReport/StudentUploadReport");
 });
 
+publicrouter.get("/student/grades", (req, res) => {
+  res.render("StudentGrades/StudentGradesPage");
+});
+
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
@@ -184,5 +188,13 @@ publicrouter.get("/company", (req, res) => {
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
+
+//---------------------------------------
+// ---------- Coordinator Page ---------- //
+//---------------------------------------
+publicrouter.get("/coordinator", (req, res) => {
+  res.render("CoordinatorHomePage/CoordinatorHome");
+});
+
 
 module.exports = publicrouter;

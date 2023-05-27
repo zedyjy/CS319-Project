@@ -235,53 +235,59 @@ const companySchema = new mongoose.Schema({
 });
 
 const gradingFormSchema = new mongoose.Schema({
-  gradingFormSubmissionStatus: {
+  gradingFormSubmissionStatus: { // No Grades, Feedback, Final, Revision, Unchangable
+    type: String,
+    default: "No Grades",
+  },
+  studentID: {
     type: String,
   },
-  studentUsername: {
+  revisionRequest: {
+    type: Boolean,
+    default: false,
+  },
+  currentFeedbackOverallGrade: {
     type: String,
+    default: "No feedback grade.",
   },
   //Part A - WorkPlace
-  evaluationFormAverage: {
+  companyEvaluationFormAverage: {
     type: String,
+    default: "Company grade not processed.",
   },
   relatedToDepartment: {
     type: Boolean,
+    default: false,
   },
   supervisorHasEngineeringBackground: {
     type: Boolean,
+    default: false,
   },
-  //Part B - Revisions
-  revisionRequired: {
-    type: Boolean,
-  },
-  revisionDueDate: {
+  //Part B - Revision
+  finalRevisionDate: {
     type: Date,
   },
+
   //Part C - Final Version of Grading Form
   workQuality: {
     type: String,
+    default: "Final grade not submitted.",
   },
   sumOfEvaluationScores: {
     type: String,
+    default: "Final grade not submitted.",
   },
   reportQuality: {
     type: String,
+    default: "Final grade not submitted.",
   },
-  currentEvaluationPart: {
-    type: String, //A,B or C
-  },
-  overallEvaluation: {
-    type: String,
-  },
+
+
   taUsername: {
     type: [String],
   },
   evaluatorusername: {
-    type: String,
-  },
-  date: {
-    type: Date,
+    type: [String],
   },
 });
 
