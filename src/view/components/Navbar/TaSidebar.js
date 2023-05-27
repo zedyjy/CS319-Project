@@ -32,7 +32,7 @@ tasidebarTemplate.innerHTML = `
           </li>
           <li>
               <a href="/ta/student-list">
-                  <i class="zmdi zmdi-comment-more"></i> View Students List / <br> /Give Feedback / Grade Student
+                  <i class="zmdi zmdi-comment-more"></i> View Students List / <br> /Give Feedback
               </a>
           </li>
           <li>
