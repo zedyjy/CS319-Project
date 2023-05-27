@@ -145,7 +145,11 @@ async function registerStudent(user_id, password, email, fullname) {
     user: savedUser._id, // Use the saved user's ID as the reference
     user_id: user_id,
   });
+  const newGradingForm = new GradingForm({
+    studentID: req.body.user_id,
+  });
   await newStudent.save();
+  await newGradingForm.save();
   return true;
 }
 
