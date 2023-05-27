@@ -44,7 +44,7 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/company">
+            <a href="/admin/view-company-list">
               <i class="zmdi zmdi-comment-more"></i> View Company List
             </a>
           </li>
@@ -60,9 +60,6 @@ adminnavbarTemplate.innerHTML = `
           </li>
           <li>
             <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
-          </li>
-          <li>
-            <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
           </li>
           <li>
             <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>

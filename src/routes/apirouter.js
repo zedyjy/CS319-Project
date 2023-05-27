@@ -848,11 +848,22 @@ apirouter.post("/add-company", async (req, res) => {
   }
 });
 
-// Add a new company
+// Get all company
 apirouter.post("/get-all-companies", async (req, res) => {
   try {
     const companies = await Company.find();
     return res.status(200).json({ companies: companies });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting Companies" });
+  }
+});
+
+// Get all company
+apirouter.post("/delete-company", async (req, res) => {
+  const id = req.body.id;
+  try {
+    await Company.findOneAndDelete({ _id: id });
+    return res.status(200).json({ message: "Company Deleted" });
   } catch (error) {
     return res.status(500).json({ error: "Error Getting Companies" });
   }

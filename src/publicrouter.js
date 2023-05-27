@@ -150,14 +150,21 @@ publicrouter.get("/admin/view-student-list", (req, res) => {
 publicrouter.get("/admin/assignments", (req, res) => {
   res.render("AdminAssignments/AdminAssignments");
 });
+
 publicrouter.get("/admin/view-evaluator-list", (req, res) => {
   res.render("AdminViewEvaluator/AdminViewEvaluator");
 });
+
 publicrouter.get("/admin/view-coordinator-list", (req, res) => {
   res.render("AdminViewCoordinatorList/AdminViewCoordinatorList");
 });
+
 publicrouter.get("/admin/view-tas-list", (req, res) => {
   res.render("AdminViewTAList/AdminViewTAList");
+});
+
+publicrouter.get("/admin/view-company-list", (req, res) => {
+  res.render("AdminViewCompanyList/AdminViewCompanyList");
 });
 
 //---------------------------------------
