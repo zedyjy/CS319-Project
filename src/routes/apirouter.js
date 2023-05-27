@@ -19,7 +19,7 @@ const { ObjectId } = require("mongodb");
 
 // ------- mongo db connection --------
 mongoose.connect("mongodb://127.0.0.1:27017/internship-system");
-const database = mongoose.connection; //get the databae object from mongoose connection
+const database = mongoose.connection; //get the databa object from mongoose connection
 
 database.on("error", (error) => {
   console.log(error);

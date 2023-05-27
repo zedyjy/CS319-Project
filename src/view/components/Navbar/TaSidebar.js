@@ -63,10 +63,10 @@ class TaSidebar extends HTMLElement {
 
     const userType = sessionStorage.getItem("userType");
     if (userType === "TA") {
-      // Show the student-sidebar-component
+      // Show the ta-sidebar-component
       this.style.display = "block"; // Or any other appropriate display value
     } else {
-      // Hide the student-sidebar-component
+      // Hide the ta-sidebar-component
       this.style.display = "none";
     }
   }

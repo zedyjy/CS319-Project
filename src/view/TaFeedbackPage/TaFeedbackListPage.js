@@ -30,9 +30,6 @@ jQuery(document).ready(function () {
         row.append(
           `<td><a id="grade" href="#" onclick="redirectToFeedback(${studentID})">Give Feedback</a></td>`
         );
-        row.append(
-          `<td><button onclick="gradeStudent('${studentID}')">Grade Student</button></td>`
-        );
 
         // Add the row to the table body
         $(".table tbody").append(row);
@@ -89,9 +86,6 @@ jQuery(document).ready(function () {
             </div>
           </div>
             </td>`
-        );
-        row.append(
-          `<td><button class="btn btn-primary" onclick="gradeStudent('${studentID}')">Grade Student</button></td>`
         );
 
         // Add the row to the table body
