@@ -32,10 +32,6 @@ database.once("connected", () => {
 // ------- mongo db connection --------
 
 // ------- List of API's  in this file. -------- //
-// /register/student - To register a student -  returns: Status Code 200 on sucess, Status Code 400 on failure
-// /login/student - To login a student - returns: Status Code 200 on sucess, Status Code 400 on failure
-// /delete/user - To delete a user -  returns: Status Code 200 on sucess, Status Code 404, 400 on failure
-// /enroll-course/student - To enroll a student in a course  - returns Status Code 200 on sucess, Status Code 404, 400 on failure
 
 // Register
 apirouter.post("/register/:user", async (req, res) => {
@@ -1044,6 +1040,38 @@ apirouter.post("/remove-assigned-student", async (req, res) => {
     return res
       .status(500)
       .json({ error: "Error De-Assigning Student", status: 500 });
+  }
+});
+
+// Get Student Current Internship Company Details
+apirouter.post("/get-current-internship-company-details", async (req, res) => {
+  const student_id = req.body.user_id;
+
+  try {
+    const student = await Student.findOne({ user_id: student_id });
+    if (!student) {
+      return res.status(404).json({
+        message: "Student Does Not Exist",
+        status: 404,
+      });
+    }
+
+    if (!student.internshipcompany) {
+      return res.status(404).json({
+        message: "You do not have a internship company registered!",
+        status: 404,
+      });
+    }
+
+    await student.populate("internshipcompany");
+
+    return res
+      .status(200)
+      .json({ internshipcompany: student.internshipcompany });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Getting Internship Company Details" });
   }
 });
 

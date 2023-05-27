@@ -104,6 +104,10 @@ publicrouter.get("/student/upload-report", (req, res) => {
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
+
+publicrouter.get("/internship-company", (req, res) => {
+  res.render("StudentInternshipCompany/StudentInternshipCompany");
+});
 //---------------------------------------
 // ---------- Evaluator Pages ---------- //
 //---------------------------------------

@@ -39,12 +39,45 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+const internshipcompanyschema = new mongoose.Schema({
+  relatedStudentID: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  sector: {
+    type: String,
+  },
+  uniqueFormURL: {
+    type: String,
+  },
+  acceptanceLetterFile: {
+    type: String,
+  },
+  companyWorkFormFile: {
+    type: String,
+  },
+});
+
 // Student Schema
 const studentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+  internshipcompany: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "InternshipCompany",
   },
   profileImage: {
     data: {
@@ -264,6 +297,10 @@ const adminSchema = new mongoose.Schema({
 });
 
 const reportSchema = new mongoose.Schema({
+  internshipcompany: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "InternshipCompany",
+  },
   relatedStudentID: {
     type: String,
     required: true,
@@ -321,6 +358,10 @@ const Student = mongoose.model("Student", studentSchema);
 const Evaluator = mongoose.model("Evaluator", evaluatorSchema);
 const TA = mongoose.model("TA", taSchema);
 const Coordinator = mongoose.model("Coordinator", coordinatorSchema);
+const InternshipCompany = mongoose.model(
+  "InternshipCompany",
+  internshipcompanyschema
+);
 const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
@@ -332,6 +373,7 @@ module.exports = {
   Evaluator,
   TA,
   Coordinator,
+  InternshipCompany,
   Company,
   GradingForm,
   Admin,
