@@ -2,6 +2,38 @@ $(document).ready(function () {
   getAllStudents();
   getAllEvaluators();
   getAllTAs();
+
+
+  // ------- Random Assignment -------
+
+  var listItem = document.createElement("li");
+  listItem.textContent = "Warning! This action will assign a TA and an evaluator for every student. Students who were previously given an assignment will not have their assignments changed. Student load will be distributed equally but selections will be sequential.";
+  $(".random").append(listItem);
+
+  const button = document.createElement("button");
+  button.textContent = "Assign All";
+
+  // Append the button to the desired element
+  $(".random").append(button);
+
+  // Attach event listener to the button
+  button.addEventListener("click", function () {
+    randomAssignment();
+    location.reload(); // Reload the page
+  });
+
+  function randomAssignment() {
+    $.ajax({
+      url: "/random-assignment",
+      type: "POST",
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  }
 });
 
 function showOverlay(id) {
@@ -127,28 +159,26 @@ function getAllStudents() {
                 <td>${student.user_id}</td>
                 <td>
                 ${student.assignedEvaluators
-                  .map((evaluator) => {
-                    console.log(evaluator);
-                    return evaluator;
-                  })
-                  .join(", ")}
+            .map((evaluator) => {
+              console.log(evaluator);
+              return evaluator;
+            })
+            .join(", ")}
                 </td>
                 <td>
                 ${student.assignedTAs
-                  .map((ta) => {
-                    console.log(ta);
-                    return ta;
-                  })
-                  .join(", ")}
+            .map((ta) => {
+              console.log(ta);
+              return ta;
+            })
+            .join(", ")}
                 </td>
                 <td>
-                <button class="btn btn-primary"  onclick="showOverlay('${
-                  student._id
-                }')">Assign Evaluator/TA</button>
+                <button class="btn btn-primary"  onclick="showOverlay('${student._id
+          }')">Assign Evaluator/TA</button>
                 <div class="overlay ${student._id}">
-                  <button class="btn btn-danger" onclick="closeOverlay('${
-                    student._id
-                  }')">Close</button>
+                  <button class="btn btn-danger" onclick="closeOverlay('${student._id
+          }')">Close</button>
                   <div>
                   <h3>Assign Evaluator/TA</h3>
                   <p>Student: ${student.user_id}</p>
@@ -157,20 +187,17 @@ function getAllStudents() {
                   id="assign-evaluator-ta-${student._id}"
                   placeholder="Evaluator/TA ID"
                   />
-                  <button class="btn btn-primary" onclick="assignEvaluatorTA('${
-                    student.user_id
-                  }', '${student._id}')">Assign </button>
+                  <button class="btn btn-primary" onclick="assignEvaluatorTA('${student.user_id
+          }', '${student._id}')">Assign </button>
                   <p class="${student._id}"></p>
                   </div>
                 </div>
 
-                <button class="btn btn-danger"  onclick="showOverlayDeAssign('${
-                  student._id
-                }')">De Assign Evaluator/TA</button>
+                <button class="btn btn-danger"  onclick="showOverlayDeAssign('${student._id
+          }')">De Assign Evaluator/TA</button>
                     <div class="overlay-deassign ${student._id}">
-                      <button class="btn btn-danger" onclick="closeOverlayDeAssign('${
-                        student._id
-                      }')">Close</button>
+                      <button class="btn btn-danger" onclick="closeOverlayDeAssign('${student._id
+          }')">Close</button>
                       <div>
                       <h3>De Assign Evaluator/TA</h3>
                       <p>Student: ${student.user_id}</p>
@@ -179,9 +206,8 @@ function getAllStudents() {
                       id="deassign-evaluator-ta-${student._id}"
                       placeholder="Evaluator/TA ID"
                       />
-                      <button class="btn btn-danger" onclick="deassignEvaluatorTA('${
-                        student.user_id
-                      }', '${student._id}')">De Assign </button>
+                      <button class="btn btn-danger" onclick="deassignEvaluatorTA('${student.user_id
+          }', '${student._id}')">De Assign </button>
                       <p class="deassign${student._id}"></p>
                       </div>
                     </div>
@@ -247,11 +273,11 @@ function getAllEvaluators() {
                 <td>${evaluator.user_id}</td>
                 <td>
                 ${evaluator.students
-                  .map((student) => {
-                    console.log(student);
-                    return student;
-                  })
-                  .join(", ")}
+            .map((student) => {
+              console.log(student);
+              return student;
+            })
+            .join(", ")}
                 </td>
                 
               </tr>`);
@@ -312,11 +338,11 @@ function getAllTAs() {
                 <td>${ta.user_id}</td>
                 <td>
                 ${ta.students
-                  .map((student) => {
-                    console.log(student);
-                    return student;
-                  })
-                  .join(", ")}
+            .map((student) => {
+              console.log(student);
+              return student;
+            })
+            .join(", ")}
                 </td>
                 
               </tr>`);
@@ -327,3 +353,4 @@ function getAllTAs() {
     },
   });
 }
+
