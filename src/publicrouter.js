@@ -86,6 +86,12 @@ publicrouter.get("/announcements", (req, res) => {
   res.render("Announcements/Announcements");
 });
 //---------------------------------------
+// ---------- Others---------- //
+//---------------------------------------
+publicrouter.get("/others", (req, res) => {
+  res.render("Others/Others");
+});
+//---------------------------------------
 // ---------- Student Pages ---------- //
 //---------------------------------------
 
@@ -195,6 +201,5 @@ publicrouter.get("/profile", (req, res) => {
 publicrouter.get("/coordinator", (req, res) => {
   res.render("CoordinatorHomePage/CoordinatorHome");
 });
-
 
 module.exports = publicrouter;

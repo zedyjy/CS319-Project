@@ -68,7 +68,7 @@ coordinatornavbarTemplate.innerHTML = `
             <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
           </li>
           <li>
-            <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>
+            <a href="/others"> <i class="zmdi zmdi-settings"></i> Other </a>
           </li>
         </ul>
       </div>
@@ -76,32 +76,32 @@ coordinatornavbarTemplate.innerHTML = `
 `;
 
 class coordinatorSidebar extends HTMLElement {
-    constructor() {
-        super();
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    const shadowRoot = this.attachShadow({ mode: "open" });
+
+    shadowRoot.appendChild(coordinatornavbarTemplate.content);
+
+    const logoutButton = shadowRoot.querySelector("#logout-button");
+    logoutButton.addEventListener("click", this.handleLogout.bind(this));
+
+    const userType = sessionStorage.getItem("userType");
+    if (userType === "coordinator") {
+      // Show the student-sidebar-component
+      this.style.display = "block"; // Or any other appropriate display value
+    } else {
+      // Hide the student-sidebar-component
+      this.style.display = "none";
     }
-
-    connectedCallback() {
-        const shadowRoot = this.attachShadow({ mode: "open" });
-
-        shadowRoot.appendChild(coordinatornavbarTemplate.content);
-
-        const logoutButton = shadowRoot.querySelector("#logout-button");
-        logoutButton.addEventListener("click", this.handleLogout.bind(this));
-
-        const userType = sessionStorage.getItem("userType");
-        if (userType === "coordinator") {
-            // Show the student-sidebar-component
-            this.style.display = "block"; // Or any other appropriate display value
-        } else {
-            // Hide the student-sidebar-component
-            this.style.display = "none";
-        }
-    }
-    handleLogout() {
-        // Handle logout functionality
-        // For example, clear session data and redirect to the login page
-        sessionStorage.clear();
-        window.location.href = "/";
-    }
+  }
+  handleLogout() {
+    // Handle logout functionality
+    // For example, clear session data and redirect to the login page
+    sessionStorage.clear();
+    window.location.href = "/";
+  }
 }
 customElements.define("coordinator-sidebar-component", coordinatorSidebar);
