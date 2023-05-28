@@ -45,6 +45,20 @@ function getAllStudents() {
             <tr scope="row" id="${student._id}">
               <td>${student.user.fullname}</td>
               <td>${student.user_id}</td>
+              <td>
+                ${student.assignedEvaluators
+            .map((evaluator) => {
+              return evaluator;
+            })
+            .join(", ")}
+                </td>
+                <td>
+                ${student.assignedTAs
+            .map((ta) => {
+              return ta;
+            })
+            .join(", ")}
+                </td>
               
             </tr>`);
       });

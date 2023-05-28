@@ -1193,6 +1193,61 @@ apirouter.post("/remove-assigned-student", async (req, res) => {
   }
 });
 
+// Randomly Assign Every Student to an Evaluator and a TA
+apirouter.post("/random-assignment", async (req, res) => {
+  try {
+    const students = await Student.find();
+    const evaluators = await Evaluator.find();
+    const TAs = await TA.find();
+
+    students.forEach(student => {
+      var assignedEvaluators = student.assignedEvaluators;
+      var assignedTAs = student.assignedTAs;
+
+      if (assignedEvaluators.length === 0) {
+        // Assign an evaluator to the student
+        const evaluatorWithLeastStudents = evaluators.reduce(
+          (minEvaluator, currentEvaluator) => {
+            return currentEvaluator.students.length < minEvaluator.students.length
+              ? currentEvaluator
+              : minEvaluator;
+          }
+        );
+
+        if (!evaluatorWithLeastStudents.students.includes(student)) {
+          assignedEvaluators.push(evaluatorWithLeastStudents.user_id);
+          evaluatorWithLeastStudents.students.push(student.user_id);
+        }
+      }
+
+      if (assignedTAs.length === 0) {
+        // Assign a TA to the student
+        const TAWithLeastStudents = TAs.reduce((minTA, currentTA) => {
+          return currentTA.students.length < minTA.students.length
+            ? currentTA
+            : minTA;
+        });
+
+        if (!TAWithLeastStudents.students.includes(student)) {
+          assignedTAs.push(TAWithLeastStudents.user_id);
+          TAWithLeastStudents.students.push(student.user_id);
+        }
+      }
+    });
+
+    // Save the updated data
+    await Promise.all([
+      students.map(student => student.save()),
+      evaluators.map(evaluator => evaluator.save()),
+      TAs.map(TA => TA.save())
+    ]);
+
+    res.status(200).json({ message: "Random assignment completed successfully." });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while performing random assignment." });
+  }
+});
+
 // returns true if email sent, false otherwise
 async function sendEmail(email, subject, messageToSend) {
   // Prepare the email message

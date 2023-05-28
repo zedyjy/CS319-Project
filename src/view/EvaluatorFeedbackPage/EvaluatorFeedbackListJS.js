@@ -36,13 +36,18 @@ jQuery(document).ready(function () {
 
       getReport(studentID).then((report) => {
         console.log(report);
+
+        const dateString = report.lastReportSubmission;
+
+        const lastReportDateF = new Date(dateString);
+        const formattedDate = `${lastReportDateF.getFullYear()}-${(lastReportDateF.getMonth() + 1).toString().padStart(2, '0')}-${lastReportDateF.getDate().toString().padStart(2, '0')}`;
         // Create a new row in the table
         var row = $("<tr></tr>");
 
         // Populate the row with the student information
         row.append(`<td>${studentID}</td>`);
         row.append(`<td>${courseName}</td>`);
-        row.append(`<td>${report.lastReportSubmission}</td>`);
+        row.append(`<td>${formattedDate}</td>`);
         row.append(`
         <td>
           <button class="btn btn-primary" onclick="viewReport('${report._id}','${report.revisionReportID}')">
