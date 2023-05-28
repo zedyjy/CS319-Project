@@ -62,7 +62,7 @@ adminnavbarTemplate.innerHTML = `
             <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
           </li>
           <li>
-            <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>
+            <a href="/others"> <i class="zmdi zmdi-settings"></i> Other </a>
           </li>
         </ul>
       </div>

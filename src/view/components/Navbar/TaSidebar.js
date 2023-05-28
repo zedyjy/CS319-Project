@@ -41,7 +41,7 @@ tasidebarTemplate.innerHTML = `
               </a>
           </li>
           <li>
-              <a href="#">
+              <a href="/others">
                   <i class="zmdi zmdi-settings"></i> Other
               </a>
           </li>

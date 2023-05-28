@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--script src="AdminViewStudentJS.js"></script-->
+    <title>Coordinators</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
 
-    <title>Admin View Students</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
     <!-- Bootstrap -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
-      referrerpolicy="no-referrer"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Global Settings -->
     <script src="/js/GlobalSettings/global.js"></script>
@@ -23,7 +26,6 @@
       type="text/css"
       href="/css/GlobalSettings/global.css"
     />
-
     <!-- JS -->
     <script src="/js/Profile/profile.js" type="text/javascript" defer></script>
     <!-- CSS-->
@@ -32,6 +34,15 @@
       type="text/css"
       href="/css/Profile/StyleProfile.css"
     />
+    <!-- Components -->
+
+    <!-- CSS-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/StudentHome/StyleStudentHome.css"
+    />
+
     <!-- Components -->
     <script
       src="/components/Navbar/defaultnavbar.js"
@@ -60,7 +71,7 @@
     ></script>
   </head>
 
-  <body>
+  <body style="display: none">
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
     <student-sidebar-component></student-sidebar-component>
@@ -72,14 +83,14 @@
       <div class="container">
         <h1>User Profile</h1>
         <div class="profile">
-          <img src="profile-picture.jpg" alt="Profile Picture" />
+          <img src="/assets/profile_p.png" alt="Profile Picture" />
           <div class="info">
             <label>Full Name:</label>
-            <input type="text" class="fullname" readonly />
+            <input type="text" class="fullname" />
           </div>
           <div class="info">
             <label>Email:</label>
-            <input type="text" class="email" readonly />
+            <input type="text" class="email" />
           </div>
         </div>
         <div>

@@ -68,7 +68,7 @@ coordinatornavbarTemplate.innerHTML = `
             <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
           </li>
           <li>
-            <a href="#"> <i class="zmdi zmdi-settings"></i> Other </a>
+            <a href="/others"> <i class="zmdi zmdi-settings"></i> Other </a>
           </li>
         </ul>
       </div>
