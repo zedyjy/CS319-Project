@@ -87,6 +87,7 @@ function studentRegister(password) {
   var userid = $("#userId").val().trim();
   var email = $("#userEmail").val();
   var fullname = $("#userFullname").val();
+  var department = $("#userDepartment").val();
 
   // Send the AJAX request
   $.ajax({
@@ -97,6 +98,7 @@ function studentRegister(password) {
       password: password,
       email: email,
       fullname: fullname,
+      department: department,
     },
     success: function (response) {
       console.log(response);
@@ -122,6 +124,7 @@ function evaluatorRegister(password) {
   var userid = $("#userId").val().trim();
   var email = $("#userEmail").val();
   var fullname = $("#userFullname").val();
+  var department = $("#userDepartment").val();
 
   // Send the AJAX request
   $.ajax({
@@ -132,6 +135,7 @@ function evaluatorRegister(password) {
       password: password,
       email: email,
       fullname: fullname,
+      department: department,
     },
     success: function (response) {
       console.log(response);
@@ -157,6 +161,7 @@ function taRegister(password) {
   var userid = $("#userId").val().trim();
   var email = $("#userEmail").val();
   var fullname = $("#userFullname").val();
+  var department = $("#userDepartment").val();
 
   // Send the AJAX request
   $.ajax({
@@ -167,6 +172,7 @@ function taRegister(password) {
       password: password,
       email: email,
       fullname: fullname,
+      department: department,
     },
     success: function (response) {
       console.log(response);
@@ -192,6 +198,7 @@ function coordinatorRegister(password) {
   var userid = $("#userId").val().trim();
   var email = $("#userEmail").val();
   var fullname = $("#userFullname").val();
+  var department = $("#userDepartment").val();
 
   // Send the AJAX request
   $.ajax({
@@ -202,6 +209,7 @@ function coordinatorRegister(password) {
       password: password,
       email: email,
       fullname: fullname,
+      department: department,
     },
     success: function (response) {
       console.log(response);

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <title>Coordinator Home</title>
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Global Settings -->
+    <script src="/js/GlobalSettings/global.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/GlobalSettings/global.css"
+    />
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/CoordinatorCompanyList/CoordinatorCompanyList.css"
+    />
+
+    <!-- JS -->
+    <script
+      src="/js/CoordinatorCompanyList/CoordinatorCompanyList.js"
+      type="text/javascript"
+    ></script>
+    ]
+    <!-- Components -->
+
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="/components/Navbar/coordinatornavbar.js"
+      type="text/javascript"
+    ></script>
+    <script src="/components/Footer/footer.js" type="text/javascript"></script>
+  </head>
+
+  <body style="display: none">
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <coordinator-sidebar-component></coordinator-sidebar-component>
+    <!-- Content -->
+    <div id="viewport" class="mt-5">
+      <!-- Content -->
+      <div class="container">
+        <h2 class="mb-5">Companies</h2>
+        <p>
+          Your Company Not In the list?
+          <button
+            class="btn-primary ml-2"
+            type="button"
+            data-toggle="modal"
+            data-target="#addNewCompany"
+          >
+            Add a new Company
+          </button>
+        </p>
+        <div class="table-responsive">
+          <table class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Accepted Depts.</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="company-list"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal w-100 h-100 fade"
+      id="addNewCompany"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable h-100 d-flex flex-column"
+        role="document"
+      >
+        <div class="modal-content w-100 h-100">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New Company</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body col">
+            <div class="container-fluid">
+              <div class="row mt-2">
+                <label>Company Name:</label>
+                <input class="ml-1" type="text" id="company-name" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company City:</label>
+                <input class="ml-1" type="text" id="company-city" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company Email:</label>
+                <input class="ml-1" type="text" id="company-email" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company Phone:</label>
+                <input class="ml-1" type="text" id="company-phone" required />
+              </div>
+              <div class="row mt-2">
+                <label>Sector:</label>
+                <input class="ml-1" type="text" id="company-sector" required />
+              </div>
+              <div class="row mt-2">
+                <button class="btn btn-primary" onclick="addCompany()">
+                  Add
+                </button>
+                <p class="add-company-response"></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

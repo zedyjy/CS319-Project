@@ -13,13 +13,13 @@ const {
   Coordinator,
   Report,
   GradingForm,
-  InternshipCompany,
 } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" }); // Specify the destination folder for storing the uploaded files
 const fs = require("fs");
 const { ObjectId } = require("mongodb");
+const { error } = require("jquery");
 
 // ------- mongo db connection --------
 mongoose.connect("mongodb://127.0.0.1:27017/internship-system");
@@ -35,6 +35,18 @@ database.once("connected", () => {
 
 // ------- mongo db connection --------
 
+// ------- email client connection --------
+
+const transporter = nodemailer.createTransport({
+  service: "hotmail",
+  auth: {
+    user: "bilkentinternship@outlook.com", // Replace with your Hotmail email address
+    pass: "Quasointernship41", // Replace with your Hotmail password
+  },
+});
+
+// ------- email client connection --------
+
 // ------- List of API's  in this file. -------- //
 
 // Register
@@ -43,6 +55,7 @@ apirouter.post("/register/:user", async (req, res) => {
   const password = req.body.password;
   const email = req.body.email ? req.body.email : ""; // Because we handle registraton from home page, and admin-added users
   const fullname = req.body.fullname ? req.body.fullname : ""; // Because we handle registraton from home page, and admin-added users
+  const department = req.body.department ? req.body.department : "";
   const userType = req.params.user;
 
   try {
@@ -52,7 +65,8 @@ apirouter.post("/register/:user", async (req, res) => {
         user_id,
         password,
         email,
-        fullname
+        fullname,
+        department
       );
       if (!registerResult) {
         res
@@ -70,7 +84,8 @@ apirouter.post("/register/:user", async (req, res) => {
         user_id,
         password,
         email,
-        fullname
+        fullname,
+        department
       );
       if (!registerResult) {
         res
@@ -88,7 +103,8 @@ apirouter.post("/register/:user", async (req, res) => {
         user_id,
         password,
         email,
-        fullname
+        fullname,
+        department
       );
       if (!registerResult) {
         res.status(400).json({
@@ -108,7 +124,8 @@ apirouter.post("/register/:user", async (req, res) => {
         user_id,
         password,
         email,
-        fullname
+        fullname,
+        department
       );
       if (!registerResult) {
         res
@@ -127,7 +144,7 @@ apirouter.post("/register/:user", async (req, res) => {
   }
 });
 
-async function registerStudent(user_id, password, email, fullname) {
+async function registerStudent(user_id, password, email, fullname, department) {
   const user = await User.findOne({ user_id: user_id });
   console.log(user);
   if (user) {
@@ -139,6 +156,7 @@ async function registerStudent(user_id, password, email, fullname) {
     password: password,
     email: email,
     fullname: fullname,
+    department: department,
   });
 
   const savedUser = await newUser.save();
@@ -154,7 +172,13 @@ async function registerStudent(user_id, password, email, fullname) {
   return true;
 }
 
-async function registerEvaluator(user_id, password, email, fullname) {
+async function registerEvaluator(
+  user_id,
+  password,
+  email,
+  fullname,
+  department
+) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
     return false;
@@ -165,6 +189,7 @@ async function registerEvaluator(user_id, password, email, fullname) {
     password: password,
     email: email,
     fullname: fullname,
+    department: department,
   });
 
   const savedUser = await newUser.save();
@@ -176,7 +201,7 @@ async function registerEvaluator(user_id, password, email, fullname) {
   return true;
 }
 
-async function registerTA(user_id, password, email, fullname) {
+async function registerTA(user_id, password, email, fullname, department) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
     return false;
@@ -187,6 +212,7 @@ async function registerTA(user_id, password, email, fullname) {
     password: password,
     email: email,
     fullname: fullname,
+    department: department,
   });
 
   const savedUser = await newUser.save();
@@ -198,7 +224,13 @@ async function registerTA(user_id, password, email, fullname) {
   return true;
 }
 
-async function registerCoordinator(user_id, password, email, fullname) {
+async function registerCoordinator(
+  user_id,
+  password,
+  email,
+  fullname,
+  department
+) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
     return false;
@@ -209,6 +241,7 @@ async function registerCoordinator(user_id, password, email, fullname) {
     password: password,
     email: email,
     fullname: fullname,
+    department: department,
   });
 
   const savedUser = await newUser.save();
@@ -933,9 +966,11 @@ apirouter.post("/add-company", async (req, res) => {
   const company_sector = req.body.company_sector;
   try {
     const company = await Company.findOne({
-      name: company_name,
-      email: company_email,
-      phone: company_phone,
+      $or: [
+        { name: company_name },
+        { email: company_email },
+        { phone: company_phone },
+      ],
     });
 
     if (company) {
@@ -1157,13 +1192,6 @@ apirouter.post("/remove-assigned-student", async (req, res) => {
       .json({ error: "Error De-Assigning Student", status: 500 });
   }
 });
-const transporter = nodemailer.createTransport({
-  service: "hotmail",
-  auth: {
-    user: "bilkentinternship@outlook.com", // Replace with your Hotmail email address
-    pass: "Quasointernship41", // Replace with your Hotmail password
-  },
-});
 
 // returns true if email sent, false otherwise
 async function sendEmail(email, subject, messageToSend) {
@@ -1206,13 +1234,8 @@ apirouter.post("/send-registration-email", async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
-});
-
 // Get Student Current Internship Company Details
-apirouter.post("/get-current-internship-company-details", async (req, res) => {
+apirouter.post("/student/get-company-details", async (req, res) => {
   const student_id = req.body.user_id;
 
   try {
@@ -1224,18 +1247,18 @@ apirouter.post("/get-current-internship-company-details", async (req, res) => {
       });
     }
 
-    if (!student.internshipcompany) {
+    if (!student.companyId) {
       return res.status(404).json({
         message: "You do not have a internship company registered!",
         status: 404,
       });
     }
 
-    await student.populate("internshipcompany");
+    const company = await Company.findOne({ _id: student.companyId });
 
     return res
       .status(200)
-      .json({ internshipcompany: student.internshipcompany });
+      .json({ company: company, student: student, status: 200 });
   } catch (error) {
     return res
       .status(500)
@@ -1245,35 +1268,34 @@ apirouter.post("/get-current-internship-company-details", async (req, res) => {
 
 // Register Intership Company
 apirouter.post(
-  "/register-internship-company",
+  "/student/register-internship-company",
   upload.single("file"),
   async (req, res) => {
     try {
       const student_id = req.body.student_id;
       const name = req.body.companyName ? req.body.companyName : "";
       const email = req.body.companyEmail;
+      const phone = req.body.companyPhone;
       const city = req.body.companyCity ? req.body.companyCity : "";
       const sector = req.body.companySector ? req.body.companySector : "";
 
       const student = await Student.findOne({ user_id: student_id });
-      const internshipcompany = student.internshipcompany ? true : false;
-      const studentHasReport = student.mainReportID ? true : false;
-      if (internshipcompany || !studentHasReport) {
+      const company = await Company.findOne({ _id: student.companyId });
+      if (company) {
         await fs.promises.unlink(
           path.join(__dirname, "../../uploads", req.file.filename)
         );
         res.status(404).json({
-          message:
-            "Internship Company Already Exists or You dont have a internship report yet",
+          message: "Internship Company Already Exists",
           status: 400,
         });
+        return;
       } else {
         if (!req.file) {
           // No file was uploaded
           res.status(400).json({ message: "No file uploaded" });
           return;
         }
-        console.log("REGISTEREING");
         // Access the uploaded file using req.file
         const uploadedFile = req.file;
 
@@ -1293,27 +1315,22 @@ apirouter.post(
         );
         fs.renameSync(uploadedFile.path, destination);
 
-        const newInternshipCompany = new InternshipCompany({
-          relatedStudentID: student_id,
+        const company = new Company({
           name: name,
           email: email,
+          phone: phone,
           city: city,
           sector: sector,
-          acceptanceLetterFile: uniqueFilename,
         });
-        await newInternshipCompany.save();
+        await company.save();
 
-        student.internshipcompany = newInternshipCompany._id;
+        student.acceptanceLetterFile = uniqueFilename;
+        student.companyId = company._id;
         await student.save();
 
-        const studentReport = await Report.findOne({
-          relatedStudentID: student_id,
-        });
-        studentReport.internshipcompany = newInternshipCompany._id;
-        await studentReport.save();
-
         res.status(200).json({
-          message: "Sucessfully Registered Internship Company",
+          message:
+            "Sucessfully Registered Internship Company, Awaiting Approval",
           status: 200,
         });
       }
@@ -1330,32 +1347,20 @@ apirouter.post(
 );
 
 //Remove Internship Company
-apirouter.post("/remove-internship-company", async (req, res) => {
-  const internshipcompany_id = req.body.internshipcompany_id;
+apirouter.post("/student/remove-internship-company", async (req, res) => {
+  const student_id = req.body.user_id;
+
   try {
-    const internshipcompany = await InternshipCompany.findOne({
-      _id: internshipcompany_id,
+    const student = await Student.findOne({
+      user_id: student_id,
     });
     await fs.promises.unlink(
-      path.join(
-        __dirname,
-        "../../uploads",
-        internshipcompany.acceptanceLetterFile
-      )
+      path.join(__dirname, "../../uploads", student.acceptanceLetterFile)
     );
 
-    const student_id = internshipcompany.relatedStudentID;
-    const student = await Student.findOne({ user_id: student_id });
-    student.internshipcompany = null;
+    student.companyId = null;
     await student.save();
 
-    const studentReport = await Report.findOne({
-      relatedStudentID: student_id,
-    });
-    studentReport.internshipcompany = null;
-    await studentReport.save();
-
-    await InternshipCompany.findOneAndDelete({ _id: internshipcompany_id });
     res.status(200).json({ message: "Internship Company Deleted" });
   } catch (error) {
     return res.status(500).json({ error: "Error Removing Internship Company" });

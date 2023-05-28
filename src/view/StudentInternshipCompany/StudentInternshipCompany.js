@@ -6,33 +6,35 @@ function getInternshipCompanyDetails() {
   var studentId = sessionStorage.getItem("user_id");
 
   $.ajax({
-    url: "/get-current-internship-company-details",
+    url: "/student/get-company-details",
     type: "POST",
     data: {
       user_id: studentId,
     },
     success: function (response) {
+      $(".alert").hide();
       $("#current-internship-company-details-reports-list").empty();
-      console.log(response.report);
+      console.log(response);
       $("#current-internship-company-details-reports-list").append(`
-              <tr scope="row" id="${response.internshipcompany._id}">
-                <td>${response.internshipcompany.name}</td>
-                <td>${response.internshipcompany.city}</td>
-                <td>${response.internshipcompany.email}</td>
-                <td>${response.internshipcompany.sector}</td>
+              <tr scope="row" id="${response.company._id}">
+                <td>${response.company.name}</td>
+                <td>${response.company.city}</td>
+                <td>${response.company.email}</td>
+                <td>${response.company.sector}</td>
+                <td>${response.company.approvalStatus}</td>
                 <td>
-                <button class="btn btn-primary" onclick="viewLetter('${response.internshipcompany._id}','${response.internshipcompany.acceptanceLetterFile}')">
+                <button class="btn btn-primary" onclick="viewLetter('${response.company._id}','${response.student.acceptanceLetterFile}')">
                   View File
                 </button>
-                <div class="overlay ${response.internshipcompany._id}">
-                  <button class="btn btn-danger" onclick="closeOverlay('${response.internshipcompany._id}')">Close</button>
+                <div class="overlay ${response.company._id}">
+                  <button class="btn btn-danger" onclick="closeOverlay('${response.company._id}')">Close</button>
                   <div style="width: 100%; height: 100%;">
                   <h3>Your Uploaded Acceptance Letter</h3>
                   <div style="width: 100%; height: 100%;" class="letter-preview"></div>
                   </div>
                 </div>
                 </td>
-                <td><button class="btn btn-danger" onclick="removeInternshipCompany('${response.internshipcompany._id}')">Remove Company</button></td>
+                <td><button class="btn btn-danger" onclick="removeInternshipCompany('${studentId}')">Remove Company</button></td>
               </tr>`);
     },
     error: function (error) {
@@ -80,6 +82,7 @@ function registerInternshipCompany() {
   var companyName = $("#companyName").val();
   var companyEmail = $("#companyEmail").val().trim();
   var companyCity = $("#companyCity").val();
+  var companyPhone = $("#companyPhone").val().trim();
   var companySector = $("#companySector").val();
 
   var companyAcceptanceLetter = $("#company-acceptance-letter-input")[0]
@@ -89,24 +92,21 @@ function registerInternshipCompany() {
   formData.append("student_id", student_id);
   formData.append("companyName", companyName);
   formData.append("companyEmail", companyEmail);
+  formData.append("companyPhone", companyPhone);
   formData.append("companyCity", companyCity);
   formData.append("companySector", companySector);
   formData.append("file", companyAcceptanceLetter);
 
   // Send the AJAX request
   $.ajax({
-    url: "/register-internship-company",
+    url: "/student/register-internship-company",
     type: "POST",
     data: formData,
     processData: false,
     contentType: false,
     success: function (response) {
-      if (response.status == 200) {
-        $(".register-internship-company-response").text(response.message);
-        getInternshipCompanyDetails();
-      } else {
-        $(".register-internship-company-response").text(response.message);
-      }
+      $(".register-internship-company-response").text(response.message);
+      getInternshipCompanyDetails();
     },
     error: function (error) {
       // Handle the error response here
@@ -119,15 +119,16 @@ function registerInternshipCompany() {
 }
 
 function removeInternshipCompany(id) {
+  const student_id = sessionStorage.getItem("user_id");
   $.ajax({
-    url: "/remove-internship-company",
+    url: "/student/remove-internship-company",
     type: "POST",
     data: {
-      internshipcompany_id: id,
+      user_id: student_id,
     },
     success: function (response) {
       $(".remove-internship-company-response").text(response.message);
-      location.reload();
+      $("#current-internship-company-details-reports-list").empty();
       getInternshipCompanyDetails();
     },
     error: function (error) {

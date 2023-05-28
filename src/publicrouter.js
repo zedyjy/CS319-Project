@@ -127,7 +127,7 @@ publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });
 //---------------------------------------
-// ---------- Evaluator Pages ---------- //
+// ---------- ta Pages ---------- //
 //---------------------------------------
 publicrouter.get("/ta", (req, res) => {
   res.render("TaHome/TaHomePage");
@@ -190,11 +190,14 @@ publicrouter.get("/profile", (req, res) => {
 });
 
 //---------------------------------------
-// ---------- Coordinator Page ---------- //
+// ---------- Coordinator Pages ---------- //
 //---------------------------------------
 publicrouter.get("/coordinator", (req, res) => {
-  res.render("CoordinatorHomePage/CoordinatorHome");
+  res.render("CoordinatorHome/CoordinatorHome");
 });
 
+publicrouter.get("/coordinator/company-list", (req, res) => {
+  res.render("CoordinatorCompanyList/CoordinatorCompanyList");
+});
 
 module.exports = publicrouter;

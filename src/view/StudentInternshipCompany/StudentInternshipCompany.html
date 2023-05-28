@@ -75,7 +75,7 @@
           <h1 class="mb-5">Your Current Internship Company Details</h1>
 
           <!-- Reports Table -->
-          <div class="table-responsive">
+          <div class="table-responsive current-internship-company-details">
             <table
               class="table table-striped current-internship-company-details-reports-table"
             >
@@ -85,6 +85,7 @@
                   <th scope="col">City</th>
                   <th scope="col">Email</th>
                   <th scope="col">Sector</th>
+                  <th scope="col">Approval Status</th>
                   <th scope="col">Acceptance Letter</th>
                   <th scope="col">Actions</th>
                 </tr>
@@ -119,6 +120,17 @@
                 type="text"
                 class="form-control"
                 id="companyEmail"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="">
+              <label for="companyPhone">Company Phone (required)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="companyPhone"
                 required
               />
             </div>

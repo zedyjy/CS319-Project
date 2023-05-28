@@ -50,82 +50,101 @@
 
     <!-- Content -->
     <div id="container">
-    <div id="viewport">
-      <h2>Add User</h2>
+      <div id="viewport">
+        <h2>Add User</h2>
 
-      <div class="form-row">
-        <label for="userId">User ID: <a id="star">*</a></label>
-        <input type="text" id="userId" name="userId" required />
-      </div>
+        <div class="form-row">
+          <label for="userId">User ID: <a id="star">*</a></label>
+          <input type="text" id="userId" name="userId" required />
+        </div>
 
-      <div class="form-row">
-        <label for="userEmail">Email: <a id="star">*</a></label>
-        <input type="text" id="userEmail" name="userEmail" required />
-      </div>
+        <div class="form-row">
+          <label for="userEmail">Email: <a id="star">*</a></label>
+          <input type="text" id="userEmail" name="userEmail" required />
+        </div>
 
-      <div class="form-row">
-        <label for="userFullname">Full Name: <a id="star">*</a></label>
-        <input type="text" id="userFullname" name="userFullname" required />
-      </div>
+        <div class="form-row">
+          <label for="userFullname">Full Name: <a id="star">*</a></label>
+          <input type="text" id="userFullname" name="userFullname" required />
+        </div>
 
-      <label for="userType">User Type: <a id="star">*</a></label>
-      <div id="checkbox-container">
-        <label>
+        <div class="form-row">
+          <label for="userDepartment"
+            >Department: (Shortcode) <a id="star">*</a></label
+          >
           <input
-            class="input-width"
-            type="radio"
-            name="userType"
-            value="student"
+            type="text"
+            id="userDepartment"
+            name="userDepartment"
             required
           />
-          Student
-        </label>
-        <label>
-          <input
-            class="input-width"
-            type="radio"
-            name="userType"
-            value="evaluator"
-          />
-          Evaluator
-        </label>
-        <label>
-          <input class="input-width" type="radio" name="userType" value="ta" />
-          TA
-        </label>
-        <label>
-          <input
-            class="input-width"
-            type="radio"
-            name="userType"
-            value="admin"
-          />
-          Admin
-        </label>
-        <label>
-          <input
-            class="input-width"
-            type="radio"
-            name="userType"
-            value="coordinator"
-          />
-          Coordinator
-        </label>
-      </div>
-      <button class="btn btn-primary" onclick="addUser()">
-        Add User and Send Email to User with Password
-      </button>
-      <p class="add-user-response"></p>
+        </div>
 
-      <div class="mt-5"></div>
-      <h2>Delete User</h2>
-      <div class="form-row">
-        <label for="userId-delete">User ID: <a id="star">*</a></label>
-        <input type="text" id="userId-delete" name="userId" required />
+        <label for="userType">User Type: <a id="star">*</a></label>
+        <div id="checkbox-container">
+          <label>
+            <input
+              class="input-width"
+              type="radio"
+              name="userType"
+              value="student"
+              required
+            />
+            Student
+          </label>
+          <label>
+            <input
+              class="input-width"
+              type="radio"
+              name="userType"
+              value="evaluator"
+            />
+            Evaluator
+          </label>
+          <label>
+            <input
+              class="input-width"
+              type="radio"
+              name="userType"
+              value="ta"
+            />
+            TA
+          </label>
+          <label>
+            <input
+              class="input-width"
+              type="radio"
+              name="userType"
+              value="admin"
+            />
+            Admin
+          </label>
+          <label>
+            <input
+              class="input-width"
+              type="radio"
+              name="userType"
+              value="coordinator"
+            />
+            Coordinator
+          </label>
+        </div>
+        <button class="btn btn-primary" onclick="addUser()">
+          Add User and Send Email to User with Password
+        </button>
+        <p class="add-user-response"></p>
+
+        <div class="mt-5"></div>
+        <h2>Delete User</h2>
+        <div class="form-row">
+          <label for="userId-delete">User ID: <a id="star">*</a></label>
+          <input type="text" id="userId-delete" name="userId" required />
+        </div>
+        <button class="btn btn-danger" onclick="deleteUser()">
+          Delete User
+        </button>
+        <p class="delete-user-response"></p>
       </div>
-      <button class="btn btn-danger" onclick="deleteUser()">Delete User</button>
-      <p class="delete-user-response"></p>
-    </div>
     </div>
   </body>
 </html>

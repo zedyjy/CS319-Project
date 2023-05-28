@@ -19,9 +19,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  department: {
-    type: String,
-  },
   fullname: {
     type: String,
   },
@@ -39,45 +36,12 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const internshipcompanyschema = new mongoose.Schema({
-  relatedStudentID: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-  },
-  city: {
-    type: String,
-  },
-  sector: {
-    type: String,
-  },
-  uniqueFormURL: {
-    type: String,
-  },
-  acceptanceLetterFile: {
-    type: String,
-  },
-  companyWorkFormFile: {
-    type: String,
-  },
-});
-
 // Student Schema
 const studentSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-  internshipcompany: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "InternshipCompany",
   },
   profileImage: {
     data: {
@@ -88,6 +52,9 @@ const studentSchema = new mongoose.Schema({
   user_id: {
     type: String,
     required: true,
+  },
+  department: {
+    type: String,
   },
   resume: {
     type: String,
@@ -105,13 +72,25 @@ const studentSchema = new mongoose.Schema({
   assignedTAs: {
     type: [String],
   },
-  company: {
+  companyId: {
     type: String,
   },
   courseGrade: {
     type: String,
   },
   mainReportID: {
+    type: String,
+  },
+  companyUniqueFormURL: {
+    type: String,
+  },
+  acceptanceLetterFile: {
+    type: String,
+  },
+  companyWorkFormFile: {
+    type: String,
+  },
+  companyReportID: {
     type: String,
   },
   // Student-specific fields...
@@ -141,6 +120,9 @@ const evaluatorSchema = new mongoose.Schema({
   gradingForms: {
     type: [String],
   },
+  department: {
+    type: String,
+  },
 
   // Evaluator-specific fields...
 });
@@ -163,6 +145,9 @@ const taSchema = new mongoose.Schema({
   courses: {
     type: [String],
   },
+  department: {
+    type: String,
+  },
   students: {
     type: [String],
   },
@@ -184,6 +169,9 @@ const coordinatorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  department: {
+    type: String,
+  },
   courses: {
     type: [String],
   },
@@ -191,9 +179,6 @@ const coordinatorSchema = new mongoose.Schema({
 
 //Company Schema
 const companySchema = new mongoose.Schema({
-  students: {
-    type: [String],
-  },
   name: {
     type: String,
   },
@@ -211,15 +196,7 @@ const companySchema = new mongoose.Schema({
   },
   approvalStatus: {
     type: String,
-  },
-  submittedForm: {
-    type: String,
-  },
-  submittedFormStatus: {
-    type: String,
-  },
-  uniqueFormLink: {
-    type: String,
+    default: "Pending",
   },
   studentRating: {
     type: String,
@@ -235,7 +212,8 @@ const companySchema = new mongoose.Schema({
 });
 
 const gradingFormSchema = new mongoose.Schema({
-  gradingFormSubmissionStatus: { // No Grades, Feedback, Final, Revision, Unchangable
+  gradingFormSubmissionStatus: {
+    // No Grades, Feedback, Final, Revision, Unchangable
     type: String,
     default: "No Grades",
   },
@@ -282,7 +260,6 @@ const gradingFormSchema = new mongoose.Schema({
     default: "Final grade not submitted.",
   },
 
-
   taUsername: {
     type: [String],
   },
@@ -303,10 +280,6 @@ const adminSchema = new mongoose.Schema({
 });
 
 const reportSchema = new mongoose.Schema({
-  internshipcompany: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "InternshipCompany",
-  },
   relatedStudentID: {
     type: String,
     required: true,
@@ -364,10 +337,6 @@ const Student = mongoose.model("Student", studentSchema);
 const Evaluator = mongoose.model("Evaluator", evaluatorSchema);
 const TA = mongoose.model("TA", taSchema);
 const Coordinator = mongoose.model("Coordinator", coordinatorSchema);
-const InternshipCompany = mongoose.model(
-  "InternshipCompany",
-  internshipcompanyschema
-);
 const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
@@ -379,7 +348,6 @@ module.exports = {
   Evaluator,
   TA,
   Coordinator,
-  InternshipCompany,
   Company,
   GradingForm,
   Admin,
