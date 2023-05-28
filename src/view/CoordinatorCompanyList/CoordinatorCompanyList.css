@@ -57,6 +57,7 @@ a:visited{
 
 #container {
     width: 100%;
+    margin-top: 20px;
     position: relative;
     margin-right: 10px;
     padding-left: 16em;
@@ -460,4 +461,8 @@ th {
 
 .table-responsive > .table-bordered {
     border: 0;
+}
+
+.mt-40 {
+    margin-top: 40px;
 }

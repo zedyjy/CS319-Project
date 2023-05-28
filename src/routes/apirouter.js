@@ -301,6 +301,7 @@ apirouter.post("/login", async (req, res) => {
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
+            user: user,
             courses: user.courses,
             status: 200,
           });
@@ -311,6 +312,7 @@ apirouter.post("/login", async (req, res) => {
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
+            user: user,
             courses: user.courses,
             students: user.students,
             gradingForms: user.gradingForms,
@@ -323,6 +325,7 @@ apirouter.post("/login", async (req, res) => {
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
+            user: user,
             courses: user.courses,
             students: user.students,
             gradingForms: user.gradingForms,
@@ -335,6 +338,7 @@ apirouter.post("/login", async (req, res) => {
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
+            user: user,
             courses: user.courses,
             students: user.students,
             gradingForms: user.gradingForms,
@@ -348,6 +352,7 @@ apirouter.post("/login", async (req, res) => {
           res.status(200).json({
             message: "Logged In",
             userType: user.userType,
+            user: user,
             courses: "",
             students: "",
             gradingForms: "",
@@ -1266,7 +1271,7 @@ apirouter.post("/student/get-company-details", async (req, res) => {
   }
 });
 
-// Register Intership Company
+// Register NEW Intership Company
 apirouter.post(
   "/student/register-internship-company",
   upload.single("file"),
@@ -1280,13 +1285,21 @@ apirouter.post(
       const sector = req.body.companySector ? req.body.companySector : "";
 
       const student = await Student.findOne({ user_id: student_id });
-      const company = await Company.findOne({ _id: student.companyId });
-      if (company) {
+      const company = await Company.findOne({
+        $or: [{ _id: student.companyId }, { name: name }], // CHECK FOR ALREADY EXISTING COMPANY
+      });
+
+      if (
+        company &&
+        (company.approvalStatus === "Approved" ||
+          company.approvalStatus === "Pending")
+      ) {
         await fs.promises.unlink(
           path.join(__dirname, "../../uploads", req.file.filename)
         );
         res.status(404).json({
-          message: "Internship Company Already Exists",
+          message:
+            "Internship Company Already Exists and/or is Approved/Awating Approval, Please check the company list and choose the company from there",
           status: 400,
         });
         return;
@@ -1346,6 +1359,71 @@ apirouter.post(
   }
 );
 
+// Upload Acceptance Letter
+apirouter.post(
+  "/student/upload-acceptance-letter",
+  upload.single("file"),
+  async (req, res) => {
+    try {
+      const student_id = req.body.student_id;
+
+      if (!req.file) {
+        // No file was uploaded
+        res.status(400).json({ message: "No file uploaded" });
+        return;
+      }
+      // Access the uploaded file using req.file
+      const uploadedFile = req.file;
+
+      // Generate a unique filename
+      const uniqueFilename =
+        Date.now() +
+        "-" +
+        "acceptance-letter" +
+        "-" +
+        uploadedFile.originalname;
+
+      // Move the uploaded file to a permanent location
+      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+      fs.renameSync(uploadedFile.path, destination);
+
+      const student = await Student.findOne({ user_id: student_id });
+
+      student.acceptanceLetterFile = uniqueFilename;
+      await student.save();
+
+      res
+        .status(200)
+        .json({ message: "Acceptance Letter Uploaded", user: student });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: "Error Uploading Acceptance Letter" });
+    }
+  }
+);
+
+//Add Existing Internship Company
+apirouter.post("/student/add-internship-company", async (req, res) => {
+  const student_id = req.body.user_id;
+  const company_id = req.body.company_id;
+
+  try {
+    const student = await Student.findOne({
+      user_id: student_id,
+    });
+
+    student.companyId = company_id;
+    await student.save();
+
+    res
+      .status(200)
+      .json({ message: "Internship Company Added", user: student });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Adding Internship Company" });
+  }
+});
+
 //Remove Internship Company
 apirouter.post("/student/remove-internship-company", async (req, res) => {
   const student_id = req.body.user_id;
@@ -1354,16 +1432,61 @@ apirouter.post("/student/remove-internship-company", async (req, res) => {
     const student = await Student.findOne({
       user_id: student_id,
     });
-    await fs.promises.unlink(
-      path.join(__dirname, "../../uploads", student.acceptanceLetterFile)
-    );
+    if (student.acceptanceLetterFile) {
+      await fs.promises.unlink(
+        path.join(__dirname, "../../uploads", student.acceptanceLetterFile)
+      );
+    }
 
+    student.acceptanceLetterFile = null;
     student.companyId = null;
     await student.save();
 
-    res.status(200).json({ message: "Internship Company Deleted" });
+    return res
+      .status(200)
+      .json({ message: "Internship Company Removed", user: student });
   } catch (error) {
     return res.status(500).json({ error: "Error Removing Internship Company" });
+  }
+});
+
+//Approve Internship Company
+apirouter.post("/approve-company", async (req, res) => {
+  const company_id = req.body.company_id;
+  const coordinator_id = req.body.coordinator_id;
+  try {
+    const company = await Company.findOne({
+      _id: company_id,
+    });
+
+    company.approvalStatus = "Approved";
+    await company.save();
+
+    res.status(200).json({ message: "Internship Company Approved" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Approving Internship Company" });
+  }
+});
+
+//Approve Internship Company
+apirouter.post("/reject-company", async (req, res) => {
+  const company_id = req.body.company_id;
+
+  try {
+    const company = await Company.findOne({
+      _id: company_id,
+    });
+
+    company.approvalStatus = "Rejected";
+    await company.save();
+
+    res.status(200).json({ message: "Internship Company Rejected" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Rejecting Internship Company" });
   }
 });
 

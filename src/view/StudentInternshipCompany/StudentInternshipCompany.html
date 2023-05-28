@@ -74,7 +74,7 @@
         <div class="container">
           <h1 class="mb-5">Your Current Internship Company Details</h1>
 
-          <!-- Reports Table -->
+          <!-- Current Company Table -->
           <div class="table-responsive current-internship-company-details">
             <table
               class="table table-striped current-internship-company-details-reports-table"
@@ -101,7 +101,36 @@
           role="alert"
         ></p>
 
-        <div class="container register-company" style="width: 50%; margin: 0px">
+        <!-- Approved Company List -->
+        <div class="container">
+          <h1 class="mb-5">Approved Companies in the System</h1>
+
+          <!-- Current Company Table -->
+          <div class="table-responsive approved-companies-details">
+            <table class="table table-striped approved-companies-table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Sector</th>
+                  <th scope="col">Accepted Departments</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="approved-companies-list">
+                <!-- Table rows will be dynamically added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Register Company -->
+        <div
+          class="container register-company"
+          style="width: 50%; margin-left: 0px; margin-right: 0px"
+        >
+          <h1 class="mb-5">Register a new company</h1>
           <div class="row">
             <div class="">
               <label for="companyName">Company Name (required)</label>

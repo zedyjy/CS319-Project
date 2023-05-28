@@ -53,9 +53,9 @@
     <coordinator-sidebar-component></coordinator-sidebar-component>
     <!-- Content -->
     <div id="viewport" class="mt-5">
-      <!-- Content -->
+      <!-- Pending Companies -->
       <div class="container">
-        <h2 class="mb-5">Companies</h2>
+        <h1 class="mb-5">Pending Companies</h1>
         <p>
           Your Company Not In the list?
           <button
@@ -67,8 +67,16 @@
             Add a new Company
           </button>
         </p>
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="pending-searchInput"
+            placeholder="Search Companies by Name or Email"
+          />
+        </div>
         <div class="table-responsive">
-          <table class="table table-striped custom-table">
+          <table class="table table-striped pending-table">
             <thead>
               <tr>
                 <th scope="col">Company Name</th>
@@ -76,11 +84,66 @@
                 <th scope="col">Email</th>
                 <th scope="col">Sector</th>
                 <th scope="col">Accepted Depts.</th>
-                <th scope="col">Sector</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody id="company-list"></tbody>
+            <tbody id="pending-company-list"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Approved Companies -->
+      <div class="container mt-40">
+        <h1 class="mb-5">Approved Companies</h1>
+
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="approved-searchInput"
+            placeholder="Search Companies by Name or Email"
+          />
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped approved-table">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Accepted Depts.</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="approved-company-list"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Rejected Companies -->
+      <div class="container mt-40">
+        <h1 class="mb-5">Rejected Companies</h1>
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="rejected-searchInput"
+            placeholder="Search Companies by Name or Email"
+          />
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped rejected-table">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Accepted Depts.</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="rejected-company-list"></tbody>
           </table>
         </div>
       </div>

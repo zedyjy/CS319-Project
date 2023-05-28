@@ -29,28 +29,8 @@ coordinatornavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/coordinator/view-student-list">
-              <i class="zmdi zmdi-comment-more"></i> View Students List
-            </a>
-          </li>
-          <li>
-            <a href="/coordinator/view-evaluator-list">
-              <i class="zmdi zmdi-comment-more"></i> View Evaluator List
-            </a>
-          </li>
-          <li>
-            <a href="/evaluator/student-list">
-              <i class="zmdi zmdi-comment-more"></i> View Coordinator List
-            </a>
-          </li>
-          <li>
             <a href="/coordinator/company-list">
               <i class="zmdi zmdi-comment-more"></i> View Company List
-            </a>
-          </li>
-          <li>
-            <a href="/evaluator/student-list">
-              <i class="zmdi zmdi-comment-more"></i> View TA List
             </a>
           </li>
           <li>
@@ -61,9 +41,7 @@ coordinatornavbarTemplate.innerHTML = `
           <li>
             <a href="/coordinator/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
           </li>
-          <li>
-            <a href="/coordinator/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete/Approve Company </a>
-          </li>
+          
           <li>
             <a href="#"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
           </li>

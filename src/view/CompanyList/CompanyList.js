@@ -51,13 +51,9 @@ function getAllCompanies() {
               })}
             </td>
             <td>${company.sector}</td>
+            <td>${company.approvalStatus}</td>
             <td>
               <div class="row">
-                <button class="btn-small btn-primary" onclick="applyToCompany('${
-                  company._id
-                }')">
-                  Apply
-                </button>
                 <button class="btn-small btn-primary" onclick="viewCompanyDetails('${
                   company._id
                 }')">
@@ -87,8 +83,6 @@ function getAllCompanies() {
     },
   });
 }
-
-function approveCompany(companyid) {}
 
 function viewCompanyDetails(companyid) {
   $(`#${companyid} .company-details`).toggle();

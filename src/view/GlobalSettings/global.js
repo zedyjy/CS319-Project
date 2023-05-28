@@ -27,3 +27,15 @@ function redirectToLoginPage() {
     window.location.href = "/";
   }
 }
+
+function showLoadingAnimation() {
+  var overlay = $('<div id="loading-overlay"></div>');
+  var spinner = $('<div id="loading-spinner"></div>');
+
+  overlay.append(spinner);
+  $("body").append(overlay);
+}
+
+function hideLoadingAnimation() {
+  $("#loading-overlay").remove();
+}

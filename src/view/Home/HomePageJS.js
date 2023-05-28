@@ -48,6 +48,7 @@ $(document).ready(function () {
           sessionStorage.setItem("userType", response.userType);
           sessionStorage.setItem("isLoggedIn", "true");
           sessionStorage.setItem("user_id", userid);
+          sessionStorage.setItem("user", JSON.stringify(response.user));
 
           var userType = sessionStorage.getItem("userType");
           console.log(userType);
@@ -359,8 +360,7 @@ function redirectToUserHomePage() {
       // Prevent infinite redirect loop
       window.location.href = "/ta";
     }
-  }
-  else if (userType === "Coordinator") {
+  } else if (userType === "Coordinator") {
     if (window.location.pathname !== "/coordinator") {
       // Prevent infinite redirect loop
       window.location.href = "/coordinator";
