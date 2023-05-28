@@ -104,6 +104,7 @@ $(document).ready(function () {
     // Retrieve the values from the form fields
     var student_id = $("#register-student-Id").val().trim();
     var password = $("#register-student-password").val();
+    var department = $("#register-student-department").val();
 
     // Send the AJAX request
     $.ajax({
@@ -112,6 +113,7 @@ $(document).ready(function () {
       data: {
         user_id: student_id, //DATA as object-value pair here
         password: password,
+        department: department,
       },
       success: function (response) {
         console.log(response);
@@ -146,6 +148,7 @@ $(document).ready(function () {
     // Retrieve the values from the form fields
     var studentid = $("#register-evaluator-Id").val().trim();
     var password = $("#register-evaluator-password").val();
+    var department = $("#register-evaluator-department").val();
 
     // Send the AJAX request
     $.ajax({
@@ -154,6 +157,7 @@ $(document).ready(function () {
       data: {
         user_id: studentid, //DATA as object-value pair here
         password: password,
+        department: department,
       },
       success: function (response) {
         console.log(response);
@@ -188,6 +192,7 @@ $(document).ready(function () {
     // Retrieve the values from the form fields
     var studentid = $("#register-coordinator-Id").val().trim();
     var password = $("#register-coordinator-password").val();
+    var department = $("#register-coordinator-department").val();
 
     // Send the AJAX request
     $.ajax({
@@ -196,6 +201,7 @@ $(document).ready(function () {
       data: {
         user_id: studentid, //DATA as object-value pair here
         password: password,
+        department: department,
       },
       success: function (response) {
         console.log(response);
@@ -230,6 +236,7 @@ $(document).ready(function () {
     // Retrieve the values from the form fields
     var studentid = $("#register-ta-Id").val().trim();
     var password = $("#register-ta-password").val();
+    var department = $("#register-ta-department").val();
 
     // Send the AJAX request
     $.ajax({
@@ -238,6 +245,7 @@ $(document).ready(function () {
       data: {
         user_id: studentid, //DATA as object-value pair here
         password: password,
+        department: department,
       },
       success: function (response) {
         console.log(response);

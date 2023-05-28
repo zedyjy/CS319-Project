@@ -156,13 +156,13 @@ async function registerStudent(user_id, password, email, fullname, department) {
     password: password,
     email: email,
     fullname: fullname,
-    department: department,
   });
 
   const savedUser = await newUser.save();
   const newStudent = new Student({
     user: savedUser._id, // Use the saved user's ID as the reference
     user_id: user_id,
+    department: department,
   });
   const newGradingForm = new GradingForm({
     studentID: user_id,
@@ -189,13 +189,13 @@ async function registerEvaluator(
     password: password,
     email: email,
     fullname: fullname,
-    department: department,
   });
 
   const savedUser = await newUser.save();
   const newEvaluator = new Evaluator({
     user: savedUser._id, // Use the saved user's ID as the reference
     user_id: user_id,
+    department: department,
   });
   await newEvaluator.save();
   return true;
@@ -212,13 +212,13 @@ async function registerTA(user_id, password, email, fullname, department) {
     password: password,
     email: email,
     fullname: fullname,
-    department: department,
   });
 
   const savedUser = await newUser.save();
   const newTA = new TA({
     user: savedUser._id, // Use the saved user's ID as the reference
     user_id: user_id,
+    department: department,
   });
   await newTA.save();
   return true;
@@ -241,13 +241,13 @@ async function registerCoordinator(
     password: password,
     email: email,
     fullname: fullname,
-    department: department,
   });
 
   const savedUser = await newUser.save();
   const newCoordinator = new Coordinator({
     user: savedUser._id, // Use the saved user's ID as the reference
     user_id: user_id,
+    department: department,
   });
   await newCoordinator.save();
   return true;
@@ -1205,7 +1205,7 @@ apirouter.post("/random-assignment", async (req, res) => {
     const evaluators = await Evaluator.find();
     const TAs = await TA.find();
 
-    students.forEach(student => {
+    students.forEach((student) => {
       var assignedEvaluators = student.assignedEvaluators;
       var assignedTAs = student.assignedTAs;
 
@@ -1213,7 +1213,8 @@ apirouter.post("/random-assignment", async (req, res) => {
         // Assign an evaluator to the student
         const evaluatorWithLeastStudents = evaluators.reduce(
           (minEvaluator, currentEvaluator) => {
-            return currentEvaluator.students.length < minEvaluator.students.length
+            return currentEvaluator.students.length <
+              minEvaluator.students.length
               ? currentEvaluator
               : minEvaluator;
           }
@@ -1242,14 +1243,18 @@ apirouter.post("/random-assignment", async (req, res) => {
 
     // Save the updated data
     await Promise.all([
-      students.map(student => student.save()),
-      evaluators.map(evaluator => evaluator.save()),
-      TAs.map(TA => TA.save())
+      students.map((student) => student.save()),
+      evaluators.map((evaluator) => evaluator.save()),
+      TAs.map((TA) => TA.save()),
     ]);
 
-    res.status(200).json({ message: "Random assignment completed successfully." });
+    res
+      .status(200)
+      .json({ message: "Random assignment completed successfully." });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while performing random assignment." });
+    res
+      .status(500)
+      .json({ error: "An error occurred while performing random assignment." });
   }
 });
 
