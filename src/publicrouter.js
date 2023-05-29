@@ -142,6 +142,10 @@ publicrouter.get("/evaluator/give-feedback", (req, res) => {
 publicrouter.get("/evaluator/student-list", (req, res) => {
   res.render("EvaluatorFeedbackPage/EvaluatorFeedbackListPage");
 });
+
+publicrouter.get("/evaluator/company-list", (req, res) => {
+  res.render("EvaluatorCompanyList/EvaluatorCompanyList");
+});
 //---------------------------------------
 // ---------- ta Pages ---------- //
 //---------------------------------------

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluator Give Feedback</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Global Settings -->
+    <script src="/js/GlobalSettings/global.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/GlobalSettings/global.css"
+    />
+
+    <!-- JS -->
+    <script src="/js/EvaluatorCompanyList/EvaluatorCompanyList.js"></script>
+
+    <!-- CSS-->
+    <link
+      rel="stylesheet"
+      href="/css/EvaluatorCompanyList/EvaluatorCompanyList.css"
+    />
+
+    <!-- Components -->
+    <script
+      src="/components/Navbar/defaultnavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Footer/footer.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
+      src="/components/Navbar/EvaluatorSidebarJS.js"
+      type="text/javascript"
+      defer
+    ></script>
+  </head>
+
+  <body>
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <evaluator-sidebar-component></evaluator-sidebar-component>
+
+    <!-- Content -->
+    <div id="viewport" class="mt-5">
+      <!-- Pending Companies -->
+      <div class="container">
+        <h1 class="mb-5">Pending Companies</h1>
+        <p>
+          Your Company Not In the list?
+          <button
+            class="btn-primary ml-2"
+            type="button"
+            data-toggle="modal"
+            data-target="#addNewCompany"
+          >
+            Add a new Company
+          </button>
+        </p>
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="pending-searchInput"
+            placeholder="Search Companies by Name or Email"
+          />
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped pending-table">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Accepted Depts.</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pending-company-list"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Approved Companies -->
+      <div class="container mt-40">
+        <h1 class="mb-5">Approved Companies</h1>
+
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="approved-searchInput"
+            placeholder="Search Companies by Name or Email"
+          />
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped approved-table">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Accepted Depts.</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="approved-company-list"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Rejected Companies -->
+      <div class="container mt-40">
+        <h1 class="mb-5">Rejected Companies</h1>
+        <div class="search-container">
+          <input
+            type="text"
+            class="searchInput"
+            id="rejected-searchInput"
+            placeholder="Search Companies by Name or Email"
+          />
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped rejected-table">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Accepted Depts.</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="rejected-company-list"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal w-100 h-100 fade"
+      id="addNewCompany"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable h-100 d-flex flex-column"
+        role="document"
+      >
+        <div class="modal-content w-100 h-100">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New Company</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal Body -->
+          <div class="modal-body col">
+            <div class="container-fluid">
+              <div class="row mt-2">
+                <label>Company Name:</label>
+                <input class="ml-1" type="text" id="company-name" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company City:</label>
+                <input class="ml-1" type="text" id="company-city" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company Email:</label>
+                <input class="ml-1" type="text" id="company-email" required />
+              </div>
+              <div class="row mt-2">
+                <label>Company Phone:</label>
+                <input class="ml-1" type="text" id="company-phone" required />
+              </div>
+              <div class="row mt-2">
+                <label>Sector:</label>
+                <input class="ml-1" type="text" id="company-sector" required />
+              </div>
+              <div class="row mt-2">
+                <button class="btn btn-primary" onclick="addCompany()">
+                  Add
+                </button>
+                <p class="add-company-response"></p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

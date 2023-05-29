@@ -1021,7 +1021,6 @@ apirouter.post("/add-company", async (req, res) => {
       email: company_email,
       phone: company_phone,
       sector: company_sector,
-      approvalStatus: "Pending",
     });
     console.log(newCompany);
     await newCompany.save();

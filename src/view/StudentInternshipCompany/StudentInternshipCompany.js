@@ -209,10 +209,9 @@ function getAllCompanies() {
     success: function (response) {
       console.log(response);
       response.companies.forEach((company) => {
-        company.acceptedDepartments.forEach((department) => {
-          console.log(`<span>${department}</span>`);
-        });
-
+        if (company.approvalStatus !== "Approved") {
+          return;
+        }
         return $("#approved-companies-list").append(`
           <tr scope="row" id="${company._id}">
             <td>${company.name}</td>
