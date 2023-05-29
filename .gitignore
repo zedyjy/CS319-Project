@@ -13,4 +13,7 @@ yarn-error.log
 # Bundle artifact
 *.jsbundle
 
+#Other Files
+uploads
+
 
