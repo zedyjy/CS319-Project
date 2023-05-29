@@ -14,7 +14,6 @@ yarn-error.log
 *.jsbundle
 
 #Other Files
-upload/
-```
+uploads
 
 
