@@ -114,15 +114,19 @@ jQuery(document).ready(function () {
             <button class="btn btn-danger" onclick="closeGradeOverlay('${new_id}')">Close</button>
             <div style="width: 100%; height: 100%; text-align: center;">
             <h3>Give Grade</h3>
+            </script >
             <p>Student: ${studentID} </p>
-            <textarea id="workQuality-text-${new_id}" name="workQuality" rows="1" cols="40" placeholder="Work Quality Grade ( X / 10 )"></textarea><br>
-            <textarea id="sumOfEvaluation-text-${new_id}" name="sumOfEvaluation" rows="1" cols="40" placeholder="Sum of Evaluation Scores ( X / 60 )"></textarea><br>
-            <textarea id="reportQuality-text-${new_id}" name="reportQuality" rows="1" cols="40" placeholder="Report Quality Grade ( X / 10 )"></textarea><br>
+            <input type="number" id="workQuality-text-${new_id}" name="workQuality" min="0" max="10" placeholder="Work Quality Grade (0 - 10)">
+            <input type="number" id="sumOfEvaluation-text-${new_id}" name="sumOfEvaluation" min="0" max="60" placeholder="Sum of Evaluation Scores ( X / 60 )"></textarea><br>
+            <input type="number" id="reportQuality-text-${new_id}" name="reportQuality" min="0" max="10" placeholder="Report Quality Grade ( X / 10 )"></textarea><br>
             <button class="btn btn-primary" onclick="submitGrade('${new_id}', '${studentID}')">Submit Grade</button>
             <p class="submit-grade-response"></p>
             </div>
+            
           </div>
+          
             </td>`
+
           );
           row.append(`<td>
     
@@ -155,6 +159,7 @@ jQuery(document).ready(function () {
         $(".table tbody").append(row);
       });
     });
+
   });
 });
 
