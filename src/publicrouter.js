@@ -92,7 +92,7 @@ publicrouter.get("/notifications", (req, res) => {
 publicrouter.get("/announcements", (req, res) => {
   res.render("Announcements/Announcements");
 });
-publicrouter.get("/admin-announcements", (req, res) => {
+publicrouter.get("/create-announcements", (req, res) => {
   res.render("AdminAnnouncements/AdminAnnouncementsPage");
 });
 //---------------------------------------

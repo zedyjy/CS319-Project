@@ -41,6 +41,11 @@
       defer
     ></script>
     <script
+            src="/components/Navbar/adminnavbar.js"
+            type="text/javascript"
+            defer
+    ></script>
+    <script
       src="/components/Navbar/coordinatornavbar.js"
       type="text/javascript"
       defer
@@ -65,26 +70,60 @@
       type="text/javascript"
       defer
     ></script>
+    <style>
+      .coordinatorInfo {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .coordinatorInfo > div {
+        width: 45%; /* Adjust the width as needed */
+      }
+
+      @media (max-width: 768px) {
+        .coordinatorInfo {
+          flex-direction: column;
+        }
+
+        .coordinatorInfo > div {
+          width: 100%;
+        }
+      }
+      .btn.btn-primary {
+        display: inline-block;
+        padding: 1px 2px;
+        background: none;
+        font-size: 1.1em;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn.btn-primary:hover {
+        background-color: #999999;
+      }
+    </style>
   </head>
 
   <body style="display: none">
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
     <student-sidebar-component></student-sidebar-component>
-    <evaluator-sidebar-component></evaluator-sidebar-component>
+    <coordinator-sidebar-component></coordinator-sidebar-component>
     <ta-sidebar-component></ta-sidebar-component>
     <evaluator-sidebar-component></evaluator-sidebar-component>
     <admin-sidebar-component></admin-sidebar-component>
 
     <div id="viewport">
       <!-- Content -->
-      <div class="container">
-        <div class="coordinatorInfo">
+      <div class="container" style="padding-top: 2em">
+        <div class="coordinatorInfo" >
           <div>
             <img
-              src="http://www.cs.bilkent.edu.tr/~s.rahimzadeh/SRA.jpeg"
-              style="height: 150px"
-              class="img-fluid rounded-circle"
+                    src="http://www.cs.bilkent.edu.tr/~s.rahimzadeh/SRA.jpeg"
+                    style="height: 150px"
+                    class="img-fluid"
             />
             <h1>Shervin Arashloo</h1>
             <h2>Assistant Professor</h2>
@@ -100,8 +139,8 @@
           <div class="coordinatorBetween">
             <img
               src="https://media.licdn.com/dms/image/C4D03AQEIiK2QIceY_g/profile-displayphoto-shrink_200_200/0/1541623936883?e=1690416000&v=beta&t=Kre-x1LFkSlapOaH0Nioh1hhK9KSS4BWyYkKnqguu48"
-              style="height: 146px"
-              class="img-fluid rounded-circle"
+              style="height: 150px"
+              class="img-fluid"
             />
             <h1>Özgür S. Oğuz</h1>
             <h2>Assistant Professor</h2>

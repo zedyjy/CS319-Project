@@ -20,7 +20,7 @@ coordinatornavbarTemplate.innerHTML = `
             <a href="/course-descriptions"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
           </li>
           <li>
-            <a href="/admin-announcements"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
+            <a href="/create-announcements"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
           </li>
           <li>
             <a href="/summer-training-coordinators">
@@ -39,7 +39,10 @@ coordinatornavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
+            <a href="/coordinator/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
+          </li>
+          <li>
+            <a href="/profile"> <i class="zmdi zmdi-comment-more"></i> Profile </a>
           </li>
           <li>
             <a href="/others"> <i class="zmdi zmdi-settings"></i> Other </a>
@@ -63,7 +66,7 @@ class coordinatorSidebar extends HTMLElement {
     logoutButton.addEventListener("click", this.handleLogout.bind(this));
 
     const userType = sessionStorage.getItem("userType");
-    if (userType === "coordinator") {
+    if (userType === "Coordinator") {
       // Show the student-sidebar-component
       this.style.display = "block"; // Or any other appropriate display value
     } else {

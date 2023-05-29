@@ -1,54 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
 
-    <title>TA Home</title>
-    <link
-      rel="stylesheet"
-      href="/css/EvaluatorHomePage/StyleEvaluatorHome.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      crossorigin="anonymous"
-    />
-    <!-- Global Settings -->
-    <script src="/js/GlobalSettings/global.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/css/GlobalSettings/global.css"
-    />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <!-- Components -->
-    <script
-      src="/components/Navbar/defaultnavbar.js"
-      type="text/javascript"
-      defer
-    ></script>
-    <script
-      src="/components/Footer/footer.js"
-      type="text/javascript"
-      defer
-    ></script>
-    <script
-      src="/components/Navbar/TaSidebar.js"
-      type="text/javascript"
-      defer
-    ></script>
-  </head>
+  <!-- Global Settings -->
+  <script src="/js/GlobalSettings/global.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/GlobalSettings/global.css"/>
 
-  <body>
-    <!-- NAVIGATION MENUS -->
-    <defaultnavbar-component></defaultnavbar-component>
-    <ta-sidebar-component></ta-sidebar-component>
-    <!-- Sidebar -->
+  <!-- CSS-->
+  <link rel="stylesheet" type="text/css" href="/css/StudentHome/StyleStudentHome.css"/>
 
-    <!-- Content -->
-    <div id="content"></div>
-  </body>
+  <!-- Components -->
+  <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+  <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
+  <script src="/components/Navbar/EvaluatorSidebarJS.js" type="text/javascript" defer></script>
+  <script src="/components/Navbar/TaSidebar.js" type="text/javascript" defer></script>
+  <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .box {
+      flex: 0 0 calc(33.33% - 20px);
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body style="display: none;">
+<!-- NAVIGATION MENUS -->
+<defaultnavbar-component></defaultnavbar-component>
+<ta-sidebar-component></ta-sidebar-component>
+
+<div id="viewport">
+  <!-- Content -->
+  <div class="container">
+    <h1>Welcome to the Teaching Assistant Internship Management System</h1>
+
+    <div class="box">
+      <h2>Course Descriptions</h2>
+      <p>Here you can find detailed descriptions of the courses related to the internship program.</p>
+    </div>
+
+    <div class="box">
+      <h2>Announcements</h2>
+      <p>Stay updated with the latest announcements regarding the internship program and related activities.</p>
+    </div>
+
+    <div class="box">
+      <h2>Summer Training Coordinators</h2>
+      <p>Contact the summer training coordinators for any assistance or inquiries related to your internship.</p>
+    </div>
+
+    <div class="box">
+      <h2>View Students List / Give Feedback</h2>
+      <p>Access the list of students participating in the internship program. Provide feedback and evaluations for the students based on their internship performance.</p>
+    </div>
+
+    <div class="box">
+      <h2>Profile</h2>
+      <p>Manage your personal profile and update your information.</p>
+    </div>
+
+    <div class="box">
+      <h2>Other</h2>
+      <p>Access additional resources and information related to the internship program.</p>
+    </div>
+
+    <p>If you have any questions or need assistance, please contact the internship program administrators.</p>
+  </div>
+</div>
+</body>
 </html>

@@ -334,6 +334,7 @@ apirouter.post("/login", async (req, res) => {
             status: 200,
           });
         } else if (userType === "Coordinator") {
+          console.log("IT IS COORDINATOR");
           var user = await Coordinator.findOne({
             user_id: req.body.user_id,
           });
