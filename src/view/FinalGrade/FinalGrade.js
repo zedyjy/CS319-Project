@@ -93,8 +93,8 @@ function decideEndGrade(companyEvaluationFormAverage, relatedToDepartment,
         return "Insufficent Information"
 
     }
-    else if (companyEvaluationFormAverage < 7 || !relatedToDepartment ||
-        !supervisorHasEngineeringBackground || workQuality < 7 || sumOfEvaluationScores < 30 || reportQuality < 7) {
+    else if (parseInt(companyEvaluationFormAverage) < 7 || !relatedToDepartment ||
+        !supervisorHasEngineeringBackground || parseInt(workQuality) < 7 || parseInt(sumOfEvaluationScores) < 30 || parseInt(reportQuality) < 7) {
         return "Fail"
 
     }
