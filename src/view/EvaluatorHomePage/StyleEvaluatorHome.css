@@ -1,14 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 .topnav {
     overflow: hidden;
     align-items: center;
-    background: #03414D;
+    background: #03414d;
     padding: 0.7em 0 0;
     max-width: 100%;
     max-height: 100%;
 }
-.logo{ 
+.logo {
     font-size: 1.1em;
+}
+
+.a{
+    color: black;
 }
 /* Style the links inside the navigation bar */
 .topnav a {
@@ -31,13 +36,22 @@
 
 a,
 a:link,
-a:visited{
+a:visited {
     text-decoration: none;
     outline: none;
     border: none;
-    color: white;
+    color: black;
 }
+
 /* Toggle Styles */
+
+#viewport {
+    padding-left: 250px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
 #content {
     width: 100%;
@@ -45,3 +59,9 @@ a:visited{
     margin-right: 0;
 }
 
+#container {
+    width: 100%;
+    position: relative;
+    margin-right: 10px;
+    padding-left: 16em;
+}

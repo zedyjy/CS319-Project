@@ -9,8 +9,8 @@ defaultnavbarTemplate.innerHTML = `
         <a class="logo">Bilkent Internship System</a>
         <div class="topnav-right">
             <a href="/">Home</a>
-            <a href="#Contact">Contact</a>
-            <a href="#Language">Language</a>
+            <a href="/contact">Contact</a>
+            <a id="myLink">Light</a>
             <a href="/frequently-asked-questions">FAQ</a>
             <button id="logout-button" class="form-button">Logout</button>
 
@@ -34,7 +34,23 @@ class DefaultNavbar extends HTMLElement {
     if (!userType) {
       logoutButton.style.display = "none";
     }
+
+    const myLink = shadowRoot.querySelector("#myLink");
+    myLink.addEventListener("click", function() {
+      var element = document.body;
+      if (myLink.textContent === "Light") {
+        myLink.textContent = "Dark";
+        element.classList.remove("light-mode");
+        element.classList.add("dark-mode");
+      } else {
+        myLink.textContent = "Light";
+        element.classList.remove("dark-mode");
+        element.classList.add("light-mode");
+      }
+    });
+
   }
+
   handleLogout() {
     // Handle logout functionality
     // For example, clear session data and redirect to the login page

@@ -1,96 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload Report</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous"/>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <!-- Global Settings -->
-    <script src="/js/GlobalSettings/global.js"></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/css/GlobalSettings/global.css"
-    />
+  <!-- Global Settings -->
+  <script src="/js/GlobalSettings/global.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/GlobalSettings/global.css"/>
 
-    <!-- JS -->
-    <script src="/js/StudentHome/StudentHome.js"></script>
+  <!-- CSS-->
+  <link rel="stylesheet" type="text/css" href="/css/StudentHome/StyleStudentHome.css"/>
 
-    <!-- CSS-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/css/StudentHome/StyleStudentHome.css"
-    />
+  <!-- Components -->
+  <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+  <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
+  <script src="/components/Navbar/EvaluatorSidebarJS.js" type="text/javascript" defer></script>
+  <script src="/components/Navbar/TaSidebar.js" type="text/javascript" defer></script>
+  <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
 
-    <!-- Components -->
-    <script
-      src="/components/Navbar/defaultnavbar.js"
-      type="text/javascript"
-      defer
-    ></script>
-    <script
-      src="/components/Navbar/studentnavbar.js"
-      type="text/javascript"
-      defer
-    ></script>
-    <script
-      src="/components/Footer/footer.js"
-      type="text/javascript"
-      defer
-    ></script>
-  </head>
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
-  <body style="display: none">
-    <!-- NAVIGATION MENUS -->
-    <defaultnavbar-component></defaultnavbar-component>
-    <student-sidebar-component></student-sidebar-component>
+    .box {
+      flex: 0 0 calc(33.33% - 20px);
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body style="display: none;">
+<!-- NAVIGATION MENUS -->
+<defaultnavbar-component></defaultnavbar-component>
+<student-sidebar-component></student-sidebar-component>
+<evaluator-sidebar-component></evaluator-sidebar-component>
+<ta-sidebar-component></ta-sidebar-component>
+<evaluator-sidebar-component></evaluator-sidebar-component>
+<admin-sidebar-component></admin-sidebar-component>
 
-    <div id="viewport">
-      <!-- Sidebar -->
-      
+<div id="viewport">
+  <!-- Content -->
+  <div class="container">
+    <h1>Welcome to the Student Internship Management System</h1>
 
-      <!-- Content -->
-      <div class="container">
-        <h2 class="mb-5 not-enrolled-message">Notifications</h2>
-        <div class="notifications"></div>
-        <h2 class="mb-5 not-enrolled-message">Enrolled Courses:</h2>
-        <div class="enrolled-courses">
-        </div>
-        <h2 class="mb-5 not-enrolled-message">
-          To Enroll in a Course. Please Choose:
-        </h2>
-        <div class="available-courses">
-          <div class="row">
-            <div class="col-auto">
-              <p>XX-399</p>
-            </div>
-            <div class="col-auto">
-              <button onclick="enrollCourse(399)" class="btn btn-primary">
-                Enroll
-              </button>
-            </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-auto">
-                <p>XX-499</p>
-              </div>
-              <div class="col-auto">
-                <button onclick="enrollCourse(499)" class="btn btn-primary">Enroll</button>
-              </div>
-            </div>
-            <p class="enroll-response"></p>
-        </div>
-      </div>
+    <div class="box">
+      <h2>Course Descriptions</h2>
+      <p>Here you can find detailed descriptions of the courses related to the internship program.</p>
     </div>
-  </body>
+
+    <div class="box">
+      <h2>Announcements</h2>
+      <p>Stay updated with the latest announcements regarding the internship program and related activities.</p>
+    </div>
+
+    <div class="box">
+      <h2>Summer Training Coordinators</h2>
+      <p>Contact the summer training coordinators for any assistance or inquiries related to your internship.</p>
+    </div>
+
+    <div class="box">
+      <h2>Upload Reports</h2>
+      <p>Submit your internship reports for evaluation and feedback.</p>
+    </div>
+
+    <div class="box">
+      <h2>Grades</h2>
+      <p>View your internship grades and feedback provided by the evaluators.</p>
+    </div>
+
+    <div class="box">
+      <h2>Profile</h2>
+      <p>Manage your personal profile and update your information.</p>
+    </div>
+
+    <div class="box">
+      <h2>Internship Company</h2>
+      <p>View details about the company you are interning with and their work reports.</p>
+    </div>
+
+    <div class="box">
+      <h2>Company List</h2>
+      <p>Explore the list of companies participating in the internship program and their details.</p>
+    </div>
+
+    <div class="box">
+      <h2>Other</h2>
+      <p>Access additional resources and information related to the internship program.</p>
+    </div>
+
+    <p>If you have any questions or need assistance, please contact the internship program administrators.</p>
+  </div>
+</div>
+</body>
 </html>

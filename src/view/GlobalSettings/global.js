@@ -31,6 +31,17 @@ function redirectToLoginPage() {
   }
 }
 
+const modeToggle = document.getElementById('mode-toggle');
+const body = document.body;
+
+modeToggle.addEventListener('change', function() {
+  if (modeToggle.checked) {
+    body.classList.add('dark-mode');
+  } else {
+    body.classList.remove('dark-mode');
+  }
+});
+
 function showLoadingAnimation() {
   var overlay = $('<div id="loading-overlay"></div>');
   var spinner = $('<div id="loading-spinner"></div>');

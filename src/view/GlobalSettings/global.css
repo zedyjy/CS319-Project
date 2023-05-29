@@ -1,11 +1,20 @@
 body {
-    padding-top: 2em;
-    background: #d8dada; /* fallback for old browsers */
+    padding: 2em 1em 1em 0em;
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #BEBEBE; /* fallback for old browsers */
     margin: 0;
 }
+
+.dark-mode {
+    background-color: #383838;
+}
+
+.light-mode {
+    background: #BEBEBE; /* fallback for old browsers */
+}
+
 
 input {
     width: 300px;
@@ -17,8 +26,10 @@ input {
 }
 
 button {
-   
+    margin-top: 15px;
+    color: lightgray;
 }
+
 label {
     color: black !important;
 }

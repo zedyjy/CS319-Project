@@ -197,6 +197,9 @@ publicrouter.get("/company", (req, res) => {
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
+publicrouter.get("/coordinator/assignments", (req, res) => {
+  res.render("CoordinatorAssignStudentstoEvaluator/CoordinatorAssignStudentstoEvaluators");
+});
 
 //---------------------------------------
 // ---------- Coordinator Pages ---------- //
@@ -208,7 +211,12 @@ publicrouter.get("/coordinator", (req, res) => {
 publicrouter.get("/coordinator/company-list", (req, res) => {
   res.render("CoordinatorCompanyList/CoordinatorCompanyList");
 });
-
+//---------------------------------------
+// ---------- Contact Page ---------- //
+//---------------------------------------
+publicrouter.get("/contact", (req, res) => {
+  res.render("Contact/Contact");
+});
 //---------------------------------------
 // ---------- UNIQUE URL LOGIC ---------- //
 //---------------------------------------

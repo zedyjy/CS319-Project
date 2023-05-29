@@ -21,11 +21,6 @@ evaluatornavbarTemplate.innerHTML = `
               </a>
           </li>
           <li>
-              <a href="#">
-                  <i class="zmdi zmdi-widgets"></i> Courses
-              </a>
-          </li>
-          <li>
               <a href="/announcements">
                   <i class="zmdi zmdi-calendar"></i> Announcements
               </a>
