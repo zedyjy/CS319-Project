@@ -35,21 +35,38 @@
     <div id="viewport">
         <!-- Sidebar -->
         <div>
-            <!-- Content -->
-            <table id="studentTable">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Company Evaluation Form Average</th>
-                        <th>Related to Department</th>
-                        <th>Supervisor Has Engineering Background</th>
-                        <th>Work Quality</th>
-                        <th>Sum of Evaluation Scores</th>
-                        <th>Report Quality</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <button id="switchButton">Calculate Letter Grades</button>
+
+            <div id="tablesContainer">
+                <table id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Company Evaluation Form Average</th>
+                            <th>Related to Department</th>
+                            <th>Supervisor Has Engineering Background</th>
+                            <th>Work Quality</th>
+                            <th>Sum of Evaluation Scores</th>
+                            <th>Report Quality</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <table id="table2" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Company Evaluation Form Average</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table2Body">
+                        <!-- table body will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+
         </div>
     </div>
     </div>

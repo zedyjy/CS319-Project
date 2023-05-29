@@ -1,4 +1,21 @@
 jQuery(document).ready(function () {
+    // Retrieve data and populate table1
+
+
+    // Handle button click event
+    $("#switchButton").click(function () {
+        // Toggle the visibility of table1 and table2
+        $("#studentTable").toggle();
+        $("#table2").toggle();
+
+        // Check which table is currently visible and populate the corresponding table
+        if ($("#studentTable").is(":visible")) {
+            // Table 1 is visible, do nothing
+        } else {
+            // Table 2 is visible, retrieve data and populate table2
+            populateTable2();
+        }
+    });
     $.ajax({
         url: "/get-all-students",
         type: "POST",
@@ -28,7 +45,46 @@ jQuery(document).ready(function () {
             console.log(error);
         },
     });
+
+
+    function populateTable2() {
+        // Clear existing data in table2
+        $("#table2Body").empty();
+
+        // Retrieve data for table2
+        $.ajax({
+            url: "/get-all-students",
+            type: "POST",
+            data: "",
+            success: function (response) {
+                console.log(response);
+                response.students.forEach((student) => {
+                    var studentID = student.user_id;
+
+                    getGrade(studentID)
+                        .then((gradeInfo) => {
+                            var passOrFail = decideEndGrade
+                            var html = "<tr>";
+                            html += "<td>" + studentID + "</td>";
+                            html +=
+                                "<td>" +
+                                (gradeInfo.companyEvaluationFormAverage || "Not given.") +
+                                "</td>";
+                            html += "</tr>";
+                            $("#table2Body").append(html);
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
 });
+
 
 function getStudent(studentID) {
     return new Promise((resolve, reject) => {
