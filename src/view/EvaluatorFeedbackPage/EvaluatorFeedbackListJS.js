@@ -40,13 +40,59 @@ jQuery(document).ready(function () {
         const dateString = report.lastReportSubmission;
 
         const lastReportDateF = new Date(dateString);
-        const formattedDate = `${lastReportDateF.getFullYear()}-${(lastReportDateF.getMonth() + 1).toString().padStart(2, '0')}-${lastReportDateF.getDate().toString().padStart(2, '0')}`;
+        const formattedDate = `${lastReportDateF.getFullYear()}-${(
+          lastReportDateF.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, "0")}-${lastReportDateF
+          .getDate()
+          .toString()
+          .padStart(2, "0")}`;
         // Create a new row in the table
         var row = $("<tr></tr>");
 
         // Populate the row with the student information
         row.append(`<td>${studentID}</td>`);
         row.append(`<td>${courseName}</td>`);
+        row.append(`<td>
+    
+        <button class="btn btn-primary" onclick="viewAcceptanceLetter('${report._id}','${report.acceptanceLetterFile}')">View Acceptance Letter</button>
+
+        <div class="overlay acceptance-letter${report._id}">
+          <button class="btn btn-danger" onclick="closeAcceptanceLetter('${report._id}')">Close</button>
+          <div style="width: 100%; height: 100%;">
+          <h3>Uploaded Acceptance Letter</h3>
+          <p>Student: ${studentID} </p>
+          <div style="width: 100%; height: 100%;" class="acceptance-letter-preview"></div>
+          </div>
+        </div>
+        </td>`);
+        row.append(`<td>
+        ${
+          report.companyWorkFormFile
+            ? `
+            <button class="btn btn-primary" onclick="viewWorkReport('${report._id}','${report.companyWorkFormFile}')">View Work Report</button>
+
+        <div class="overlay work-report${report._id}">
+          <button class="btn btn-danger" onclick="closeWorkReport('${report._id}')">Close</button>
+          <div style="width: 100%; height: 100%;">
+          <h3>Work Report Uploaded by Company</h3>
+          <p>Student: ${studentID} </p>
+          <div style="width: 100%; height: 100%;" class="work-report-preview"></div>
+          </div>
+        </div>
+            `
+            : `
+            ${
+              report.companyWorkFormRequestStatus
+                ? `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request AGAIN to company email: ${report.companyEmail}</button>`
+                : `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request to company email: ${report.companyEmail}</button>`
+            }
+         
+         <p class="alert-danger send-work-email-response"></p>
+         `
+        }
+        </td>`);
         row.append(`<td>${formattedDate}</td>`);
         row.append(`
         <td>
@@ -65,22 +111,27 @@ jQuery(document).ready(function () {
         row.append(`<td>${report.iteration}</td>`);
         row.append(
           `<td>
-          ${report.feedbackRequired
-            ? `<button class="btn btn-primary" onclick="giveFeedback('${report._id}', '${studentID}')">Give Feedback</button>`
-            : "Feedback given."
+          ${
+            report.feedbackRequired
+              ? `<button class="btn btn-primary" onclick="giveFeedback('${report._id}', '${studentID}')">Give Feedback</button>`
+              : "Feedback given."
           }
           <div class="overlay feedback-${report._id}">
-          <button class="btn btn-danger" onclick="closeFeedbackOverlay('${report._id
+          <button class="btn btn-danger" onclick="closeFeedbackOverlay('${
+            report._id
           }')">Close</button>
           <div style="width: 100%; height: 100%; text-align: center;">
           <h3>Give Feedback</h3>
           <p>Student: ${studentID} </p>
-          <textarea id="feedback-text-${report._id
+          <textarea id="feedback-text-${
+            report._id
           }" name="feedback" rows="10" cols="50" placeholder="Feedback Notes"></textarea>
-          <textarea id="grade-text-${report._id
+          <textarea id="grade-text-${
+            report._id
           }" name="grade" rows="1" cols="50" placeholder="Grade"></textarea>
           <input type="file" id="feedback-file-${report._id}" accept=".pdf" />
-          <button class="btn btn-primary" onclick="submitFeedback('${report._id
+          <button class="btn btn-primary" onclick="submitFeedback('${
+            report._id
           }', '${studentID}')">Submit Feedback</button>
           <p class="submit-feedback-response"></p>
           </div>
@@ -91,28 +142,25 @@ jQuery(document).ready(function () {
           var new_id = report._id + "G";
           row.append(
             `<td>
-            ${grade.gradingFormSubmissionStatus === "Feedback"
-              ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade after Feedback</button>`
-              : grade.gradingFormSubmissionStatus === "Revision"
+            ${
+              grade.gradingFormSubmissionStatus === "Feedback"
+                ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade after Feedback</button>`
+                : grade.gradingFormSubmissionStatus === "Revision"
                 ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Revised Grade</button>`
                 : grade.gradingFormSubmissionStatus === "No Grades"
-                  ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade</button>`
-                  : grade.gradingFormSubmissionStatus = "Final"
+                ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade</button>`
+                : (grade.gradingFormSubmissionStatus = "Final"
                     ? "Grade given."
-                    : "Grade finalized."
+                    : "Grade finalized.")
             }
             <div class="overlay grade-${new_id}">
-            <button class="btn btn-danger" onclick="closeGradeOverlay('${new_id
-            }')">Close</button>
+            <button class="btn btn-danger" onclick="closeGradeOverlay('${new_id}')">Close</button>
             <div style="width: 100%; height: 100%; text-align: center;">
             <h3>Give Grade</h3>
             <p>Student: ${studentID} </p>
-            <textarea id="workQuality-text-${new_id
-            }" name="workQuality" rows="1" cols="40" placeholder="Work Quality Grade ( X / 10 )"></textarea><br>
-            <textarea id="sumOfEvaluation-text-${new_id
-            }" name="sumOfEvaluation" rows="1" cols="40" placeholder="Sum of Evaluation Scores ( X / 60 )"></textarea><br>
-            <textarea id="reportQuality-text-${new_id
-            }" name="reportQuality" rows="1" cols="40" placeholder="Report Quality Grade ( X / 10 )"></textarea><br>
+            <textarea id="workQuality-text-${new_id}" name="workQuality" rows="1" cols="40" placeholder="Work Quality Grade ( X / 10 )"></textarea><br>
+            <textarea id="sumOfEvaluation-text-${new_id}" name="sumOfEvaluation" rows="1" cols="40" placeholder="Sum of Evaluation Scores ( X / 60 )"></textarea><br>
+            <textarea id="reportQuality-text-${new_id}" name="reportQuality" rows="1" cols="40" placeholder="Report Quality Grade ( X / 10 )"></textarea><br>
             <button class="btn btn-primary" onclick="submitGrade('${new_id}', '${studentID}')">Submit Grade</button>
             <p class="submit-grade-response"></p>
             </div>
@@ -128,6 +176,56 @@ jQuery(document).ready(function () {
   });
 });
 
+function sendWorkReportFormEmail(report_id, email) {
+  $.ajax({
+    url: "/send-work-report-form-email",
+    type: "POST",
+    data: {
+      report_id: report_id,
+      email: email,
+    },
+    success: function (response) {
+      $(".send-work-email-response").text(response.message);
+    },
+    error: function (error) {
+      $(".send-work-email-response").text(error.responseJSON.message);
+      console.error("Error getting file: ", error);
+      // Handle the error
+    },
+  });
+}
+
+function closeWorkReport(id) {
+  var overlay = $(`.overlay.work-report${id}`);
+  overlay.toggle();
+}
+
+function viewWorkReport(id, filename) {
+  var overlay = $(`.overlay.work-report${id}`);
+  overlay.css("display", "block");
+
+  $.ajax({
+    url: "/get-file",
+    type: "POST",
+    data: {
+      filename: filename,
+    },
+    success: function (response) {
+      console.log(response.fileUrl);
+
+      // Open the file in a new tab using the window.open() method
+
+      // Alternatively, display the file in an iframe or PDF viewer
+      $(".work-report-preview").html(
+        `<iframe style="width: 100%; height: 100%;" src="${response.fileUrl}"></iframe>`
+      );
+    },
+    error: function (error) {
+      console.error("Error getting file: ", error);
+      // Handle the error
+    },
+  });
+}
 
 function getGrade(studentID) {
   return new Promise((resolve, reject) => {
@@ -143,7 +241,8 @@ function getGrade(studentID) {
 
           companyEvaluationFormAverage: response.companyEvaluationFormAverage,
           relatedToDepartment: response.relatedToDepartment,
-          supervisorHasEngineeringBackground: response.supervisorHasEngineeringBackground,
+          supervisorHasEngineeringBackground:
+            response.supervisorHasEngineeringBackground,
 
           finalRevisionDate: response.finalRevisionDate,
 
@@ -163,7 +262,6 @@ function getGrade(studentID) {
     });
   });
 }
-
 
 function getStudent(studentID) {
   return new Promise((resolve, reject) => {
@@ -204,7 +302,37 @@ function getReport(studentID) {
   });
 }
 
+function closeAcceptanceLetter(id) {
+  var overlay = $(`.overlay.acceptance-letter${id}`);
+  overlay.toggle();
+}
 
+function viewAcceptanceLetter(id, filename) {
+  var overlay = $(`.overlay.acceptance-letter${id}`);
+  overlay.css("display", "block");
+
+  $.ajax({
+    url: "/get-file",
+    type: "POST",
+    data: {
+      filename: filename,
+    },
+    success: function (response) {
+      console.log(response.fileUrl);
+
+      // Open the file in a new tab using the window.open() method
+
+      // Alternatively, display the file in an iframe or PDF viewer
+      $(".acceptance-letter-preview").html(
+        `<iframe style="width: 100%; height: 100%;" src="${response.fileUrl}"></iframe>`
+      );
+    },
+    error: function (error) {
+      console.error("Error getting file: ", error);
+      // Handle the error
+    },
+  });
+}
 
 function closeOverlay(id) {
   var overlay = $(`.overlay.${id}`);
@@ -252,7 +380,6 @@ function closeFeedbackOverlay(id) {
   overlay.toggle();
 }
 
-
 function closeGradeOverlay(id) {
   var overlay = $(`.overlay.grade-${id}`);
   overlay.toggle();
@@ -264,7 +391,6 @@ function giveFeedback(id, studentID) {
   // Function to handle giving feedback to a student
   // Add your implementation here
 }
-
 
 function giveGrade(id, studentID) {
   var overlay = $(`.overlay.grade-${id}`);
@@ -284,7 +410,7 @@ function submitFeedback(id, studentID) {
   var formData = new FormData();
   formData.append("student_id", student_id);
   formData.append("feedback_text", feedbackText);
-  formData.append("grade_text", gradeText)
+  formData.append("grade_text", gradeText);
   formData.append("file", file);
 
   // Send the AJAX request
@@ -311,14 +437,12 @@ function submitFeedback(id, studentID) {
   });
 }
 
-
 function submitGrade(id, studentID) {
   // Retrieve the values from the form fields
   const student_id = studentID;
   var workQuality = $(`#workQuality-text-${id}`).val();
   var sumOfEvaluation = $(`#sumOfEvaluation-text-${id}`).val();
   var reportQuality = $(`#reportQuality-text-${id}`).val();
-
 
   var formData = new FormData();
   formData.append("workQuality", workQuality);
@@ -381,4 +505,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-

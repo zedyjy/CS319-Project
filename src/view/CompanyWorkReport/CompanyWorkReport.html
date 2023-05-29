@@ -30,12 +30,12 @@
     />
 
     <!-- JS -->
-    <script src="/js/EvaluatorFeedbackPage/EvaluatorFeedbackListJS.js"></script>
+    <script src="/js/CompanyWorkReport/CompanyWorkReport.js"></script>
 
     <!-- CSS-->
     <link
       rel="stylesheet"
-      href="/css/EvaluatorFeedbackPage/StyleEvaluatorFeedbackList.css"
+      href="/css/CompanyWorkReport/CompanyWorkReport.css"
     />
 
     <!-- Components -->
@@ -49,49 +49,30 @@
       type="text/javascript"
       defer
     ></script>
-    <script
-      src="/components/Navbar/EvaluatorSidebarJS.js"
-      type="text/javascript"
-      defer
-    ></script>
   </head>
 
   <body>
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
-    <evaluator-sidebar-component></evaluator-sidebar-component>
 
     <!-- Content -->
     <div id="viewport" class="mt-5">
-      <div class="container">
-        <div class="search-container">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search by Student ID..."
-          />
-          <button id="searchButton">Search</button>
+      <div class="d-flex align-items-center justify-content-center vh-100">
+        <div class="container upload-data">
+          <h1 class="student-name"></h1>
+          <input type="file" id="work-report-file-input" accept=".pdf" />
+
+          <p class="upload-response"></p>
         </div>
       </div>
-
-      <div class="students">
-        <table class="table table-striped custom-table">
-          <thead>
-            <tr>
-              <th scope="col">Student ID</th>
-              <th scope="col">Course Name</th>
-              <th scope="col">Acceptance Letter</th>
-              <th scope="col">Company Work Report</th>
-              <th scope="col">Report Submission Date</th>
-              <th scope="col">Report</th>
-              <th scope="col">Iteration #</th>
-              <th scope="col">Give Feedback</th>
-              <th scope="col">Grade Student</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
     </div>
+    <script>
+      $(document).ready(function () {
+        // Access the report_id parameter
+        var report_id = "<%= report_id %>";
+        console.log(report_id);
+        getStudentData(report_id);
+      });
+    </script>
   </body>
 </html>

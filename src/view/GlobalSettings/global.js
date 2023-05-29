@@ -11,7 +11,10 @@ $(document).ready(function () {
 
   // To check if the user is logged in
   // User is logged in
-  if (sessionStorage.getItem("isLoggedIn") === "true") {
+  if (
+    sessionStorage.getItem("isLoggedIn") === "true" ||
+    window.location.pathname !== "/work-report-form/:reportid"
+  ) {
     const userType = sessionStorage.getItem("userType");
     console.log("You are a " + userType);
     //redirectToUserHomePage(userType);

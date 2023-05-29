@@ -206,4 +206,14 @@ publicrouter.get("/coordinator/company-list", (req, res) => {
   res.render("CoordinatorCompanyList/CoordinatorCompanyList");
 });
 
+//---------------------------------------
+// ---------- UNIQUE URL LOGIC ---------- //
+//---------------------------------------
+
+publicrouter.get("/work-report-form/:reportid", (req, res) => {
+  const reportid = req.params.reportid;
+  console.log(reportid);
+  res.render("CompanyWorkReport/CompanyWorkReport", { report_id: reportid });
+});
+
 module.exports = publicrouter;

@@ -72,12 +72,12 @@
         <div class="col-auto">
           <p>Submit New Report</p>
         </div>
-        <div class="col-auto">
+        <div class="col-auto submit-new-report">
           <input type="file" id="report-input" accept=".pdf" />
           <button onclick="submitReport()" class="btn btn-primary">
             Submit
           </button>
-          <p class="submit-report-response"></p>
+          <p class="submit-report-response alert-danger"></p>
         </div>
         <!-- Reports Table -->
         <div class="table-responsive">
@@ -98,7 +98,7 @@
             </tbody>
           </table>
         </div>
-        <p class="delete-report-response" style="color: red"></p>
+        <p class="delete-report-response alert-danger" style="color: red"></p>
       </div>
 
       <div class="container">

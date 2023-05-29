@@ -90,6 +90,9 @@ const studentSchema = new mongoose.Schema({
   companyWorkFormFile: {
     type: String,
   },
+  companyEmail: {
+    type: String,
+  },
   companyReportID: {
     type: String,
   },
@@ -283,6 +286,21 @@ const reportSchema = new mongoose.Schema({
   relatedStudentID: {
     type: String,
     required: true,
+  },
+  companyUniqueFormURL: {
+    type: String,
+  },
+  acceptanceLetterFile: {
+    type: String,
+  },
+  companyWorkFormFile: {
+    type: String,
+  },
+  companyWorkFormRequestStatus: {
+    type: Boolean,
+  },
+  companyEmail: {
+    type: String,
   },
   mainReportID: {
     type: String,

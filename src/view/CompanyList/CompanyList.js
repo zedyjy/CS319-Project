@@ -46,9 +46,10 @@ function getAllCompanies() {
             <td>${company.studentRating}</td>
             <td>${company.evaluatorRating}</td>
             <td>
-              ${company.acceptedDepartments.forEach((department) => {
-                return `<span>${department}</span>`;
-              })}
+            ${company.acceptedDepartments
+              .map((department) => `<span>${department}</span>`)
+              .join("")}
+
             </td>
             <td>${company.sector}</td>
             <td>${company.approvalStatus}</td>

@@ -131,8 +131,9 @@ function registerInternshipCompany() {
     contentType: false,
     success: function (response) {
       $(".register-internship-company-response").text(response.message);
-      getInternshipCompanyDetails();
-      getAllCompanies();
+      var user = response.user;
+      sessionStorage.setItem("user", JSON.stringify(user));
+      location.reload();
       hideLoadingAnimation();
     },
     error: function (error) {
@@ -208,33 +209,38 @@ function getAllCompanies() {
     success: function (response) {
       console.log(response);
       response.companies.forEach((company) => {
-        console.log(user.companyId);
-        if (user.companyId === company._id) {
-          return;
-        } else {
-          return $("#approved-companies-list").append(`
+        company.acceptedDepartments.forEach((department) => {
+          console.log(`<span>${department}</span>`);
+        });
+
+        return $("#approved-companies-list").append(`
           <tr scope="row" id="${company._id}">
             <td>${company.name}</td>
             <td>${company.city}</td>
             <td>${company.email}</td>
             <td>${company.sector}</td>
             <td>
-              ${company.acceptedDepartments.forEach((department) => {
-                return `<span>${department}</span>`;
-              })}
+            ${company.acceptedDepartments
+              .map((department) => `<span>${department}</span>`)
+              .join("")}
             </td>
             <td>
-              <div class="row">
+              <div class="row" style="margin-top:0px;">
                 <button class="btn btn-primary mr-1" onclick="viewCompanyDetails('${
                   company._id
                 }')">
                   View Details
                 </button>
-                <button class="btn btn-primary mr-1" onclick="chooseCompany('${
-                  company._id
-                }')">
+                ${
+                  user.companyId === company._id
+                    ? `<p class="alert-danger">Already registered in your account.<p>`
+                    : `
+                <button class="btn btn-primary mr-1" onclick="chooseCompany('${company._id}')">
                   Choose Company
                 </button>
+                `
+                }
+                
                 
               </div>
               <div class="company-details" style="display:none">
@@ -243,7 +249,6 @@ function getAllCompanies() {
               </div>
             </td>
           </tr>`);
-        }
       });
     },
     error: function (error) {

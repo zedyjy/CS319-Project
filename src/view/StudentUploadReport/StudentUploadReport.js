@@ -2,11 +2,12 @@ jQuery(document).ready(function () {
   console.log("STUDENT UPLOAD REPORT Page JS Loaded");
   getReport();
   getReportsRequiringRevision();
+  getInternshipCompanyDetails();
 });
 
 function submitReport() {
   event.preventDefault(); // Prevent the form from submitting normally
-
+  showLoadingAnimation();
   // Retrieve the values from the form fields
   const student_id = sessionStorage.getItem("user_id");
   var fileInput = $("#report-input")[0];
@@ -27,12 +28,15 @@ function submitReport() {
       if (response.status == 200) {
         $(".submit-report-response").text(response.message);
         getReport();
+        hideLoadingAnimation();
       } else {
+        hideLoadingAnimation();
         // Handle other status codes or errors here
         $(".submit-report-response").text(response.message);
       }
     },
     error: function (error) {
+      hideLoadingAnimation();
       // Handle the error response here
       $(".submit-report-response").text(error.responseJSON.message);
       console.log(error);
@@ -112,6 +116,7 @@ function getReport() {
 }
 
 function submitRevisionReport(id) {
+  showLoadingAnimation();
   // Retrieve the values from the form fields
   const student_id = sessionStorage.getItem("user_id");
   var fileInput = $(`#revision-report-input-${id}`)[0];
@@ -129,6 +134,7 @@ function submitRevisionReport(id) {
     processData: false,
     contentType: false,
     success: function (response) {
+      hideLoadingAnimation();
       if (response.status == 200) {
         $(".submit-revision-response").text(response.message);
         getReport();
@@ -139,6 +145,7 @@ function submitRevisionReport(id) {
       }
     },
     error: function (error) {
+      hideLoadingAnimation();
       // Handle the error response here
       $(".submit-revision-response").text(error.responseJSON.message);
       console.log(error);
@@ -230,6 +237,7 @@ function viewFeedback(id, filename) {
 }
 
 function viewReport(id, filename) {
+  showLoadingAnimation();
   var overlay = $(`.overlay.${id}`);
   overlay.css("display", "block");
 
@@ -240,6 +248,7 @@ function viewReport(id, filename) {
       filename: filename,
     },
     success: function (response) {
+      hideLoadingAnimation();
       console.log(response.fileUrl);
 
       // Open the file in a new tab using the window.open() method
@@ -250,7 +259,36 @@ function viewReport(id, filename) {
       );
     },
     error: function (error) {
+      hideLoadingAnimation();
       console.error("Error getting file: ", error);
+      // Handle the error
+    },
+  });
+}
+
+function getInternshipCompanyDetails() {
+  var studentId = sessionStorage.getItem("user_id");
+
+  $.ajax({
+    url: "/student/get-company-details",
+    type: "POST",
+    data: {
+      user_id: studentId,
+    },
+    success: function (response) {
+      if (response.company.approvalStatus !== "Approved") {
+        $(".submit-new-report").empty();
+        $(".submit-new-report").append(
+          `<p class="alert alert-danger" role="alert">Your company has not been approved yet, please wait till you get your approval.</p>`
+        );
+      }
+    },
+    error: function (error) {
+      console.error("Error getting Internship Company: ", error);
+      $(".submit-new-report").empty();
+      $(".submit-new-report").append(
+        `<p class="alert alert-danger" role="alert">${error.responseJSON.message}, please register a company to your account before uploading reports.</p>`
+      );
       // Handle the error
     },
   });

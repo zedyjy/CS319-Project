@@ -718,6 +718,17 @@ apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
         revisionReportID: uniqueFilename,
         lastReportSubmission: new Date(),
       });
+
+      const student = await Student.findOne({ user_id: student_id });
+      if (student.acceptanceLetterFile) {
+        newReport.acceptanceLetterFile = student.acceptanceLetterFile;
+      }
+      if (student.companyWorkFormFile) {
+        newReport.companyWorkFormFile = student.companyWorkFormFile;
+      }
+
+      newReport.companyEmail = student.companyEmail ? student.companyEmail : "";
+
       await newReport.save();
 
       await Student.updateOne(
@@ -795,12 +806,31 @@ apirouter.get("/reports/:studentId", async (req, res) => {
         lastReportSubmission: report.lastReportSubmission,
         revisionDeadline: report.revisionDeadline,
         reportSubmissionDeadline: report.reportSubmissionDeadline,
-        report: report,
+        report: report, // send the whole report object all together (ALOT SIMPLER than above code)
         status: 200,
       });
     } else {
       res.status(404).json({ message: "No Such Report" });
     }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Get Student with report id
+apirouter.post("/student-details-with-report-id", async (req, res) => {
+  try {
+    const report_id = req.body.report_id;
+    const report = await Report.findOne({ _id: report_id });
+    if (!report) {
+      return res.status(404).json({ message: "No Such Report" });
+    }
+
+    const student = await Student.findOne({ user_id: report.relatedStudentID });
+    if (!student) {
+      return res.status(404).json({ message: "No Such Student" });
+    }
+    return res.status(200).json({ student: student });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -1291,11 +1321,11 @@ apirouter.post("/send-registration-email", async (req, res) => {
     if (!result) {
       return res
         .status(500)
-        .json({ error: "Error Getting Internship Company Details" });
+        .json({ error: "Error Sending Registration Email" });
     }
     return res.status(200).json({ message: "Email Sent" });
   } catch (error) {
-    return res.status(500).json({ error: "Error Sending Email" });
+    return res.status(500).json({ error: "Error Sending Registration Email" });
   }
 });
 
@@ -1399,11 +1429,22 @@ apirouter.post(
 
         student.acceptanceLetterFile = uniqueFilename;
         student.companyId = company._id;
+        student.companyEmail = company.email;
         await student.save();
+
+        const report = await Report.findOne({
+          relatedStudentID: student.user_id,
+        });
+        if (report) {
+          report.acceptanceLetterFile = uniqueFilename;
+          report.companyEmail = company.email;
+          await report.save();
+        }
 
         res.status(200).json({
           message:
             "Sucessfully Registered Internship Company, Awaiting Approval",
+          user: student,
           status: 200,
         });
       }
@@ -1452,6 +1493,14 @@ apirouter.post(
       student.acceptanceLetterFile = uniqueFilename;
       await student.save();
 
+      const report = await Report.findOne({
+        relatedStudentID: student.user_id,
+      });
+      if (report) {
+        report.acceptanceLetterFile = uniqueFilename;
+        await report.save();
+      }
+
       res
         .status(200)
         .json({ message: "Acceptance Letter Uploaded", user: student });
@@ -1472,9 +1521,16 @@ apirouter.post("/student/add-internship-company", async (req, res) => {
     const student = await Student.findOne({
       user_id: student_id,
     });
-
+    const company = await Company.findOne({ _id: company_id });
     student.companyId = company_id;
+    student.companyEmail = company.email;
     await student.save();
+
+    const report = await Report.findOne({ relatedStudentID: student.user_id });
+    if (report) {
+      report.companyEmail = company.email;
+      await report.save();
+    }
 
     res
       .status(200)
@@ -1502,6 +1558,15 @@ apirouter.post("/student/remove-internship-company", async (req, res) => {
     student.companyId = null;
     await student.save();
 
+    const report = await Report.findOne({
+      relatedStudentID: student.user_id,
+    });
+    if (report) {
+      report.acceptanceLetterFile = null;
+      report.companyEmail = null;
+      await report.save();
+    }
+
     return res
       .status(200)
       .json({ message: "Internship Company Removed", user: student });
@@ -1513,13 +1578,16 @@ apirouter.post("/student/remove-internship-company", async (req, res) => {
 //Approve Internship Company
 apirouter.post("/approve-company", async (req, res) => {
   const company_id = req.body.company_id;
-  const coordinator_id = req.body.coordinator_id;
+  const department = req.body.department;
   try {
     const company = await Company.findOne({
       _id: company_id,
     });
 
     company.approvalStatus = "Approved";
+    if (!company.acceptedDepartments.includes(department)) {
+      company.acceptedDepartments.push(department);
+    }
     await company.save();
 
     res.status(200).json({ message: "Internship Company Approved" });
@@ -1533,6 +1601,7 @@ apirouter.post("/approve-company", async (req, res) => {
 //Approve Internship Company
 apirouter.post("/reject-company", async (req, res) => {
   const company_id = req.body.company_id;
+  const department = req.body.department;
 
   try {
     const company = await Company.findOne({
@@ -1540,6 +1609,12 @@ apirouter.post("/reject-company", async (req, res) => {
     });
 
     company.approvalStatus = "Rejected";
+    if (company.acceptedDepartments.includes(department)) {
+      var index = company.acceptedDepartments.indexOf(department);
+      if (index > -1) {
+        company.acceptedDepartments.splice(index, 1);
+      }
+    }
     await company.save();
 
     res.status(200).json({ message: "Internship Company Rejected" });
@@ -1549,6 +1624,84 @@ apirouter.post("/reject-company", async (req, res) => {
       .json({ error: "Error Rejecting Internship Company" });
   }
 });
+
+//Send Company Work Report Form Email/Reminder
+apirouter.post("/send-work-report-form-email", async (req, res) => {
+  try {
+    const email = req.body.email;
+    const report_id = req.body.report_id;
+
+    const report = await Report.findOne({ _id: report_id });
+    const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const uniqueURL = baseUrl + "/" + "work-report-form/" + report_id;
+
+    const result = await sendEmail(email, "Work Report Form", `${uniqueURL}`);
+    if (result) {
+      report.companyWorkFormRequestStatus = true;
+      await report.save();
+      res.status(200).json({ message: "Work Report Form Email Sent" });
+    } else {
+      res.status(500).json({
+        message: "There was an error sending the work report form email!",
+      });
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Error Sending Work Report Form Email" });
+  }
+});
+
+//Upload Company Work Report Form
+apirouter.post(
+  "/upload-company-work-report",
+  upload.single("file"),
+  async (req, res) => {
+    try {
+      const student_id = req.body.student_id;
+
+      if (!req.file) {
+        // No file was uploaded
+        res.status(400).json({ message: "No file uploaded" });
+        return;
+      }
+      // Access the uploaded file using req.file
+      const uploadedFile = req.file;
+
+      // Generate a unique filename
+      const uniqueFilename =
+        Date.now() +
+        "-" +
+        "work-report-" +
+        student_id +
+        "-" +
+        uploadedFile.originalname;
+
+      // Move the uploaded file to a permanent location
+      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+      fs.renameSync(uploadedFile.path, destination);
+
+      const student = await Student.findOne({ user_id: student_id });
+
+      student.companyWorkFormFile = uniqueFilename;
+      await student.save();
+
+      const report = await Report.findOne({
+        relatedStudentID: student.user_id,
+      });
+      if (report) {
+        report.companyWorkFormFile = uniqueFilename;
+        await report.save();
+      }
+
+      res.status(200).json({ message: "Work Report Uploaded", user: student });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: "Error Uploading Acceptance Letter" });
+    }
+  }
+);
 
 //End file and export modules
 module.exports = apirouter;

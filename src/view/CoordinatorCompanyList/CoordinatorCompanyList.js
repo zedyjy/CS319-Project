@@ -87,9 +87,10 @@ function getAllCompanies() {
               <td>${company.email}</td>
               <td>${company.sector}</td>
               <td>
-                ${company.acceptedDepartments.forEach((department) => {
-                  return `<span>${department}</span>`;
-                })}
+              ${company.acceptedDepartments
+                .map((department) => `<span>${department}</span>`)
+                .join("")}
+
               </td>
             
               <td>
@@ -168,6 +169,7 @@ function approveCompany(companyid) {
     type: "POST",
     data: {
       company_id: companyid,
+      department: coordinator.department,
     },
     success: function (response) {
       console.log(response);
@@ -183,11 +185,13 @@ function approveCompany(companyid) {
 }
 
 function rejectCompany(companyid) {
+  const coordinator = JSON.parse(sessionStorage.getItem("user"));
   $.ajax({
     url: "/reject-company",
     type: "POST",
     data: {
       company_id: companyid,
+      department: coordinator.department,
     },
     success: function (response) {
       console.log(response);
