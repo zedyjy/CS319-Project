@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Global Settings -->
+    <script src="/js/GlobalSettings/global.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/GlobalSettings/global.css" />
+
+    <!-- JS -->
+    <script src="/js/AdminAnnouncements/AdminAnnouncements.js"></script>
+
+
+    <!-- CSS-->
+    <link rel="stylesheet" type="text/css" href="/css/AdminAnnouncements/StyleAdminAnnouncements.css" />
+
+    <!-- Components -->
+    <script src="/components/Navbar/defaultnavbar.js" type="text/javascript" defer></script>
+    <script src="/components/Navbar/studentnavbar.js" type="text/javascript" defer></script>
+    <script src="/components/Navbar/EvaluatorSidebarJS.js" type="text/javascript" defer></script>
+    <script src="/components/Navbar/TaSidebar.js" type="text/javascript" defer></script>
+    <script src="/components/Footer/footer.js" type="text/javascript" defer></script>
+</head>
+
+<body style="display: none;">
+    <!-- NAVIGATION MENUS -->
+    <!-- NAVIGATION MENUS -->
+    <defaultnavbar-component></defaultnavbar-component>
+    <student-sidebar-component></student-sidebar-component>
+    <evaluator-sidebar-component></evaluator-sidebar-component>
+    <ta-sidebar-component></ta-sidebar-component>
+
+    <div id="viewport">
+        <!-- Sidebar -->
+
+        <!-- Content -->
+        <div class="container">
+
+
+            <div class="descriptonInfo">
+                <h1>Phone Number of Summer Training Division at Dean's Office <br> </h1>
+                <p>Phone number of Summer Training Division at Dean's Office is x1261.</p>
+                <h1>Summer Training Information <br> </h1>
+                <p>All the information together with the needed forms and statements are accessible at mf.bilkent.edu.tr
+                    under the heading "Summer Training".</p>
+                <h1>Concerning Quota Column in The List of Companies
+                    <br>
+                </h1>
+                <p>If there is - in the quota column, this either means this company has not replied to us or the reply
+                    was negative. If there is 0/0 in the quota column, this means the company will accept individual
+                    applications from students themselves. (There is nothing the Dean's Office can do for trainee
+                    placement in this company. The company will evaluate the applications directly.)</p>
+            </div>
+            <div class="add-announcement">
+                <input type="text" id="announcement-title" placeholder="Title">
+                <textarea id="announcement-content" placeholder="Content"></textarea>
+                <button id="add-announcement-btn" class="announcement-btn">Add Announcement</button>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>

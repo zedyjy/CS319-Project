@@ -85,6 +85,9 @@ publicrouter.get("/frequently-asked-questions", (req, res) => {
 publicrouter.get("/announcements", (req, res) => {
   res.render("Announcements/Announcements");
 });
+publicrouter.get("/admin-announcements", (req, res) => {
+  res.render("AdminAnnouncements/AdminAnnouncementsPage");
+});
 //---------------------------------------
 // ---------- Others---------- //
 //---------------------------------------

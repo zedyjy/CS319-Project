@@ -20,7 +20,7 @@ adminnavbarTemplate.innerHTML = `
             <a href="#"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
           </li>
           <li>
-            <a href="#"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
+            <a href="/admin-announcements"> <i class="zmdi zmdi-calendar"></i> Announcements </a>
           </li>
           <li>
             <a href="/summer-training-coordinators">

@@ -45,54 +45,15 @@ jQuery(document).ready(function () {
         )
           .toString()
           .padStart(2, "0")}-${lastReportDateF
-          .getDate()
-          .toString()
-          .padStart(2, "0")}`;
+            .getDate()
+            .toString()
+            .padStart(2, "0")}`;
         // Create a new row in the table
         var row = $("<tr></tr>");
 
         // Populate the row with the student information
         row.append(`<td>${studentID}</td>`);
         row.append(`<td>${courseName}</td>`);
-        row.append(`<td>
-    
-        <button class="btn btn-primary" onclick="viewAcceptanceLetter('${report._id}','${report.acceptanceLetterFile}')">View Acceptance Letter</button>
-
-        <div class="overlay acceptance-letter${report._id}">
-          <button class="btn btn-danger" onclick="closeAcceptanceLetter('${report._id}')">Close</button>
-          <div style="width: 100%; height: 100%;">
-          <h3>Uploaded Acceptance Letter</h3>
-          <p>Student: ${studentID} </p>
-          <div style="width: 100%; height: 100%;" class="acceptance-letter-preview"></div>
-          </div>
-        </div>
-        </td>`);
-        row.append(`<td>
-        ${
-          report.companyWorkFormFile
-            ? `
-            <button class="btn btn-primary" onclick="viewWorkReport('${report._id}','${report.companyWorkFormFile}')">View Work Report</button>
-
-        <div class="overlay work-report${report._id}">
-          <button class="btn btn-danger" onclick="closeWorkReport('${report._id}')">Close</button>
-          <div style="width: 100%; height: 100%;">
-          <h3>Work Report Uploaded by Company</h3>
-          <p>Student: ${studentID} </p>
-          <div style="width: 100%; height: 100%;" class="work-report-preview"></div>
-          </div>
-        </div>
-            `
-            : `
-            ${
-              report.companyWorkFormRequestStatus
-                ? `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request AGAIN to company email: ${report.companyEmail}</button>`
-                : `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request to company email: ${report.companyEmail}</button>`
-            }
-         
-         <p class="alert-danger send-work-email-response"></p>
-         `
-        }
-        </td>`);
         row.append(`<td>${formattedDate}</td>`);
         row.append(`
         <td>
@@ -111,27 +72,22 @@ jQuery(document).ready(function () {
         row.append(`<td>${report.iteration}</td>`);
         row.append(
           `<td>
-          ${
-            report.feedbackRequired
-              ? `<button class="btn btn-primary" onclick="giveFeedback('${report._id}', '${studentID}')">Give Feedback</button>`
-              : "Feedback given."
+          ${report.feedbackRequired
+            ? `<button class="btn btn-primary" onclick="giveFeedback('${report._id}', '${studentID}')">Give Feedback</button>`
+            : "Feedback given."
           }
           <div class="overlay feedback-${report._id}">
-          <button class="btn btn-danger" onclick="closeFeedbackOverlay('${
-            report._id
+          <button class="btn btn-danger" onclick="closeFeedbackOverlay('${report._id
           }')">Close</button>
           <div style="width: 100%; height: 100%; text-align: center;">
           <h3>Give Feedback</h3>
           <p>Student: ${studentID} </p>
-          <textarea id="feedback-text-${
-            report._id
+          <textarea id="feedback-text-${report._id
           }" name="feedback" rows="10" cols="50" placeholder="Feedback Notes"></textarea>
-          <textarea id="grade-text-${
-            report._id
+          <textarea id="grade-text-${report._id
           }" name="grade" rows="1" cols="50" placeholder="Grade"></textarea>
           <input type="file" id="feedback-file-${report._id}" accept=".pdf" />
-          <button class="btn btn-primary" onclick="submitFeedback('${
-            report._id
+          <button class="btn btn-primary" onclick="submitFeedback('${report._id
           }', '${studentID}')">Submit Feedback</button>
           <p class="submit-feedback-response"></p>
           </div>
@@ -142,14 +98,13 @@ jQuery(document).ready(function () {
           var new_id = report._id + "G";
           row.append(
             `<td>
-            ${
-              grade.gradingFormSubmissionStatus === "Feedback"
-                ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade after Feedback</button>`
-                : grade.gradingFormSubmissionStatus === "Revision"
+            ${grade.gradingFormSubmissionStatus === "Feedback"
+              ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade after Feedback</button>`
+              : grade.gradingFormSubmissionStatus === "Revision"
                 ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Revised Grade</button>`
                 : grade.gradingFormSubmissionStatus === "No Grades"
-                ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade</button>`
-                : (grade.gradingFormSubmissionStatus = "Final"
+                  ? `<button class="btn btn-primary" onclick="giveGrade('${new_id}', '${studentID}')">Give Grade</button>`
+                  : (grade.gradingFormSubmissionStatus = "Final"
                     ? "Grade given."
                     : "Grade finalized.")
             }
@@ -167,6 +122,43 @@ jQuery(document).ready(function () {
           </div>
             </td>`
           );
+          row.append(`<td>
+    
+        <button class="btn btn-primary" onclick="viewAcceptanceLetter('${report._id}','${report.acceptanceLetterFile}')">View Acceptance Letter</button>
+
+        <div class="overlay acceptance-letter${report._id}">
+          <button class="btn btn-danger" onclick="closeAcceptanceLetter('${report._id}')">Close</button>
+          <div style="width: 100%; height: 100%;">
+          <h3>Uploaded Acceptance Letter</h3>
+          <p>Student: ${studentID} </p>
+          <div style="width: 100%; height: 100%;" class="acceptance-letter-preview"></div>
+          </div>
+        </div>
+        </td>`);
+          row.append(`<td>
+        ${report.companyWorkFormFile
+              ? `
+            <button class="btn btn-primary" onclick="viewWorkReport('${report._id}','${report.companyWorkFormFile}')">View Work Report</button>
+
+        <div class="overlay work-report${report._id}">
+          <button class="btn btn-danger" onclick="closeWorkReport('${report._id}')">Close</button>
+          <div style="width: 100%; height: 100%;">
+          <h3>Work Report Uploaded by Company</h3>
+          <p>Student: ${studentID} </p>
+          <div style="width: 100%; height: 100%;" class="work-report-preview"></div>
+          </div>
+        </div>
+            `
+              : `
+            ${report.companyWorkFormRequestStatus
+                ? `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request AGAIN to company email: ${report.companyEmail}</button>`
+                : `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request to company email: ${report.companyEmail}</button>`
+              }
+         
+         <p class="alert-danger send-work-email-response"></p>
+         `
+            }
+        </td>`);
         });
 
         // Add the row to the table body

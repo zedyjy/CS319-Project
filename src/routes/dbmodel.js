@@ -349,6 +349,16 @@ const reportSchema = new mongoose.Schema({
   },
 });
 
+const announcementSchema = new mongoose.Schema({
+  title: {
+    type: String,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+});
+
 // Create models
 const User = mongoose.model("User", userSchema);
 const Student = mongoose.model("Student", studentSchema);
@@ -359,6 +369,7 @@ const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
 const Report = mongoose.model("Report", reportSchema);
+const Announcement = mongoose.model("Announcement", announcementSchema);
 
 module.exports = {
   User,
@@ -370,4 +381,5 @@ module.exports = {
   GradingForm,
   Admin,
   Report,
+  Announcement,
 };

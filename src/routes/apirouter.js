@@ -13,6 +13,7 @@ const {
   Coordinator,
   Report,
   GradingForm,
+  Announcement,
 } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
@@ -1702,6 +1703,61 @@ apirouter.post(
     }
   }
 );
+
+// Receive all announcements
+apirouter.get('/get-announcements', (req, res) => {
+  // Fetch announcements from the database
+  Announcement.find({})
+    .then(announcements => {
+      // Send the announcements as a JSON response
+      res.json(announcements);
+    })
+    .catch(error => {
+      console.error('Error fetching announcements:', error);
+      res.status(500).json({ error: 'An error occurred while fetching announcements' });
+    });
+});
+
+// Delete an announcement
+app.delete('/delete-announcement:id', (req, res) => {
+  const announcementId = req.params.id;
+
+  // Delete the announcement from the database
+  Announcement.findByIdAndDelete(announcementId, (err, deletedAnnouncement) => {
+    if (err) {
+      console.error('Error deleting announcement:', err);
+      res.status(500).json({ error: 'An error occurred while deleting the announcement' });
+    } else {
+      res.json({ message: 'Announcement deleted successfully' });
+    }
+  });
+});
+
+// Add announcement
+app.post('/add-announcement', (req, res) => {
+  // Extract the title and content from the request body
+  const { title, content } = req.body;
+  console.log(title);
+  console.log(content);
+
+  // Create a new announcement object
+  const newAnnouncement = new Announcement({
+    title: title,
+    content: content
+  });
+
+  // Save the new announcement to the database
+  newAnnouncement
+    .save()
+    .then(savedAnnouncement => {
+      res.status(200).json(savedAnnouncement);
+    })
+    .catch(error => {
+      console.error('Error adding announcement:', error);
+      res.status(500).json({ error: 'An error occurred while adding the announcement' });
+    });
+});
+
 
 //End file and export modules
 module.exports = apirouter;
