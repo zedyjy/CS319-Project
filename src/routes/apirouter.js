@@ -25,7 +25,7 @@ const { error } = require("jquery");
 
 // ------- mongo db connection --------
 mongoose.connect("mongodb://127.0.0.1:27017/internship-system");
-const database = mongoose.connection; //get the databa object from mongoose connection
+const database = mongoose.connection; //get the database object from mongoose connection
 
 database.on("error", (error) => {
   console.log(error);
