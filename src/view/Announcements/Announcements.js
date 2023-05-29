@@ -4,10 +4,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/get-announcements', // Replace with the actual server endpoint for fetching announcements
             method: 'GET',
-            dataType: 'json',
             success: function (response) {
-                // Clear existing announcements
-                $('.descriptonInfo').empty();
 
                 // Iterate over the received announcements and add them to the page
                 response.forEach(function (announcement) {
@@ -20,7 +17,7 @@ $(document).ready(function () {
                     var announcementDiv = $('<div>').append(announcementTitle, announcementContent);
 
                     // Append the announcement to the container
-                    $('.descriptonInfo').append(announcementDiv);
+                    $('.announcement-list').append(announcementDiv);
                 });
             },
             error: function (error) {

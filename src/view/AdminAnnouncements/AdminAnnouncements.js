@@ -6,8 +6,8 @@ $(document).ready(function () {
             method: 'GET',
             dataType: 'json',
             success: function (response) {
-                // Clear existing announcements
-                $('.descriptonInfo').empty();
+
+                $('.announcement-list').empty();
 
                 // Iterate over the received announcements and add them to the page
                 response.forEach(function (announcement) {
@@ -18,15 +18,25 @@ $(document).ready(function () {
                     var announcementTitle = $('<h1>').text(title);
                     var announcementContent = $('<p>').text(content);
                     var deleteButton = $('<button>').text('Delete').addClass('delete-btn');
-                    var announcementDiv = $('<div>').append(announcementTitle, announcementContent, deleteButton);
-
-                    // Append the announcement to the container
-                    $('.descriptonInfo').append(announcementDiv);
+                    var announcementDiv = $('<div>').addClass('announcement').append(announcementTitle, announcementContent, deleteButton);
 
                     // Attach event listener to the delete button
                     deleteButton.on('click', function () {
-                        deleteAnnouncement(announcement._id);
+                        deleteAnnouncement(title, content);
                     });
+
+                    // Append the announcement to the list
+                    $('.announcement-list').append(announcementDiv);
+                });
+
+                // Create the Add button
+                var addButton = $('<button>').text('Add Announcement').attr('id', 'add-announcement-btn');
+                $('.announcement-list').append(addButton);
+
+                // Attach event listener to the "Add Announcement" button
+                addButton.on('click', function () {
+                    // Show the input fields for the new announcement
+                    $('.add-announcement-form').toggle();
                 });
             },
             error: function (error) {
@@ -36,10 +46,16 @@ $(document).ready(function () {
     }
 
     // Function to delete an announcement
-    function deleteAnnouncement(announcementId) {
+    function deleteAnnouncement(title, content) {
+        var title_s = title;
+        var content_s = content;
         $.ajax({
-            url: '/delete-announcement' + announcementId,
-            method: 'DELETE',
+            url: '/delete-announcement',
+            type: 'POST',
+            data: {
+                title_d: title_s,
+                content_d: content_s,
+            },
             success: function (response) {
                 fetchAnnouncements(); // Refresh the announcements after deletion
             },
@@ -49,19 +65,20 @@ $(document).ready(function () {
         });
     }
 
-    // Attach event listener to the "Add New Announcement" button
-    $('#add-announcement-btn').on('click', function () {
+    // Attach event listener to the "Add New Announcement" form
+    $('.add-announcement-form').submit(function (event) {
+        event.preventDefault();
+
         // Get the input values for the new announcement
         var title = $('#announcement-title').val();
         var content = $('#announcement-content').val();
 
-        // Perform the necessary logic to add new announcements
         $.ajax({
-            url: '/add-announcement',
-            method: 'POST',
+            url: "/add-announcement",
+            type: "POST",
             data: {
-                title: title,
-                content: content
+                title_d: title,
+                content_d: content,
             },
             success: function (response) {
                 // Clear the input fields
