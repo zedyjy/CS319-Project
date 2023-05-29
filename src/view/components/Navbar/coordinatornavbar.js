@@ -39,7 +39,7 @@ coordinatornavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="/coordinator/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
+            <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
           </li>
           <li>
             <a href="/profile"> <i class="zmdi zmdi-comment-more"></i> Profile </a>

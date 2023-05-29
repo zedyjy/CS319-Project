@@ -65,6 +65,11 @@
       defer
     ></script>
     <script
+      src="/components/Navbar/coordinatornavbar.js"
+      type="text/javascript"
+      defer
+    ></script>
+    <script
       src="/components/Footer/footer.js"
       type="text/javascript"
       defer
@@ -86,7 +91,6 @@
         background-color: #999999;
         /* Add other hover styles as needed */
       }
-
     </style>
   </head>
 
@@ -98,6 +102,7 @@
     <ta-sidebar-component></ta-sidebar-component>
     <evaluator-sidebar-component></evaluator-sidebar-component>
     <admin-sidebar-component></admin-sidebar-component>
+    <coordinator-sidebar-component></coordinator-sidebar-component>
 
     <div id="viewport">
       <!-- Content -->
@@ -119,9 +124,9 @@
             Edit Profile
           </button>
           <button
-                  class="btn save-profile"
-                  style="display: none"
-                  onclick="saveProfile()"
+            class="btn save-profile"
+            style="display: none"
+            onclick="saveProfile()"
           >
             Save Profile
           </button>
