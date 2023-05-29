@@ -63,12 +63,13 @@ jQuery(document).ready(function () {
 
                     getGrade(studentID)
                         .then((gradeInfo) => {
-                            var passOrFail = decideEndGrade
+                            var passOrFail = decideEndGrade(gradeInfo.companyEvaluationFormAverage, gradeInfo.relatedToDepartment,
+                                gradeInfo.supervisorHasEngineeringBackground, gradeInfo.workQuality, gradeInfo.sumOfEvaluationScores, gradeInfo.reportQuality);
                             var html = "<tr>";
                             html += "<td>" + studentID + "</td>";
                             html +=
                                 "<td>" +
-                                (gradeInfo.companyEvaluationFormAverage || "Not given.") +
+                                (passOrFail) +
                                 "</td>";
                             html += "</tr>";
                             $("#table2Body").append(html);
@@ -85,6 +86,22 @@ jQuery(document).ready(function () {
     }
 });
 
+function decideEndGrade(companyEvaluationFormAverage, relatedToDepartment,
+    supervisorHasEngineeringBackground, workQuality, sumOfEvaluationScores, reportQuality) {
+    if (!companyEvaluationFormAverage || !relatedToDepartment ||
+        !supervisorHasEngineeringBackground || !workQuality || !sumOfEvaluationScores || !reportQuality) {
+        return "Insufficent Information"
+
+    }
+    else if (companyEvaluationFormAverage < 7 || !relatedToDepartment ||
+        !supervisorHasEngineeringBackground || workQuality < 7 || sumOfEvaluationScores < 30 || reportQuality < 7) {
+        return "Fail"
+
+    }
+    else {
+        return "Pass"
+    }
+}
 
 function getStudent(studentID) {
     return new Promise((resolve, reject) => {
