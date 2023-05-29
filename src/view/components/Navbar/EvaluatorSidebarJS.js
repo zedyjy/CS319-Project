@@ -41,7 +41,7 @@ evaluatornavbarTemplate.innerHTML = `
               </a>
           </li>
           <li>
-            <a href="/company"> <i class="zmdi zmdi-settings"></i> Company List </a>
+            <a href="/evaluator/company-list"> <i class="zmdi zmdi-settings"></i> Company List </a>
         </li>
           <li>
               <a href="/others">
