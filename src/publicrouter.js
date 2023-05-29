@@ -197,13 +197,15 @@ publicrouter.get("/company", (req, res) => {
 publicrouter.get("/profile", (req, res) => {
   res.render("Profile/Profile");
 });
-publicrouter.get("/coordinator/assignments", (req, res) => {
-  res.render("CoordinatorAssignStudentstoEvaluator/CoordinatorAssignStudentstoEvaluators");
-});
 
 //---------------------------------------
 // ---------- Coordinator Pages ---------- //
 //---------------------------------------
+publicrouter.get("/coordinator/assignments", (req, res) => {
+  res.render(
+    "CoordinatorAssignStudentstoEvaluator/CoordinatorAssignStudentstoEvaluators"
+  );
+});
 publicrouter.get("/coordinator", (req, res) => {
   res.render("CoordinatorHome/CoordinatorHome");
 });
