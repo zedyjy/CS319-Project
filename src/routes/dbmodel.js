@@ -6,9 +6,19 @@ const notificationSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
+    default: "2024-05-29T01:00:17.475Z",
   },
 });
-
+//announcementScheme
+const announcementSchema = new mongoose.Schema({
+  message: {
+    type: String,
+  },
+  date: {
+    type: Date,
+    default: "2024-05-29T01:00:17.475Z",
+  },
+});
 // User Schema
 const userSchema = new mongoose.Schema({
   user_id: {
@@ -359,6 +369,7 @@ const Company = mongoose.model("Company", companySchema);
 const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
 const Report = mongoose.model("Report", reportSchema);
+const Announcement = mongoose.model("Announcement", announcementSchema);
 
 module.exports = {
   User,
@@ -370,4 +381,5 @@ module.exports = {
   GradingForm,
   Admin,
   Report,
+  Announcement,
 };
