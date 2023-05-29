@@ -1,51 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Declare Announcements</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous"/>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-  <title>Coordinator Assign Students</title>
-  <!-- Bootstrap -->
-  <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-  />
   <!-- Global Settings -->
   <script src="/js/GlobalSettings/global.js"></script>
-  <link
-          rel="stylesheet"
-          type="text/css"
-          href="/css/GlobalSettings/global.css"
-  />
+  <link rel="stylesheet" type="text/css" href="/css/GlobalSettings/global.css"/>
+
+  <script src="/js/AdminAssignments/AdminAssignments.js"></script>
+  <!-- CSS-->
+  <link rel="stylesheet" type="text/css" href="/css/StudentHome/StyleStudentHome.css"/>
 
   <!-- Components -->
-  <link
-          rel="stylesheet"
-          type="text/css"
-          href="/css/StudentHome/StyleStudentHome.css"
-  />
-  <script src="/js/GlobalSettings/global.js"></script>
   <script
           src="/components/Navbar/defaultnavbar.js"
           type="text/javascript"
+          defer
   ></script>
   <script
           src="/components/Navbar/coordinatornavbar.js"
           type="text/javascript"
+          defer
   ></script>
-  <script src="/components/Footer/footer.js" type="text/javascript"></script>
+  <script
+          src="/components/Navbar/adminnavbar.js"
+          type="text/javascript"
+          defer
+  ></script>
+  <script
+          src="/components/Footer/footer.js"
+          type="text/javascript"
+          defer
+  ></script>
 </head>
 
 <body style="display: none">
 <!-- NAVIGATION MENUS -->
 <defaultnavbar-component></defaultnavbar-component>
 <coordinator-sidebar-component></coordinator-sidebar-component>
-<!-- Content -->
-<div id="content">
 
-</div>
+
+
+  <div id="viewport" class="mt-5">
+    <!-- Student Tables -->
+    <div class="container">
+      <h1>Students</h1>
+      <!-- Student Search Box -->
+
+      <div class="search-container">
+        <input type="text" class="searchInput" id="student-searchInput" placeholder="Search Student by Name or ID" />
+      </div>
+      <!-- Student Table -->
+      <div class="table-responsive" style="overflow-y: scroll; height: 300px">
+        <table class="table table-striped student-table">
+          <thead>
+            <tr>
+              <th scope="col">Student Name</th>
+              <th scope="col">Student ID</th>
+              <th scope="col">Assigned Evaluators</th>
+              <th scope="col">Assigned TAs</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="student-list">
+            <!-- Table rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Evaluators Tables -->
+    <div class="container">
+      <h1>Evaluators</h1>
+      <!-- Evaluators Search Box -->
+
+      <div class="search-container">
+        <input type="text" class="searchInput" id="evaluator-searchInput"
+          placeholder="Search Evaluators by Name or ID" />
+      </div>
+      <!-- Evaluators Table -->
+      <div class="table-responsive" style="overflow-y: scroll; height: 300px">
+        <table class="table table-striped evaluator-table">
+          <thead>
+            <tr>
+              <th scope="col">Evaluator Name</th>
+              <th scope="col">Evaluator ID</th>
+              <th scope="col">Assigned Students</th>
+            </tr>
+          </thead>
+          <tbody id="evaluators-list">
+            <!-- Table rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TA Tables -->
+    <div class="container">
+      <h1>Teaching Assistants</h1>
+      <!-- TA Search Box -->
+
+      <div class="search-container">
+        <input type="text" class="searchInput" id="ta-searchInput" placeholder="Search TAs by Name or ID" />
+      </div>
+      <!-- Evaluators Table -->
+      <div class="table-responsive" style="overflow-y: scroll; height: 300px">
+        <table class="table table-striped ta-table">
+          <thead>
+            <tr>
+              <th scope="col">TA Name</th>
+              <th scope="col">TA ID</th>
+              <th scope="col">Assigned Students</th>
+            </tr>
+          </thead>
+          <tbody id="tas-list">
+            <!-- Table rows will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="random-view">
+      <div class="container">
+        <h2 class="random-message">Sequential Assignment:</h2>
+        <div class="random">
+        </div>
+      </div>
 </body>
+
 </html>
