@@ -17,7 +17,7 @@ adminnavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
-            <a href="#"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
+            <a href="/course-descriptions"> <i class="zmdi zmdi-link"></i> Course Descriptions </a>
           </li>
           <li>
             <a href="/admin-announcements"> <i class="zmdi zmdi-calendar"></i> Announcements </a>

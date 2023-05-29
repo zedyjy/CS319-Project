@@ -109,11 +109,19 @@
                   required
                 />
                 <label>Department:</label>
-                <select id="register-student-department">
+                <select
+                  id="register-student-department"
+                  onchange="updateCourseOptions()"
+                >
                   <option value="" disabled selected>Please Select</option>
                   <option value="CS">CS</option>
                   <option value="EE">EE</option>
                   <option value="COMD">COMD</option>
+                </select>
+
+                <label>Course:</label>
+                <select id="register-student-course">
+                  <option value="" disabled selected>Please Select</option>
                 </select>
                 <div>
                   <button id="student-register-button" class="btn btn-primary">
