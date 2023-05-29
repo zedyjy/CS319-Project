@@ -1,136 +1,75 @@
 jQuery(document).ready(function () {
     console.log("STUDENT GRADES Page JS Loaded");
-    for (let i = 0; i < sessionStorage.length; i++) {
-        const key = sessionStorage.key(i);
-        const value = sessionStorage.getItem(key);
-        console.log(key, value);
-    }
+
+    // Retrieve the user ID from session storage
     const studentID = sessionStorage.getItem("user_id");
+
+    // Call the getGrade function to fetch the grade information
     getGrade(studentID).then((grade) => {
         console.log(grade);
-        // No Grades, Feedback, Final, Revision, Unchangable
-        if (grade.gradingFormSubmissionStatus === "No Grades") {
-            var listItem = document.createElement("li");
-            listItem.textContent = "No grades to show yet.";
-            $(".grades").append(listItem);
-        }
-        else if (grade.gradingFormSubmissionStatus === "Feedback") {
-            var listItem = document.createElement("li");
-            listItem.textContent = "You are in the feedback stage.";
-            $(".grades").append(listItem);
 
-            if (grade.currentFeedbackOverallGrade == null) {
-                listItem = document.createElement("li");
-                listItem.textContent = 'You did not receive a feedback grade yet.';
-                $(".grades").append(listItem);
-            }
-            else {
-                listItem = document.createElement("li");
-                console.log("asfgaasfsa");
-                listItem.textContent = "Your current feedback grade is " + grade.currentFeedbackOverallGrade + ".";
-                $(".grades").append(listItem);
-            }
-        }
-        else if (grade.gradingFormSubmissionStatus === "Final") {
-            var listItem = document.createElement("li");
-            listItem.textContent = "You are in the final grade stage.";
-            $(".grades").append(listItem);
+        // Display grades based on grading form submission status
+        switch (grade.gradingFormSubmissionStatus) {
+            case "No Grades":
+                $(".grades").append("<li>No grades to show yet.</li>");
+                break;
+            case "Feedback":
+                $(".grades").append("<li>You are in the feedback stage.</li>");
 
-            listItem = document.createElement("li");
-            listItem.textContent = "Your work quality grade: " + grade.workQuality + ".";
-            $(".grades").append(listItem);
+                if (grade.currentFeedbackOverallGrade == null) {
+                    $(".grades").append("<li>You did not receive a feedback grade yet.</li>");
+                } else {
+                    $(".grades").append(`<li>Your current feedback grade is ${grade.currentFeedbackOverallGrade}.</li>`);
+                }
+                break;
+            case "Final":
+                $(".grades").append("<li>You are in the final grade stage.</li>");
+                $(".grades").append(`<li>Your work quality grade: ${grade.workQuality}.</li>`);
+                $(".grades").append(`<li>Your sum of evaluation scores grade: ${grade.sumOfEvaluationScores}.</li>`);
+                $(".grades").append(`<li>Your report quality grade: ${grade.reportQuality}.</li>`);
+                $(".grades").append("<li>You are eligible for revision.</li>");
 
-            listItem = document.createElement("li");
-            listItem.textContent = "Your sum of evaluation scores grade: " + grade.sumOfEvaluationScores + ".";
-            $(".grades").append(listItem);
+                const button = document.createElement("button");
+                button.textContent = "Ask for Revision";
+                $(".grades").append(button);
 
-            listItem = document.createElement("li");
-            listItem.textContent = "Your report quality grade: " + grade.reportQuality + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "You are eligible for revision.";
-            $(".grades").append(listItem);
-
-            const button = document.createElement("button");
-            button.textContent = "Ask for Revision";
-
-            // Append the button to the desired element
-            $(".grades").append(button);
-
-            // Attach event listener to the button
-            button.addEventListener("click", function () {
-                changeGradingStatusToRevision(studentID);
-                location.reload(); // Reload the page
-            });
-        }
-        else if (grade.gradingFormSubmissionStatus === "Revision") {
-            var listItem = document.createElement("li");
-            listItem.textContent = "You are in the revision stage.";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "Your work quality grade: " + grade.workQuality + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "Your sum of evaluation scores grade: " + grade.sumOfEvaluationScores + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "Your report quality grade: " + grade.reportQuality + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "You already asked for revision, you are not eligible for revision.";
-            $(".grades").append(listItem);
-        }
-        else if (grade.gradingFormSubmissionStatus === "Unchangable") {
-
-            var listItem = document.createElement("li");
-            listItem.textContent = "You are in the end stage, your grade cannot be changed anymore.";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "Your work quality grade: " + grade.workQuality + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "Your sum of evaluation scores grade: " + grade.sumOfEvaluationScores + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "Your report quality grade: " + grade.reportQuality + ".";
-            $(".grades").append(listItem);
-
-            listItem = document.createElement("li");
-            listItem.textContent = "You are not eligible for revision.";
-            $(".grades").append(listItem);
+                // Attach event listener to the button
+                button.addEventListener("click", function () {
+                    changeGradingStatusToRevision(studentID);
+                    location.reload(); // Reload the page
+                });
+                break;
+            case "Revision":
+                $(".grades").append("<li>You are in the revision stage.</li>");
+                $(".grades").append(`<li>Your work quality grade: ${grade.workQuality}.</li>`);
+                $(".grades").append(`<li>Your sum of evaluation scores grade: ${grade.sumOfEvaluationScores}.</li>`);
+                $(".grades").append(`<li>Your report quality grade: ${grade.reportQuality}.</li>`);
+                $(".grades").append("<li>You already asked for revision, you are not eligible for revision.</li>");
+                break;
+            case "Unchangable":
+                $(".grades").append("<li>You are in the end stage, your grade cannot be changed anymore.</li>");
+                $(".grades").append(`<li>Your work quality grade: ${grade.workQuality}.</li>`);
+                $(".grades").append(`<li>Your sum of evaluation scores grade: ${grade.sumOfEvaluationScores}.</li>`);
+                $(".grades").append(`<li>Your report quality grade: ${grade.reportQuality}.</li>`);
+                $(".grades").append("<li>You are not eligible for revision.</li>");
+                break;
+            default:
+                break;
         }
 
+        // Display company grades and related information
         if (grade.companyEvaluationFormAverage === "Company grade not processed.") {
-            var secondaryListItem = document.createElement("li");
-            secondaryListItem.textContent = "No company grades to show yet.";
-            $(".company-grades").append(secondaryListItem);
-        }
-        else {
-            var secondaryListItem = document.createElement("li");
-            secondaryListItem.textContent = "Your company evaluation form average grade: " + grade.companyEvaluationFormAverage + ".";
-            $(".company-grades").append(secondaryListItem);
+            $(".company-grades").append("<li>No company grades to show yet.</li>");
+        } else {
+            $(".company-grades").append(`<li>Your company evaluation form average grade: ${grade.companyEvaluationFormAverage}.</li>`);
 
             if (grade.supervisorHasEngineeringBackground) {
-                secondaryListItem = document.createElement("li");
-                secondaryListItem.textContent = "Your supervisor is an engineer related to your department.";
-                $(".company-grades").append(secondaryListItem);
-            }
-            else {
-                secondaryListItem = document.createElement("li");
-                secondaryListItem.textContent = "Your supervisor is not an engineer related to your department.";
-                $(".company-grades").append(secondaryListItem);
+                $(".company-grades").append("<li>Your supervisor is an engineer related to your department.</li>");
+            } else {
+                $(".company-grades").append("<li>Your supervisor is not an engineer related to your department.</li>");
             }
         }
-
-    })
+    });
 });
 
 
@@ -140,26 +79,7 @@ function getGrade(studentID) {
             url: `/grades/${studentID}`,
             type: "GET",
             success: function (response) {
-                var gradeInfo = {
-                    gradingFormSubmissionStatus: response.gradingFormSubmissionStatus,
-                    currentFeedbackID: response.currentFeedbackID,
-                    revisionRequest: response.revisionRequest,
-                    currentFeedbackOverallGrade: response.currentFeedbackOverallGrade,
-
-                    companyEvaluationFormAverage: response.companyEvaluationFormAverage,
-                    relatedToDepartment: response.relatedToDepartment,
-                    supervisorHasEngineeringBackground: response.supervisorHasEngineeringBackground,
-
-                    finalRevisionDate: response.finalRevisionDate,
-
-                    workQuality: response.workQuality,
-                    sumOfEvaluationScores: response.sumOfEvaluationScores,
-                    reportQuality: response.reportQuality,
-
-                    taUsername: response.taUsername,
-                    evaluatorusername: response.evaluatorusername,
-                };
-                resolve(gradeInfo);
+                resolve(response);
             },
             error: function (xhr, status, error) {
                 console.error(error);

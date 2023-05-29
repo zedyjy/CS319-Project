@@ -37,19 +37,33 @@ class DefaultNavbar extends HTMLElement {
     }
 
     const myLink = shadowRoot.querySelector("#myLink");
+    const bodyElement = document.querySelector("body");
+
+    // Retrieve the theme preference from localStorage when the component loads
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "dark") {
+      myLink.textContent = "Dark"; // Set the text to "Dark"
+      bodyElement.classList.add("dark-mode");
+    } else {
+      myLink.textContent = "Light"; // Set the text to "Light"
+      bodyElement.classList.add("light-mode");
+    }
+
     myLink.addEventListener("click", function () {
-      var element = document.body;
       if (myLink.textContent === "Light") {
         myLink.textContent = "Dark";
-        element.classList.remove("light-mode");
-        element.classList.add("dark-mode");
+        bodyElement.classList.remove("light-mode");
+        bodyElement.classList.add("dark-mode");
+        // Store the theme preference in localStorage
+        localStorage.setItem("theme", "dark");
       } else {
         myLink.textContent = "Light";
-        element.classList.remove("dark-mode");
-        element.classList.add("light-mode");
+        bodyElement.classList.remove("dark-mode");
+        bodyElement.classList.add("light-mode");
+        // Store the theme preference in localStorage
+        localStorage.setItem("theme", "light");
       }
     });
-
   }
 
   handleLogout() {

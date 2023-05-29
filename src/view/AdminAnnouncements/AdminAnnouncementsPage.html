@@ -39,6 +39,40 @@
             type="text/javascript"
             defer
     ></script>
+    <style>
+        .add-announcement-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            padding-top: 1em;
+        }
+
+        .add-announcement-form input[type="text"],
+        .add-announcement-form textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .add-announcement-form textarea {
+            height: 120px;
+        }
+
+        .add-announcement-form button[type="submit"] {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .add-announcement-form button[type="submit"]:hover {
+
+        }
+    </style>
 </head>
 
 <body style="display: none">
@@ -58,6 +92,7 @@
                 <textarea id="announcement-content" placeholder="Content" required></textarea>
                 <button type="submit">Add</button>
             </form>
+
 
         </div>
     </div>

@@ -6,6 +6,9 @@
     padding: 8% 0 0;
     margin: auto;
 }
+#myLink{
+    cursor: pointer;
+}
 .topnav {
     position: fixed;
     top: 0;

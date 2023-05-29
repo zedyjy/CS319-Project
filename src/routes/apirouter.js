@@ -64,49 +64,49 @@ apirouter.post("/register/:user", async (req, res) => {
     if (userType == "student") {
       // Search the Students collection
       const registerResult = await registerStudent(
-        user_id,
-        password,
-        email,
-        fullname,
-        department
+          user_id,
+          password,
+          email,
+          fullname,
+          department
       );
       if (!registerResult) {
         res
-          .status(400)
-          .json({ message: "Student or User already exists!", status: 400 });
+            .status(400)
+            .json({ message: "Student or User already exists!", status: 400 });
         return;
       } else {
         res
-          .status(200)
-          .json({ message: "Successfully Registered Student", status: 200 });
+            .status(200)
+            .json({ message: "Successfully Registered Student", status: 200 });
       }
     } else if (userType == "evaluator") {
       // Search the Students collection
       const registerResult = await registerEvaluator(
-        user_id,
-        password,
-        email,
-        fullname,
-        department
+          user_id,
+          password,
+          email,
+          fullname,
+          department
       );
       if (!registerResult) {
         res
-          .status(400)
-          .json({ message: "Evaluator or User already exists!", status: 400 });
+            .status(400)
+            .json({ message: "Evaluator or User already exists!", status: 400 });
         return;
       } else {
         res
-          .status(200)
-          .json({ message: "Successfully Registered Evaluator", status: 200 });
+            .status(200)
+            .json({ message: "Successfully Registered Evaluator", status: 200 });
       }
     } else if (userType == "coordinator") {
       // Search the Students collection
       const registerResult = await registerCoordinator(
-        user_id,
-        password,
-        email,
-        fullname,
-        department
+          user_id,
+          password,
+          email,
+          fullname,
+          department
       );
       if (!registerResult) {
         res.status(400).json({
@@ -123,16 +123,16 @@ apirouter.post("/register/:user", async (req, res) => {
     } else if (userType == "ta") {
       // Search the Students collection
       const registerResult = await registerTA(
-        user_id,
-        password,
-        email,
-        fullname,
-        department
+          user_id,
+          password,
+          email,
+          fullname,
+          department
       );
       if (!registerResult) {
         res
-          .status(400)
-          .json({ message: "TA or User already exists!", status: 400 });
+            .status(400)
+            .json({ message: "TA or User already exists!", status: 400 });
         return;
       } else {
         res.status(200).json({
@@ -175,11 +175,11 @@ async function registerStudent(user_id, password, email, fullname, department) {
 }
 
 async function registerEvaluator(
-  user_id,
-  password,
-  email,
-  fullname,
-  department
+    user_id,
+    password,
+    email,
+    fullname,
+    department
 ) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
@@ -227,11 +227,11 @@ async function registerTA(user_id, password, email, fullname, department) {
 }
 
 async function registerCoordinator(
-  user_id,
-  password,
-  email,
-  fullname,
-  department
+    user_id,
+    password,
+    email,
+    fullname,
+    department
 ) {
   const user = await User.findOne({ user_id: user_id });
   if (user) {
@@ -265,8 +265,8 @@ apirouter.post("/admin-register", async (req, res) => {
     const user = await User.findOne({ user_id: username });
     if (admin || user) {
       return res
-        .status(400)
-        .json({ message: "Admin or User already exists!", status: 400 });
+          .status(400)
+          .json({ message: "Admin or User already exists!", status: 400 });
     }
 
     const newUser = new User({
@@ -282,8 +282,8 @@ apirouter.post("/admin-register", async (req, res) => {
     await newAdmin.save();
 
     return res
-      .status(201)
-      .json({ message: "Admin successfully registered", status: 201 });
+        .status(201)
+        .json({ message: "Admin successfully registered", status: 201 });
   } catch (error) {
     return res.status(400).json({ message: error.message, status: 400 });
   }
@@ -459,8 +459,8 @@ apirouter.post("/delete", async (req, res) => {
       await User.findOneAndDelete({ user_id: req.body.user_id });
       if (result) {
         res
-          .status(200)
-          .json({ message: "Coordinator deleted", result: result });
+            .status(200)
+            .json({ message: "Coordinator deleted", result: result });
       } else {
         res.status(404).json({ message: "User not found" });
       }
@@ -493,8 +493,8 @@ apirouter.post("/enroll-course/student", async (req, res) => {
       // The courseId exists in the student's courses array
       // Add your code here to handle the case
       res
-        .status(404)
-        .json({ message: "Already Enrolled In Course", status: 400 });
+          .status(404)
+          .json({ message: "Already Enrolled In Course", status: 400 });
     } else {
       // The courseId does not exist in the student's courses array
       // Add your code here to handle the case
@@ -547,7 +547,7 @@ apirouter.post("/submit-feedback", upload.single("file"), async (req, res) => {
     const student = await Student.findOne({ user_id: student_id });
     if (!student) {
       await fs.promises.unlink(
-        path.join(__dirname, "../../uploads", req.file.filename)
+          path.join(__dirname, "../../uploads", req.file.filename)
       );
       res.status(404).json({ message: "Student Does Not Exist", status: 404 });
     } else {
@@ -562,7 +562,7 @@ apirouter.post("/submit-feedback", upload.single("file"), async (req, res) => {
 
       // Generate a unique filename
       const uniqueFilename =
-        Date.now() + "-" + "feedback" + "-" + uploadedFile.originalname;
+          Date.now() + "-" + "feedback" + "-" + uploadedFile.originalname;
 
       // Move the uploaded file to a permanent location
       const destination = path.join(__dirname, "../../uploads", uniqueFilename);
@@ -630,63 +630,63 @@ apirouter.post("/submit-grade", upload.single("file"), async (req, res) => {
 
 // Submit Revision Report // MAX 3 iterations
 apirouter.post(
-  "/submit-revision-report",
-  upload.single("file"),
-  async (req, res) => {
-    const student_id = req.body.student_id;
-    try {
-      const report = await Report.findOne({ relatedStudentID: student_id });
-      if (!report) {
-        await fs.promises.unlink(
-          path.join(__dirname, "../../uploads", req.file.filename)
-        );
-        res.status(404).json({ message: "Report Does Not Exist", status: 404 });
-      } else if (report.iteration >= 3) {
-        await fs.promises.unlink(
-          path.join(__dirname, "../../uploads", req.file.filename)
-        );
-        res.status(500).json({
-          message: "Max Iteration Count Reached, please contact evaluator/TA",
-          status: 500,
-        });
-      } else {
-        if (!req.file) {
-          // No file was uploaded
-          res.status(400).json({ message: "No file uploaded" });
-          return;
+    "/submit-revision-report",
+    upload.single("file"),
+    async (req, res) => {
+      const student_id = req.body.student_id;
+      try {
+        const report = await Report.findOne({ relatedStudentID: student_id });
+        if (!report) {
+          await fs.promises.unlink(
+              path.join(__dirname, "../../uploads", req.file.filename)
+          );
+          res.status(404).json({ message: "Report Does Not Exist", status: 404 });
+        } else if (report.iteration >= 3) {
+          await fs.promises.unlink(
+              path.join(__dirname, "../../uploads", req.file.filename)
+          );
+          res.status(500).json({
+            message: "Max Iteration Count Reached, please contact evaluator/TA",
+            status: 500,
+          });
+        } else {
+          if (!req.file) {
+            // No file was uploaded
+            res.status(400).json({ message: "No file uploaded" });
+            return;
+          }
+
+          // Access the uploaded file using req.file
+          const uploadedFile = req.file;
+
+          // Generate a unique filename
+          const uniqueFilename =
+              Date.now() + "-" + "revision" + "-" + uploadedFile.originalname;
+
+          // Move the uploaded file to a permanent location
+          const destination = path.join(
+              __dirname,
+              "../../uploads",
+              uniqueFilename
+          );
+          fs.renameSync(uploadedFile.path, destination);
+
+          report.feedbackRequired = true;
+          report.revisionRequired = false;
+          report.feedbackStatus = false;
+          report.revisionReportID = uniqueFilename;
+          report.iteration = report.iteration + 1;
+          await report.save();
+
+          res.status(200).json({
+            message: "Sucessfully submitted Revison Report",
+            status: 200,
+          });
         }
-
-        // Access the uploaded file using req.file
-        const uploadedFile = req.file;
-
-        // Generate a unique filename
-        const uniqueFilename =
-          Date.now() + "-" + "revision" + "-" + uploadedFile.originalname;
-
-        // Move the uploaded file to a permanent location
-        const destination = path.join(
-          __dirname,
-          "../../uploads",
-          uniqueFilename
-        );
-        fs.renameSync(uploadedFile.path, destination);
-
-        report.feedbackRequired = true;
-        report.revisionRequired = false;
-        report.feedbackStatus = false;
-        report.revisionReportID = uniqueFilename;
-        report.iteration = report.iteration + 1;
-        await report.save();
-
-        res.status(200).json({
-          message: "Sucessfully submitted Revison Report",
-          status: 200,
-        });
+      } catch (error) {
+        res.status(400).json({ message: error });
       }
-    } catch (error) {
-      res.status(400).json({ message: error });
     }
-  }
 );
 
 // Submit new report
@@ -696,7 +696,7 @@ apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
     const report = await Report.findOne({ relatedStudentID: student_id });
     if (report) {
       await fs.promises.unlink(
-        path.join(__dirname, "../../uploads", req.file.filename)
+          path.join(__dirname, "../../uploads", req.file.filename)
       );
       res.status(404).json({ message: "Report Already Exists", status: 400 }); // This should be changed to replace report in the future.
     } else {
@@ -735,8 +735,8 @@ apirouter.post("/submit-report", upload.single("file"), async (req, res) => {
       await newReport.save();
 
       await Student.updateOne(
-        { user_id: student_id },
-        { $set: { mainReportID: uniqueFilename } }
+          { user_id: student_id },
+          { $set: { mainReportID: uniqueFilename } }
       );
 
       res.status(200).json({
@@ -855,7 +855,7 @@ apirouter.get("/grades/:studentId", async (req, res) => {
         companyEvaluationFormAverage: grade.companyEvaluationFormAverage,
         relatedToDepartment: grade.relatedToDepartment,
         supervisorHasEngineeringBackground:
-          grade.supervisorHasEngineeringBackground,
+        grade.supervisorHasEngineeringBackground,
 
         finalRevisionDate: grade.finalRevisionDate,
 
@@ -927,12 +927,12 @@ apirouter.post("/delete-report", async (req, res) => {
       return res.status(200).json({ message: `Report Deleted: ${filename}` });
     } catch (error) {
       console.error(
-        "Error deleting the Report or Report does not exist:",
-        error
+          "Error deleting the Report or Report does not exist:",
+          error
       );
       return res
-        .status(500)
-        .json({ error: "Error deleting the Report or Report does not exist" });
+          .status(500)
+          .json({ error: "Error deleting the Report or Report does not exist" });
     }
   } catch (error) {
     console.error("Error retrieving the Report name: ", error);
@@ -1129,8 +1129,8 @@ apirouter.post("/assign-student", async (req, res) => {
         await evaluator.save();
         await student.save();
         return res
-          .status(200)
-          .json({ message: "Student Assigned to Evaluator", status: 200 });
+            .status(200)
+            .json({ message: "Student Assigned to Evaluator", status: 200 });
       }
     } else if (userType === "TA") {
       const ta = await TA.findOne({
@@ -1147,14 +1147,14 @@ apirouter.post("/assign-student", async (req, res) => {
         await ta.save();
         await student.save();
         return res
-          .status(200)
-          .json({ message: "Student Assigned to TA", status: 200 });
+            .status(200)
+            .json({ message: "Student Assigned to TA", status: 200 });
       }
     }
   } catch (error) {
     return res
-      .status(500)
-      .json({ error: "Error Assigning Student", status: 500 });
+        .status(500)
+        .json({ error: "Error Assigning Student", status: 500 });
   }
 });
 
@@ -1189,18 +1189,18 @@ apirouter.post("/remove-assigned-student", async (req, res) => {
         });
       } else {
         const evalIndex = student.assignedEvaluators.findIndex(
-          (id) => id === user_id
+            (id) => id === user_id
         );
         student.assignedEvaluators.splice(evalIndex, 1);
         const studentIndex = evaluator.students.findIndex(
-          (id) => id === student_id
+            (id) => id === student_id
         );
         evaluator.students.splice(studentIndex, 1);
         await evaluator.save();
         await student.save();
         return res
-          .status(200)
-          .json({ message: "Student De-Assigned from Evaluator", status: 200 });
+            .status(200)
+            .json({ message: "Student De-Assigned from Evaluator", status: 200 });
       }
     } else if (userType === "TA") {
       const ta = await TA.findOne({
@@ -1219,14 +1219,14 @@ apirouter.post("/remove-assigned-student", async (req, res) => {
         await ta.save();
         await student.save();
         return res
-          .status(200)
-          .json({ message: "Student De-Assigned from TA", status: 200 });
+            .status(200)
+            .json({ message: "Student De-Assigned from TA", status: 200 });
       }
     }
   } catch (error) {
     return res
-      .status(500)
-      .json({ error: "Error De-Assigning Student", status: 500 });
+        .status(500)
+        .json({ error: "Error De-Assigning Student", status: 500 });
   }
 });
 
@@ -1244,12 +1244,12 @@ apirouter.post("/random-assignment", async (req, res) => {
       if (assignedEvaluators.length === 0) {
         // Assign an evaluator to the student
         const evaluatorWithLeastStudents = evaluators.reduce(
-          (minEvaluator, currentEvaluator) => {
-            return currentEvaluator.students.length <
+            (minEvaluator, currentEvaluator) => {
+              return currentEvaluator.students.length <
               minEvaluator.students.length
-              ? currentEvaluator
-              : minEvaluator;
-          }
+                  ? currentEvaluator
+                  : minEvaluator;
+            }
         );
 
         if (!evaluatorWithLeastStudents.students.includes(student)) {
@@ -1262,8 +1262,8 @@ apirouter.post("/random-assignment", async (req, res) => {
         // Assign a TA to the student
         const TAWithLeastStudents = TAs.reduce((minTA, currentTA) => {
           return currentTA.students.length < minTA.students.length
-            ? currentTA
-            : minTA;
+              ? currentTA
+              : minTA;
         });
 
         if (!TAWithLeastStudents.students.includes(student)) {
@@ -1281,12 +1281,12 @@ apirouter.post("/random-assignment", async (req, res) => {
     ]);
 
     res
-      .status(200)
-      .json({ message: "Random assignment completed successfully." });
+        .status(200)
+        .json({ message: "Random assignment completed successfully." });
   } catch (error) {
     res
-      .status(500)
-      .json({ error: "An error occurred while performing random assignment." });
+        .status(500)
+        .json({ error: "An error occurred while performing random assignment." });
   }
 });
 
@@ -1322,8 +1322,8 @@ apirouter.post("/send-registration-email", async (req, res) => {
     console.log(result);
     if (!result) {
       return res
-        .status(500)
-        .json({ error: "Error Sending Registration Email" });
+          .status(500)
+          .json({ error: "Error Sending Registration Email" });
     }
     return res.status(200).json({ message: "Email Sent" });
   } catch (error) {
@@ -1354,48 +1354,122 @@ apirouter.post("/student/get-company-details", async (req, res) => {
     const company = await Company.findOne({ _id: student.companyId });
 
     return res
-      .status(200)
-      .json({ company: company, student: student, status: 200 });
+        .status(200)
+        .json({ company: company, student: student, status: 200 });
   } catch (error) {
     return res
-      .status(500)
-      .json({ error: "Error Getting Internship Company Details" });
+        .status(500)
+        .json({ error: "Error Getting Internship Company Details" });
   }
 });
 
 // Register NEW Intership Company
 apirouter.post(
-  "/student/register-internship-company",
-  upload.single("file"),
-  async (req, res) => {
-    try {
-      const student_id = req.body.student_id;
-      const name = req.body.companyName ? req.body.companyName : "";
-      const email = req.body.companyEmail;
-      const phone = req.body.companyPhone;
-      const city = req.body.companyCity ? req.body.companyCity : "";
-      const sector = req.body.companySector ? req.body.companySector : "";
+    "/student/register-internship-company",
+    upload.single("file"),
+    async (req, res) => {
+      try {
+        const student_id = req.body.student_id;
+        const name = req.body.companyName ? req.body.companyName : "";
+        const email = req.body.companyEmail;
+        const phone = req.body.companyPhone;
+        const city = req.body.companyCity ? req.body.companyCity : "";
+        const sector = req.body.companySector ? req.body.companySector : "";
 
-      const student = await Student.findOne({ user_id: student_id });
-      const company = await Company.findOne({
-        $or: [{ _id: student.companyId }, { name: name }], // CHECK FOR ALREADY EXISTING COMPANY
-      });
-
-      if (
-        company &&
-        (company.approvalStatus === "Approved" ||
-          company.approvalStatus === "Pending")
-      ) {
-        await fs.promises.unlink(
-          path.join(__dirname, "../../uploads", req.file.filename)
-        );
-        res.status(404).json({
-          message:
-            "Internship Company Already Exists and/or is Approved/Awating Approval, Please check the company list and choose the company from there",
-          status: 400,
+        const student = await Student.findOne({ user_id: student_id });
+        const company = await Company.findOne({
+          $or: [{ _id: student.companyId }, { name: name }], // CHECK FOR ALREADY EXISTING COMPANY
         });
-        return;
-      } else {
+
+        if (
+            company &&
+            (company.approvalStatus === "Approved" ||
+                company.approvalStatus === "Pending")
+        ) {
+          await fs.promises.unlink(
+              path.join(__dirname, "../../uploads", req.file.filename)
+          );
+          res.status(404).json({
+            message:
+                "Internship Company Already Exists and/or is Approved/Awating Approval, Please check the company list and choose the company from there",
+            status: 400,
+          });
+          return;
+        } else {
+          if (!req.file) {
+            // No file was uploaded
+            res.status(400).json({ message: "No file uploaded" });
+            return;
+          }
+          // Access the uploaded file using req.file
+          const uploadedFile = req.file;
+
+          // Generate a unique filename
+          const uniqueFilename =
+              Date.now() +
+              "-" +
+              "acceptance-letter" +
+              "-" +
+              uploadedFile.originalname;
+
+          // Move the uploaded file to a permanent location
+          const destination = path.join(
+              __dirname,
+              "../../uploads",
+              uniqueFilename
+          );
+          fs.renameSync(uploadedFile.path, destination);
+
+          const company = new Company({
+            name: name,
+            email: email,
+            phone: phone,
+            city: city,
+            sector: sector,
+          });
+          await company.save();
+
+          student.acceptanceLetterFile = uniqueFilename;
+          student.companyId = company._id;
+          student.companyEmail = company.email;
+          await student.save();
+
+          const report = await Report.findOne({
+            relatedStudentID: student.user_id,
+          });
+          if (report) {
+            report.acceptanceLetterFile = uniqueFilename;
+            report.companyEmail = company.email;
+            await report.save();
+          }
+
+          res.status(200).json({
+            message:
+                "Sucessfully Registered Internship Company, Awaiting Approval",
+            user: student,
+            status: 200,
+          });
+        }
+      } catch (error) {
+        if (req.file) {
+          await fs.promises.unlink(
+              path.join(__dirname, "../../uploads", req.file.filename)
+          );
+        }
+
+        res.status(400).json({ message: error });
+      }
+    }
+);
+
+// Upload Acceptance Letter
+apirouter.post(
+    "/student/upload-acceptance-letter",
+    upload.single("file"),
+    async (req, res) => {
+      try {
+        const student_id = req.body.student_id;
+
         if (!req.file) {
           // No file was uploaded
           res.status(400).json({ message: "No file uploaded" });
@@ -1406,32 +1480,19 @@ apirouter.post(
 
         // Generate a unique filename
         const uniqueFilename =
-          Date.now() +
-          "-" +
-          "acceptance-letter" +
-          "-" +
-          uploadedFile.originalname;
+            Date.now() +
+            "-" +
+            "acceptance-letter" +
+            "-" +
+            uploadedFile.originalname;
 
         // Move the uploaded file to a permanent location
-        const destination = path.join(
-          __dirname,
-          "../../uploads",
-          uniqueFilename
-        );
+        const destination = path.join(__dirname, "../../uploads", uniqueFilename);
         fs.renameSync(uploadedFile.path, destination);
 
-        const company = new Company({
-          name: name,
-          email: email,
-          phone: phone,
-          city: city,
-          sector: sector,
-        });
-        await company.save();
+        const student = await Student.findOne({ user_id: student_id });
 
         student.acceptanceLetterFile = uniqueFilename;
-        student.companyId = company._id;
-        student.companyEmail = company.email;
         await student.save();
 
         const report = await Report.findOne({
@@ -1439,79 +1500,18 @@ apirouter.post(
         });
         if (report) {
           report.acceptanceLetterFile = uniqueFilename;
-          report.companyEmail = company.email;
           await report.save();
         }
 
-        res.status(200).json({
-          message:
-            "Sucessfully Registered Internship Company, Awaiting Approval",
-          user: student,
-          status: 200,
-        });
+        res
+            .status(200)
+            .json({ message: "Acceptance Letter Uploaded", user: student });
+      } catch (error) {
+        return res
+            .status(500)
+            .json({ error: "Error Uploading Acceptance Letter" });
       }
-    } catch (error) {
-      if (req.file) {
-        await fs.promises.unlink(
-          path.join(__dirname, "../../uploads", req.file.filename)
-        );
-      }
-
-      res.status(400).json({ message: error });
     }
-  }
-);
-
-// Upload Acceptance Letter
-apirouter.post(
-  "/student/upload-acceptance-letter",
-  upload.single("file"),
-  async (req, res) => {
-    try {
-      const student_id = req.body.student_id;
-
-      if (!req.file) {
-        // No file was uploaded
-        res.status(400).json({ message: "No file uploaded" });
-        return;
-      }
-      // Access the uploaded file using req.file
-      const uploadedFile = req.file;
-
-      // Generate a unique filename
-      const uniqueFilename =
-        Date.now() +
-        "-" +
-        "acceptance-letter" +
-        "-" +
-        uploadedFile.originalname;
-
-      // Move the uploaded file to a permanent location
-      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
-      fs.renameSync(uploadedFile.path, destination);
-
-      const student = await Student.findOne({ user_id: student_id });
-
-      student.acceptanceLetterFile = uniqueFilename;
-      await student.save();
-
-      const report = await Report.findOne({
-        relatedStudentID: student.user_id,
-      });
-      if (report) {
-        report.acceptanceLetterFile = uniqueFilename;
-        await report.save();
-      }
-
-      res
-        .status(200)
-        .json({ message: "Acceptance Letter Uploaded", user: student });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ error: "Error Uploading Acceptance Letter" });
-    }
-  }
 );
 
 //Add Existing Internship Company
@@ -1535,8 +1535,8 @@ apirouter.post("/student/add-internship-company", async (req, res) => {
     }
 
     res
-      .status(200)
-      .json({ message: "Internship Company Added", user: student });
+        .status(200)
+        .json({ message: "Internship Company Added", user: student });
   } catch (error) {
     return res.status(500).json({ error: "Error Adding Internship Company" });
   }
@@ -1552,7 +1552,7 @@ apirouter.post("/student/remove-internship-company", async (req, res) => {
     });
     if (student.acceptanceLetterFile) {
       await fs.promises.unlink(
-        path.join(__dirname, "../../uploads", student.acceptanceLetterFile)
+          path.join(__dirname, "../../uploads", student.acceptanceLetterFile)
       );
     }
 
@@ -1570,8 +1570,8 @@ apirouter.post("/student/remove-internship-company", async (req, res) => {
     }
 
     return res
-      .status(200)
-      .json({ message: "Internship Company Removed", user: student });
+        .status(200)
+        .json({ message: "Internship Company Removed", user: student });
   } catch (error) {
     return res.status(500).json({ error: "Error Removing Internship Company" });
   }
@@ -1595,8 +1595,8 @@ apirouter.post("/approve-company", async (req, res) => {
     res.status(200).json({ message: "Internship Company Approved" });
   } catch (error) {
     return res
-      .status(500)
-      .json({ error: "Error Approving Internship Company" });
+        .status(500)
+        .json({ error: "Error Approving Internship Company" });
   }
 });
 
@@ -1622,8 +1622,8 @@ apirouter.post("/reject-company", async (req, res) => {
     res.status(200).json({ message: "Internship Company Rejected" });
   } catch (error) {
     return res
-      .status(500)
-      .json({ error: "Error Rejecting Internship Company" });
+        .status(500)
+        .json({ error: "Error Rejecting Internship Company" });
   }
 });
 
@@ -1649,76 +1649,76 @@ apirouter.post("/send-work-report-form-email", async (req, res) => {
     }
   } catch (error) {
     return res
-      .status(500)
-      .json({ error: "Error Sending Work Report Form Email" });
+        .status(500)
+        .json({ error: "Error Sending Work Report Form Email" });
   }
 });
 
 //Upload Company Work Report Form
 apirouter.post(
-  "/upload-company-work-report",
-  upload.single("file"),
-  async (req, res) => {
-    try {
-      const student_id = req.body.student_id;
+    "/upload-company-work-report",
+    upload.single("file"),
+    async (req, res) => {
+      try {
+        const student_id = req.body.student_id;
 
-      if (!req.file) {
-        // No file was uploaded
-        res.status(400).json({ message: "No file uploaded" });
-        return;
+        if (!req.file) {
+          // No file was uploaded
+          res.status(400).json({ message: "No file uploaded" });
+          return;
+        }
+        // Access the uploaded file using req.file
+        const uploadedFile = req.file;
+
+        // Generate a unique filename
+        const uniqueFilename =
+            Date.now() +
+            "-" +
+            "work-report-" +
+            student_id +
+            "-" +
+            uploadedFile.originalname;
+
+        // Move the uploaded file to a permanent location
+        const destination = path.join(__dirname, "../../uploads", uniqueFilename);
+        fs.renameSync(uploadedFile.path, destination);
+
+        const student = await Student.findOne({ user_id: student_id });
+
+        student.companyWorkFormFile = uniqueFilename;
+        await student.save();
+
+        const report = await Report.findOne({
+          relatedStudentID: student.user_id,
+        });
+        if (report) {
+          report.companyWorkFormFile = uniqueFilename;
+          await report.save();
+        }
+
+        res.status(200).json({ message: "Work Report Uploaded", user: student });
+      } catch (error) {
+        return res
+            .status(500)
+            .json({ error: "Error Uploading Acceptance Letter" });
       }
-      // Access the uploaded file using req.file
-      const uploadedFile = req.file;
-
-      // Generate a unique filename
-      const uniqueFilename =
-        Date.now() +
-        "-" +
-        "work-report-" +
-        student_id +
-        "-" +
-        uploadedFile.originalname;
-
-      // Move the uploaded file to a permanent location
-      const destination = path.join(__dirname, "../../uploads", uniqueFilename);
-      fs.renameSync(uploadedFile.path, destination);
-
-      const student = await Student.findOne({ user_id: student_id });
-
-      student.companyWorkFormFile = uniqueFilename;
-      await student.save();
-
-      const report = await Report.findOne({
-        relatedStudentID: student.user_id,
-      });
-      if (report) {
-        report.companyWorkFormFile = uniqueFilename;
-        await report.save();
-      }
-
-      res.status(200).json({ message: "Work Report Uploaded", user: student });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ error: "Error Uploading Acceptance Letter" });
     }
-  }
 );
 
 // Receive all announcements
 apirouter.get("/get-announcements", async (req, res) => {
   // Fetch announcements from the database
   Announcement.find({})
-    .then((announcements) => {
-      // Send the announcements as a JSON response
-      res.json(announcements);
-    })
-    .catch((error) => {
-      console.error("Error fetching announcements:", error);
-      res
-        .status(500)
-        .json({ error: "An error occurred while fetching announcements" });
-    });
+      .then((announcements) => {
+        // Send the announcements as a JSON response
+        res.json(announcements);
+      })
+      .catch((error) => {
+        console.error("Error fetching announcements:", error);
+        res
+            .status(500)
+            .json({ error: "An error occurred while fetching announcements" });
+      });
 });
 
 // Delete an announcement
@@ -1729,8 +1729,8 @@ apirouter.post("/delete-announcement", async (req, res) => {
 
   try {
     const deletedAnnouncement = await Announcement.findOneAndDelete(
-      { title: title },
-      { content: content }
+        { title: title },
+        { content: content }
     );
     if (deletedAnnouncement) {
       res.json({ message: "Announcement deleted successfully" });
@@ -1740,8 +1740,8 @@ apirouter.post("/delete-announcement", async (req, res) => {
   } catch (err) {
     console.error("Error deleting announcement:", err);
     res
-      .status(500)
-      .json({ error: "An error occurred while deleting the announcement" });
+        .status(500)
+        .json({ error: "An error occurred while deleting the announcement" });
   }
 });
 
@@ -1759,16 +1759,16 @@ apirouter.post("/add-announcement", async (req, res) => {
 
   // Save the new announcement to the database
   newAnnouncement
-    .save()
-    .then((savedAnnouncement) => {
-      res.status(200).json(savedAnnouncement);
-    })
-    .catch((error) => {
-      console.error("Error adding announcement:", error);
-      res
-        .status(500)
-        .json({ error: "An error occurred while adding the announcement" });
-    });
+      .save()
+      .then((savedAnnouncement) => {
+        res.status(200).json(savedAnnouncement);
+      })
+      .catch((error) => {
+        console.error("Error adding announcement:", error);
+        res
+            .status(500)
+            .json({ error: "An error occurred while adding the announcement" });
+      });
 });
 
 apirouter.post("/get-notifications", async (req, res) => {
@@ -1793,8 +1793,8 @@ apirouter.post("/delete-notification", async (req, res) => {
 
   try {
     const deletedNotification = await Notification.findOneAndDelete(
-      { relatedUserID: relatedUserID },
-      { content: message }
+        { relatedUserID: relatedUserID },
+        { content: message }
     );
     if (deletedNotification) {
       res.json({ message: "Notification deleted successfully" });
@@ -1804,8 +1804,8 @@ apirouter.post("/delete-notification", async (req, res) => {
   } catch (err) {
     console.error("Error deleting Notification:", err);
     res
-      .status(500)
-      .json({ error: "An error occurred while deleting the Notification" });
+        .status(500)
+        .json({ error: "An error occurred while deleting the Notification" });
   }
 });
 
@@ -1838,15 +1838,15 @@ apirouter.post("/add-notification", async (req, res) => {
 
     // Wait for all promises to resolve
     Promise.all(savePromises)
-      .then((savedNotifications) => {
-        res.status(200).json(savedNotifications);
-      })
-      .catch((error) => {
-        console.error("Error adding notifications:", error);
-        res
-          .status(500)
-          .json({ error: "An error occurred while adding the notifications" });
-      });
+        .then((savedNotifications) => {
+          res.status(200).json(savedNotifications);
+        })
+        .catch((error) => {
+          console.error("Error adding notifications:", error);
+          res
+              .status(500)
+              .json({ error: "An error occurred while adding the notifications" });
+        });
   } else {
     // Create a new Notification object
     const newNotification = new Notification({
@@ -1857,16 +1857,16 @@ apirouter.post("/add-notification", async (req, res) => {
 
     // Save the new Notification to the database
     newNotification
-      .save()
-      .then((savedNotification) => {
-        res.status(200).json(savedNotification);
-      })
-      .catch((error) => {
-        console.error("Error adding notification:", error);
-        res
-          .status(500)
-          .json({ error: "An error occurred while adding the notification" });
-      });
+        .save()
+        .then((savedNotification) => {
+          res.status(200).json(savedNotification);
+        })
+        .catch((error) => {
+          console.error("Error adding notification:", error);
+          res
+              .status(500)
+              .json({ error: "An error occurred while adding the notification" });
+        });
   }
 });
 
