@@ -79,9 +79,6 @@ class AdminSidebar extends HTMLElement {
 
     shadowRoot.appendChild(adminnavbarTemplate.content);
 
-    const logoutButton = shadowRoot.querySelector("#logout-button");
-    logoutButton.addEventListener("click", this.handleLogout.bind(this));
-
     const userType = sessionStorage.getItem("userType");
     if (userType === "Admin") {
       // Show the student-sidebar-component
@@ -90,12 +87,6 @@ class AdminSidebar extends HTMLElement {
       // Hide the student-sidebar-component
       this.style.display = "none";
     }
-  }
-  handleLogout() {
-    // Handle logout functionality
-    // For example, clear session data and redirect to the login page
-    sessionStorage.clear();
-    window.location.href = "/";
   }
 }
 customElements.define("admin-sidebar-component", AdminSidebar);

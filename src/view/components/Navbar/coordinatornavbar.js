@@ -62,9 +62,6 @@ class coordinatorSidebar extends HTMLElement {
 
     shadowRoot.appendChild(coordinatornavbarTemplate.content);
 
-    const logoutButton = shadowRoot.querySelector("#logout-button");
-    logoutButton.addEventListener("click", this.handleLogout.bind(this));
-
     const userType = sessionStorage.getItem("userType");
     if (userType === "Coordinator") {
       // Show the student-sidebar-component
@@ -73,12 +70,6 @@ class coordinatorSidebar extends HTMLElement {
       // Hide the student-sidebar-component
       this.style.display = "none";
     }
-  }
-  handleLogout() {
-    // Handle logout functionality
-    // For example, clear session data and redirect to the login page
-    sessionStorage.clear();
-    window.location.href = "/";
   }
 }
 customElements.define("coordinator-sidebar-component", coordinatorSidebar);

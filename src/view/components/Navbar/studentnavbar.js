@@ -60,9 +60,6 @@ class StudentSidebar extends HTMLElement {
 
     shadowRoot.appendChild(studentnavbarTemplate.content);
 
-    const logoutButton = shadowRoot.querySelector("#logout-button");
-    logoutButton.addEventListener("click", this.handleLogout.bind(this));
-
     const userType = sessionStorage.getItem("userType");
     if (userType === "Student") {
       // Show the student-sidebar-component
@@ -71,12 +68,6 @@ class StudentSidebar extends HTMLElement {
       // Hide the student-sidebar-component
       this.style.display = "none";
     }
-  }
-  handleLogout() {
-    // Handle logout functionality
-    // For example, clear session data and redirect to the login page
-    sessionStorage.clear();
-    window.location.href = "/";
   }
 }
 customElements.define("student-sidebar-component", StudentSidebar);

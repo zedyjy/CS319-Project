@@ -1710,13 +1710,15 @@ apirouter.post(
 apirouter.get("/get-announcements", async (req, res) => {
   // Fetch announcements from the database
   Announcement.find({})
-    .then(announcements => {
+    .then((announcements) => {
       // Send the announcements as a JSON response
       res.json(announcements);
     })
-    .catch(error => {
-      console.error('Error fetching announcements:', error);
-      res.status(500).json({ error: 'An error occurred while fetching announcements' });
+    .catch((error) => {
+      console.error("Error fetching announcements:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while fetching announcements" });
     });
 });
 
@@ -1727,15 +1729,20 @@ apirouter.post("/delete-announcement", async (req, res) => {
   console.log(title);
 
   try {
-    const deletedAnnouncement = await Announcement.findOneAndDelete({ title: title }, { content: content });
+    const deletedAnnouncement = await Announcement.findOneAndDelete(
+      { title: title },
+      { content: content }
+    );
     if (deletedAnnouncement) {
-      res.json({ message: 'Announcement deleted successfully' });
+      res.json({ message: "Announcement deleted successfully" });
     } else {
-      res.status(404).json({ error: 'Announcement not found' });
+      res.status(404).json({ error: "Announcement not found" });
     }
   } catch (err) {
-    console.error('Error deleting announcement:', err);
-    res.status(500).json({ error: 'An error occurred while deleting the announcement' });
+    console.error("Error deleting announcement:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the announcement" });
   }
 });
 
@@ -1745,22 +1752,23 @@ apirouter.post("/add-announcement", async (req, res) => {
   title = req.body.title_d;
   content = req.body.content_d;
 
-
   // Create a new announcement object
   const newAnnouncement = new Announcement({
     title: title,
-    content: content
+    content: content,
   });
 
   // Save the new announcement to the database
   newAnnouncement
     .save()
-    .then(savedAnnouncement => {
+    .then((savedAnnouncement) => {
       res.status(200).json(savedAnnouncement);
     })
-    .catch(error => {
-      console.error('Error adding announcement:', error);
-      res.status(500).json({ error: 'An error occurred while adding the announcement' });
+    .catch((error) => {
+      console.error("Error adding announcement:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while adding the announcement" });
     });
 });
 
@@ -1769,11 +1777,13 @@ apirouter.post("/get-notifications", async (req, res) => {
   console.log("message");
   console.log(relatedUserID);
   try {
-    const notifications = await Notification.find({ relatedUserID: relatedUserID });
+    const notifications = await Notification.find({
+      relatedUserID: relatedUserID,
+    });
     res.json(notifications);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to fetch notifications' });
+    res.status(500).json({ error: "Failed to fetch notifications" });
   }
 });
 
@@ -1783,15 +1793,20 @@ apirouter.post("/delete-notification", async (req, res) => {
   const message = req.body.message;
 
   try {
-    const deletedNotification = await Notification.findOneAndDelete({ relatedUserID: relatedUserID }, { content: message });
+    const deletedNotification = await Notification.findOneAndDelete(
+      { relatedUserID: relatedUserID },
+      { content: message }
+    );
     if (deletedNotification) {
-      res.json({ message: 'Notification deleted successfully' });
+      res.json({ message: "Notification deleted successfully" });
     } else {
-      res.status(404).json({ error: 'Notification not found' });
+      res.status(404).json({ error: "Notification not found" });
     }
   } catch (err) {
-    console.error('Error deleting Notification:', err);
-    res.status(500).json({ error: 'An error occurred while deleting the Notification' });
+    console.error("Error deleting Notification:", err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the Notification" });
   }
 });
 
@@ -1824,12 +1839,14 @@ apirouter.post("/add-notification", async (req, res) => {
 
     // Wait for all promises to resolve
     Promise.all(savePromises)
-      .then(savedNotifications => {
+      .then((savedNotifications) => {
         res.status(200).json(savedNotifications);
       })
-      .catch(error => {
-        console.error('Error adding notifications:', error);
-        res.status(500).json({ error: 'An error occurred while adding the notifications' });
+      .catch((error) => {
+        console.error("Error adding notifications:", error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while adding the notifications" });
       });
   } else {
     // Create a new Notification object
@@ -1842,17 +1859,17 @@ apirouter.post("/add-notification", async (req, res) => {
     // Save the new Notification to the database
     newNotification
       .save()
-      .then(savedNotification => {
+      .then((savedNotification) => {
         res.status(200).json(savedNotification);
       })
-      .catch(error => {
-        console.error('Error adding notification:', error);
-        res.status(500).json({ error: 'An error occurred while adding the notification' });
+      .catch((error) => {
+        console.error("Error adding notification:", error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while adding the notification" });
       });
   }
 });
-
-
 
 //End file and export modules
 module.exports = apirouter;
