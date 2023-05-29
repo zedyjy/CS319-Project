@@ -86,8 +86,8 @@ jQuery(document).ready(function () {
           <p>Student: ${studentID} </p>
           <textarea id="feedback-text-${report._id
           }" name="feedback" rows="10" cols="50" placeholder="Feedback Notes"></textarea>
-          <textarea id="grade-text-${report._id
-          }" name="grade" rows="1" cols="50" placeholder="Grade"></textarea>
+          <input type="number" id="grade-text-${report._id
+          }" name="grade" rows="1" cols="50" placeholder="Feedback Grade (0 - 100)"></textarea>
           <input type="file" id="feedback-file-${report._id}" accept=".pdf" />
           <button class="btn btn-primary" onclick="submitFeedback('${report._id
           }', '${studentID}')">Submit Feedback</button>
