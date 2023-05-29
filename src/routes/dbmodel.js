@@ -6,9 +6,19 @@ const notificationSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
+    default: "2024-05-29T01:00:17.475Z",
   },
 });
-
+//announcementScheme
+const announcementSchema = new mongoose.Schema({
+  message: {
+    type: String,
+  },
+  date: {
+    type: Date,
+    default: "2024-05-29T01:00:17.475Z",
+  },
+});
 // User Schema
 const userSchema = new mongoose.Schema({
   user_id: {

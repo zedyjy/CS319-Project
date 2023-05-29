@@ -21,7 +21,7 @@
       href="/css/GlobalSettings/global.css"
     />
 
-
+    <script src="/js/Announcements/Announcements.js"></script>
     <!-- CSS-->
     <link
       rel="stylesheet"
@@ -46,17 +46,17 @@
       defer
     ></script>
     <script
-    src="/components/Navbar/TaSidebar.js"
-    type="text/javascript"
-    defer
-  ></script>
+      src="/components/Navbar/TaSidebar.js"
+      type="text/javascript"
+      defer
+    ></script>
     <script
       src="/components/Footer/footer.js"
       type="text/javascript"
       defer
     ></script>
   </head>
-<body style="display: none;">
+  <body style="display: none">
     <!-- NAVIGATION MENUS -->
     <!-- NAVIGATION MENUS -->
     <defaultnavbar-component></defaultnavbar-component>
@@ -65,28 +65,50 @@
     <ta-sidebar-component></ta-sidebar-component>
 
     <div id="viewport">
-        <!-- Sidebar -->
-       
-    <!-- Content -->
-    <div class="container">
+      <!-- Sidebar -->
 
-        
-        <div class = "descriptonInfo">
-        <h1>Phone Number of Summer Training Division at Dean's Office <br> </h1>
-        <p>Phone number of Summer Training Division at Dean's Office is x1261.</p>   
-        <h1>Summer Training Information <br> </h1>
-        <p>All the information together with the needed forms and statements are accessible at mf.bilkent.edu.tr under the heading "Summer Training".</p>  
-        <h1>Concerning Quota Column in The List of Companies
-          <br> </h1>
-        <p>If there is - in the quota column, this either means this company has not replied to us or the reply was negative. If there is 0/0 in the quota column, this means the company will accept individual applications from students themselves. (There is nothing the Dean's Office can do for trainee placement in this company. The company will evaluate the applications directly.)</p> 
+      <!-- Content -->
+      <div class="container">
+        <div class="descriptonInfo">
+          <h1>
+            Phone Number of Summer Training Division at Dean's Office <br />
+          </h1>
+          <p>
+            Phone number of Summer Training Division at Dean's Office is x1261.
+          </p>
+          <h1>Summer Training Information <br /></h1>
+          <p>
+            All the information together with the needed forms and statements
+            are accessible at mf.bilkent.edu.tr under the heading "Summer
+            Training".
+          </p>
+          <h1>Concerning Quota Column in The List of Companies <br /></h1>
+          <p>
+            If there is - in the quota column, this either means this company
+            has not replied to us or the reply was negative. If there is 0/0 in
+            the quota column, this means the company will accept individual
+            applications from students themselves. (There is nothing the Dean's
+            Office can do for trainee placement in this company. The company
+            will evaluate the applications directly.)
+          </p>
         </div>
-
+        <input
+          type="text"
+          id="announcement-message"
+          name="userId"
+          required=""
+        />
+        <button
+          style="width: 50px; height: 30px"
+          class="btn btn-primary"
+          onclick="addAnnouncement()"
+        >
+          ADD
+        </button>
+      </div>
+      <tbody id="announcement-list">
+        <!-- Table rows will be dynamically added here -->
+      </tbody>
     </div>
-</div>
-    </div>
-
-    </div>
-
-</body>
-
+  </body>
 </html>

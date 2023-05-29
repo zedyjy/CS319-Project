@@ -993,6 +993,42 @@ apirouter.post("/get-user-data", async (req, res) => {
   }
 });
 
+// Add new annoucement
+apirouter.post("/add-announcement", async (req, res) => {
+  const announcement_message = req.body.announcement_message;
+  const announcement_date = req.body.announcement_date;
+
+  try {
+    const announcement = await Announcement.findOne({
+      $or: [{ message: announcement_message }, { date: announcement_date }],
+    });
+
+    if (announcement) {
+      return res.status(200).json({ message: "Announcement Already Exists" });
+    }
+
+    const newAnnouncement = new Announcement({
+      message: announcement_message,
+      date: announcement_date,
+    });
+    console.log(newAnnouncement);
+    await newAnnouncement.save();
+
+    return res.status(200).json({ message: "announcement Added" });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Adding announcement" });
+  }
+});
+// get all annoucement
+apirouter.post("/get-all-announcement", async (req, res) => {
+  try {
+    debug.log("asdasd");
+    const announcements = await Announcement.find();
+    return res.status(200).json({ announcements: announcements });
+  } catch (error) {
+    return res.status(500).json({ error: "Error Getting announcements" });
+  }
+});
 // Add a new company
 apirouter.post("/add-company", async (req, res) => {
   const company_name = req.body.company_name;
