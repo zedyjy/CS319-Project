@@ -29,6 +29,8 @@ jQuery(document).ready(function () {
         row.append(`<td>${iteration}</td>`);
         row.append(`<td>No report</td>`);
         row.append(`<td>No report</td>`);
+        row.append(`<td>No letter</td>`);
+        row.append(`<td>No form</td>`);
 
         // Add the row to the table body
         $(".table tbody").append(row);
@@ -136,8 +138,6 @@ jQuery(document).ready(function () {
         </div>
         </td>`);
           row.append(`<td>
-        ${report.companyWorkFormFile
-              ? `
             <button class="btn btn-primary" onclick="viewWorkReport('${report._id}','${report.companyWorkFormFile}')">View Work Report</button>
 
         <div class="overlay work-report${report._id}">
@@ -148,16 +148,6 @@ jQuery(document).ready(function () {
           <div style="width: 100%; height: 100%;" class="work-report-preview"></div>
           </div>
         </div>
-            `
-              : `
-            ${report.companyWorkFormRequestStatus
-                ? `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request AGAIN to company email: ${report.companyEmail}</button>`
-                : `<button class="btn btn-primary" onclick="sendWorkReportFormEmail('${report._id}','${report.companyEmail}')">Send Work Form Request to company email: ${report.companyEmail}</button>`
-              }
-         
-         <p class="alert-danger send-work-email-response"></p>
-         `
-            }
         </td>`);
         });
 
@@ -167,6 +157,7 @@ jQuery(document).ready(function () {
     });
   });
 });
+
 
 function sendWorkReportFormEmail(report_id, email) {
   $.ajax({

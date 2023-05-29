@@ -39,6 +39,11 @@ coordinatornavbarTemplate.innerHTML = `
             </a>
           </li>
           <li>
+            <a href="/coordinator/final-grade">
+              <i class="zmdi zmdi-comment-more"></i> Finalize Course Grading
+            </a>
+          </li>
+          <li>
             <a href="/admin/add-delete-user"> <i class="zmdi zmdi-settings"></i> Add/Delete User </a>
           </li>
           <li>

@@ -81,6 +81,13 @@ publicrouter.get("/frequently-asked-questions", (req, res) => {
 });
 
 //---------------------------------------
+// ---------- Final Grade ---------- //
+//---------------------------------------
+publicrouter.get("/coordinator/final-grade", (req, res) => {
+  res.render("FinalGrade/FinalGradePage");
+});
+
+//---------------------------------------
 // ---------- FAQ---------- //
 //---------------------------------------
 publicrouter.get("/notifications", (req, res) => {
