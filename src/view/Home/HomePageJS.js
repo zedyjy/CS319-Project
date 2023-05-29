@@ -105,7 +105,8 @@ $(document).ready(function () {
     var student_id = $("#register-student-Id").val().trim();
     var password = $("#register-student-password").val();
     var department = $("#register-student-department").val();
-
+    const courses = [];
+    courses[0] = $("#register-student-course").val();
     // Send the AJAX request
     $.ajax({
       url: "/register/student",
@@ -114,6 +115,7 @@ $(document).ready(function () {
         user_id: student_id, //DATA as object-value pair here
         password: password,
         department: department,
+        courses: courses,
       },
       success: function (response) {
         console.log(response);
@@ -373,5 +375,28 @@ function redirectToUserHomePage() {
       // Prevent infinite redirect loop
       window.location.href = "/coordinator";
     }
+  }
+}
+function updateCourseOptions() {
+  var departmentSelect = document.getElementById("register-student-department");
+  var courseSelect = document.getElementById("register-student-course");
+
+  // Clear existing options
+  courseSelect.innerHTML =
+    '<option value="" disabled selected>Please Select</option>';
+
+  // Get the selected department
+  var selectedDepartment = departmentSelect.value;
+
+  // Populate options based on the selected department
+  if (selectedDepartment === "CS") {
+    courseSelect.innerHTML += '<option value="CS299">CS299</option>';
+    courseSelect.innerHTML += '<option value="CS399">CS399</option>';
+  } else if (selectedDepartment === "EE") {
+    courseSelect.innerHTML += '<option value="EEE299">EE299</option>';
+    courseSelect.innerHTML += '<option value="EEE399">EE399</option>';
+  } else if (selectedDepartment === "COMD") {
+    courseSelect.innerHTML += '<option value="COMD290">COMD290</option>';
+    courseSelect.innerHTML += '<option value="COMD390">COMD390</option>';
   }
 }
