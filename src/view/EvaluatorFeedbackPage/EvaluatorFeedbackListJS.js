@@ -405,6 +405,9 @@ function submitFeedback(id, studentID) {
   formData.append("grade_text", gradeText);
   formData.append("file", file);
 
+  var notificationMessage = "You were given a feedback."
+  issueNotification(student_id, notificationMessage);
+
   // Send the AJAX request
   $.ajax({
     url: "/submit-feedback",
@@ -497,3 +500,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+function issueNotification(relatedUserID, message) {
+  // Create a JSON payload with the relatedUserID and message
+  const payload = {
+    relatedUserID: relatedUserID,
+    message: message
+  };
+
+  // Send a POST request to the server to add the notification
+  $.ajax({
+    url: '/add-notification',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify(payload),
+    success: function (savedNotification) {
+      console.log('Notification added:', savedNotification);
+      // Perform any necessary actions or update UI with the savedNotification data
+    },
+    error: function (error) {
+      console.error('Error adding notification:', error);
+      // Handle the error gracefully and show an error message
+    }
+  });
+
+}

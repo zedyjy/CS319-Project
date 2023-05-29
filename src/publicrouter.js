@@ -79,6 +79,13 @@ publicrouter.get("/course-descriptions", (req, res) => {
 publicrouter.get("/frequently-asked-questions", (req, res) => {
   res.render("FrequentlyAskedQuestions/FrequentlyAskedQuestions");
 });
+
+//---------------------------------------
+// ---------- FAQ---------- //
+//---------------------------------------
+publicrouter.get("/notifications", (req, res) => {
+  res.render("Notifications/NotificationsPage");
+});
 //---------------------------------------
 // ---------- Announcements---------- //
 //---------------------------------------

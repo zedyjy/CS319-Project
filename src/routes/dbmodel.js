@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
 const notificationSchema = new mongoose.Schema({
+  relatedUserID: {
+    type: String,
+  },
   message: {
     type: String,
   },
   date: {
     type: Date,
-    default: "2024-05-29T01:00:17.475Z",
   },
 });
 // User Schema
@@ -369,6 +371,8 @@ const Admin = mongoose.model("Admin", adminSchema);
 const GradingForm = mongoose.model("GradingForm", gradingFormSchema);
 const Report = mongoose.model("Report", reportSchema);
 const Announcement = mongoose.model("Announcement", announcementSchema);
+const Notification = mongoose.model("Notification", notificationSchema);
+
 
 module.exports = {
   User,
@@ -381,4 +385,5 @@ module.exports = {
   Admin,
   Report,
   Announcement,
+  Notification,
 };

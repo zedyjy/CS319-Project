@@ -14,6 +14,7 @@ const {
   Report,
   GradingForm,
   Announcement,
+  Notification,
 } = require("./dbmodel");
 const path = require("path");
 const multer = require("multer");
@@ -1740,12 +1741,9 @@ apirouter.post("/delete-announcement", async (req, res) => {
 // Add announcement
 apirouter.post("/add-announcement", async (req, res) => {
   // Extract the title and content from the request body;
-  console.log("sfdasd");
   title = req.body.title_d;
   content = req.body.content_d;
 
-  console.log(title);
-  console.log(content);
 
   // Create a new announcement object
   const newAnnouncement = new Announcement({
@@ -1762,6 +1760,63 @@ apirouter.post("/add-announcement", async (req, res) => {
     .catch(error => {
       console.error('Error adding announcement:', error);
       res.status(500).json({ error: 'An error occurred while adding the announcement' });
+    });
+});
+
+apirouter.post("/get-notifications", async (req, res) => {
+  const relatedUserID = req.body.relatedUserID;
+  console.log("message");
+  console.log(relatedUserID);
+  try {
+    const notifications = await Notification.find({ relatedUserID: relatedUserID });
+    res.json(notifications);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch notifications' });
+  }
+});
+
+// Delete an announcement
+apirouter.post("/delete-notification", async (req, res) => {
+  const relatedUserID = req.body.relatedUserID;
+  const message = req.body.message;
+
+  try {
+    const deletedNotification = await Notification.findOneAndDelete({ relatedUserID: relatedUserID }, { content: message });
+    if (deletedNotification) {
+      res.json({ message: 'Notification deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Notification not found' });
+    }
+  } catch (err) {
+    console.error('Error deleting Notification:', err);
+    res.status(500).json({ error: 'An error occurred while deleting the Notification' });
+  }
+});
+
+// Add notification
+apirouter.post("/add-notification", async (req, res) => {
+  // Extract the title and content from the request body;
+  relatedUserID = req.body.relatedUserID;
+  message = req.body.message;
+  date = Date.now();
+
+  // Create a new Notification object
+  const newNotification = new Notification({
+    relatedUserID: relatedUserID,
+    message: message,
+    date: date,
+  });
+
+  // Save the new Notification to the database
+  newNotification
+    .save()
+    .then(savedNotification => {
+      res.status(200).json(savedNotification);
+    })
+    .catch(error => {
+      console.error('Error adding notification:', error);
+      res.status(500).json({ error: 'An error occurred while adding the notification' });
     });
 });
 

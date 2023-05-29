@@ -8,6 +8,7 @@ defaultnavbarTemplate.innerHTML = `
   <div class="topnav">
         <a class="logo">Bilkent Internship System</a>
         <div class="topnav-right">
+            <a href="/notifications">Notifications</a>
             <a href="/">Home</a>
             <a href="/contact">Contact</a>
             <a id="myLink">Light</a>
@@ -36,7 +37,7 @@ class DefaultNavbar extends HTMLElement {
     }
 
     const myLink = shadowRoot.querySelector("#myLink");
-    myLink.addEventListener("click", function() {
+    myLink.addEventListener("click", function () {
       var element = document.body;
       if (myLink.textContent === "Light") {
         myLink.textContent = "Dark";
