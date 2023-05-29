@@ -405,8 +405,6 @@ function submitFeedback(id, studentID) {
   formData.append("grade_text", gradeText);
   formData.append("file", file);
 
-  var notificationMessage = "You were given a feedback."
-  issueNotification(student_id, notificationMessage);
 
   // Send the AJAX request
   $.ajax({
@@ -416,6 +414,8 @@ function submitFeedback(id, studentID) {
     processData: false,
     contentType: false,
     success: function (response) {
+      var notificationMessage = "You were given a feedback."
+      issueNotification(student_id, notificationMessage);
       if (response.status == 200) {
         $(".submit-feedback-response").text(response.message);
         location.reload();
@@ -453,6 +453,8 @@ function submitGrade(id, studentID) {
     processData: false,
     contentType: false,
     success: function (response) {
+      var notificationMessage = "You were given a grade."
+      issueNotification(student_id, notificationMessage);
       if (response.status == 200) {
         $(".submit-grade-response").text(response.message);
         location.reload();

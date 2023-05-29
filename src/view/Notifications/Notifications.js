@@ -26,9 +26,19 @@ $(document).ready(function () {
                         var date = notification.date;
                         var message = notification.message;
 
+                        var dateString = date;
+
+                        var lastReportDateF = new Date(dateString);
+                        var formattedDate = `${lastReportDateF.getFullYear()}-${(lastReportDateF.getMonth() + 1)
+                            .toString()
+                            .padStart(2, "0")}-${lastReportDateF
+                                .getDate()
+                                .toString()
+                                .padStart(2, "0")}`;
+
 
                         // Create HTML elements for the notification
-                        var notificationTitle = $('<h2>').text(date);
+                        var notificationTitle = $('<h2>').text(formattedDate);
                         var notificationContent = $('<p>').text(message);
                         var deleteButton = $('<button>').text('Remove').addClass('delete-btn');
                         var notificationDiv = $('<div>').addClass('notification').append(notificationTitle, notificationContent, deleteButton);

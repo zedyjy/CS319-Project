@@ -1801,24 +1801,56 @@ apirouter.post("/add-notification", async (req, res) => {
   message = req.body.message;
   date = Date.now();
 
-  // Create a new Notification object
-  const newNotification = new Notification({
-    relatedUserID: relatedUserID,
-    message: message,
-    date: date,
-  });
+  if (relatedUserID === "Everyone") {
+    // Fetch all users from the database
+    const users = await User.find();
 
-  // Save the new Notification to the database
-  newNotification
-    .save()
-    .then(savedNotification => {
-      res.status(200).json(savedNotification);
-    })
-    .catch(error => {
-      console.error('Error adding notification:', error);
-      res.status(500).json({ error: 'An error occurred while adding the notification' });
+    // Create an array to store all the promises for saving notifications
+    const savePromises = [];
+
+    // Iterate over each user
+    for (const user of users) {
+      // Create a new Notification object
+      const newNotification = new Notification({
+        relatedUserID: user.user_id, // Assign the current user's ID as relatedUserID
+        message: message,
+        date: date,
+      });
+
+      // Save the new Notification to the database and add the promise to the array
+      savePromises.push(newNotification.save());
+    }
+
+    // Wait for all promises to resolve
+    Promise.all(savePromises)
+      .then(savedNotifications => {
+        res.status(200).json(savedNotifications);
+      })
+      .catch(error => {
+        console.error('Error adding notifications:', error);
+        res.status(500).json({ error: 'An error occurred while adding the notifications' });
+      });
+  } else {
+    // Create a new Notification object
+    const newNotification = new Notification({
+      relatedUserID: relatedUserID,
+      message: message,
+      date: date,
     });
+
+    // Save the new Notification to the database
+    newNotification
+      .save()
+      .then(savedNotification => {
+        res.status(200).json(savedNotification);
+      })
+      .catch(error => {
+        console.error('Error adding notification:', error);
+        res.status(500).json({ error: 'An error occurred while adding the notification' });
+      });
+  }
 });
+
 
 
 //End file and export modules

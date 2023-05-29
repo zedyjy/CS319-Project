@@ -84,6 +84,7 @@ $(document).ready(function () {
                 // Clear the input fields
                 $('#announcement-title').val('');
                 $('#announcement-content').val('');
+                sendNotifications("A new announcement was made." + "Title of the announcement: " + title);
 
                 fetchAnnouncements(); // Refresh the announcements after adding a new announcement
             },
@@ -96,3 +97,28 @@ $(document).ready(function () {
     // Call the fetchAnnouncements function on page load
     fetchAnnouncements();
 });
+
+function sendNotifications(message) {
+    // Create a JSON payload with the relatedUserID and message
+    const payload = {
+        relatedUserID: "Everyone",
+        message: message
+    };
+
+    // Send a POST request to the server to add the notification
+    $.ajax({
+        url: '/add-notification',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function (savedNotification) {
+            console.log('Notification added:', savedNotification);
+            // Perform any necessary actions or update UI with the savedNotification data
+        },
+        error: function (error) {
+            console.error('Error adding notification:', error);
+            // Handle the error gracefully and show an error message
+        }
+    });
+
+}
