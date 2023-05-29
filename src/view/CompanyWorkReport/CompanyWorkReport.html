@@ -58,9 +58,38 @@
     <!-- Content -->
     <div id="viewport" class="mt-5">
       <div class="d-flex align-items-center justify-content-center vh-100">
+        <h1 class="student-name"></h1>
         <div class="container upload-data">
-          <h1 class="student-name"></h1>
-          <input type="file" id="work-report-file-input" accept=".pdf" />
+          <div class="container mt-5">
+            <label>Company Evaluation Form Grade Average: (0 to 10)</label>
+            <input type="text" id="companyEvaluationFormAverage" required />
+          </div>
+
+          <div class="container mt-5">
+            <label>Is the work done related to the student's department?</label>
+            <select id="relatedToDepartment">
+              <option value="" disabled selected>Please Select</option>
+              <option value="True">Yes</option>
+              <option value="False">No</option>
+            </select>
+          </div>
+
+          <div class="container mt-5">
+            <label>Does the supervisor have Engineering Background?</label>
+            <select id="supervisorHasEngineeringBackground">
+              <option value="" disabled selected>Please Select</option>
+              <option value="True">Yes</option>
+              <option value="False">No</option>
+            </select>
+          </div>
+
+          <div class="container">
+            <label
+              >Please upload the work report file, that states all work the
+              student has done:</label
+            >
+            <input type="file" id="work-report-file-input" accept=".pdf" />
+          </div>
 
           <p class="upload-response"></p>
         </div>
