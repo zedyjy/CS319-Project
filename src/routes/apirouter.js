@@ -993,42 +993,6 @@ apirouter.post("/get-user-data", async (req, res) => {
   }
 });
 
-// Add new annoucement
-apirouter.post("/add-announcement", async (req, res) => {
-  const announcement_message = req.body.announcement_message;
-  const announcement_date = req.body.announcement_date;
-
-  try {
-    const announcement = await Announcement.findOne({
-      $or: [{ message: announcement_message }, { date: announcement_date }],
-    });
-
-    if (announcement) {
-      return res.status(200).json({ message: "Announcement Already Exists" });
-    }
-
-    const newAnnouncement = new Announcement({
-      message: announcement_message,
-      date: announcement_date,
-    });
-    console.log(newAnnouncement);
-    await newAnnouncement.save();
-
-    return res.status(200).json({ message: "announcement Added" });
-  } catch (error) {
-    return res.status(500).json({ error: "Error Adding announcement" });
-  }
-});
-// get all annoucement
-apirouter.post("/get-all-announcement", async (req, res) => {
-  try {
-    debug.log("asdasd");
-    const announcements = await Announcement.find();
-    return res.status(200).json({ announcements: announcements });
-  } catch (error) {
-    return res.status(500).json({ error: "Error Getting announcements" });
-  }
-});
 // Add a new company
 apirouter.post("/add-company", async (req, res) => {
   const company_name = req.body.company_name;
@@ -1741,7 +1705,7 @@ apirouter.post(
 );
 
 // Receive all announcements
-apirouter.get('/get-announcements', (req, res) => {
+apirouter.get("/get-announcements", async (req, res) => {
   // Fetch announcements from the database
   Announcement.find({})
     .then(announcements => {
@@ -1755,24 +1719,31 @@ apirouter.get('/get-announcements', (req, res) => {
 });
 
 // Delete an announcement
-app.delete('/delete-announcement:id', (req, res) => {
-  const announcementId = req.params.id;
+apirouter.post("/delete-announcement", async (req, res) => {
+  const title = req.body.title_d;
+  const content = req.body.content_d;
+  console.log(title);
 
-  // Delete the announcement from the database
-  Announcement.findByIdAndDelete(announcementId, (err, deletedAnnouncement) => {
-    if (err) {
-      console.error('Error deleting announcement:', err);
-      res.status(500).json({ error: 'An error occurred while deleting the announcement' });
-    } else {
+  try {
+    const deletedAnnouncement = await Announcement.findOneAndDelete({ title: title }, { content: content });
+    if (deletedAnnouncement) {
       res.json({ message: 'Announcement deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Announcement not found' });
     }
-  });
+  } catch (err) {
+    console.error('Error deleting announcement:', err);
+    res.status(500).json({ error: 'An error occurred while deleting the announcement' });
+  }
 });
 
 // Add announcement
-app.post('/add-announcement', (req, res) => {
-  // Extract the title and content from the request body
-  const { title, content } = req.body;
+apirouter.post("/add-announcement", async (req, res) => {
+  // Extract the title and content from the request body;
+  console.log("sfdasd");
+  title = req.body.title_d;
+  content = req.body.content_d;
+
   console.log(title);
   console.log(content);
 
