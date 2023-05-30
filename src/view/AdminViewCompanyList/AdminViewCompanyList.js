@@ -91,12 +91,12 @@ function getAllCompanies() {
                 }')">
                   View Details
                 </button>
-                <button
+                <!-- <button
                       class="btn btn-primary mr-1"
                       onclick="approveCompany('${company._id}')"
                     >
                       Approve
-                </button>
+                </button> -->
                 <button
                       class="btn btn-danger mr-1"
                       onclick="removeCompany('${company._id}')"
