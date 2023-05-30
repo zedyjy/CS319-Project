@@ -160,6 +160,10 @@ publicrouter.get("/ta", (req, res) => {
   res.render("TaHome/TaHomePage");
 });
 
+publicrouter.get("/ta/statistics", (req, res) => {
+  res.render("Statistics/Statistics");
+});
+
 publicrouter.get("/ta/give-feedback", (req, res) => {
   res.render("TaFeedbackPage/TaGiveFeedbackPage");
 });

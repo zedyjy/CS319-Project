@@ -36,6 +36,11 @@ tasidebarTemplate.innerHTML = `
               </a>
           </li>
           <li>
+              <a href="/ta/statistics">
+                  <i class="zmdi zmdi-comment-more"></i> Progression Statistics
+              </a>
+          </li>
+          <li>
               <a href="/profile">
                   <i class="zmdi zmdi-comment-more"></i> Profile
               </a>
@@ -52,23 +57,23 @@ tasidebarTemplate.innerHTML = `
 `;
 
 class TaSidebar extends HTMLElement {
-  constructor() {
-    super();
-  }
-
-  connectedCallback() {
-    const shadowRoot = this.attachShadow({ mode: "open" });
-
-    shadowRoot.appendChild(tasidebarTemplate.content);
-
-    const userType = sessionStorage.getItem("userType");
-    if (userType === "TA") {
-      // Show the ta-sidebar-component
-      this.style.display = "block"; // Or any other appropriate display value
-    } else {
-      // Hide the ta-sidebar-component
-      this.style.display = "none";
+    constructor() {
+        super();
     }
-  }
+
+    connectedCallback() {
+        const shadowRoot = this.attachShadow({ mode: "open" });
+
+        shadowRoot.appendChild(tasidebarTemplate.content);
+
+        const userType = sessionStorage.getItem("userType");
+        if (userType === "TA") {
+            // Show the ta-sidebar-component
+            this.style.display = "block"; // Or any other appropriate display value
+        } else {
+            // Hide the ta-sidebar-component
+            this.style.display = "none";
+        }
+    }
 }
 customElements.define("ta-sidebar-component", TaSidebar);
